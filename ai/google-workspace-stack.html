@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Stack You Already Own — HR Srinivas</title>
+<meta name="description" content="Google Workspace is a full automation stack. You've probably never looked at it as one.">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  .hero-statement {
+    background: #1A1A1A;
+    padding: 4rem 2rem;
+  }
+  .hero-statement-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .hero-statement h1 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: 1.25rem;
+  }
+  .hero-statement .sub {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.05rem;
+    color: #888;
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+
+  .article-meta {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 2rem 1.5rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: #777;
+    border-bottom: 1px solid #DEDEDA;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .body-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .body-section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid #DEDEDA;
+  }
+  .body-section:last-of-type { border-bottom: none; }
+
+  .section-marker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+    color: #1A1A1A;
+  }
+
+  p {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.82;
+    color: #1A1A1A;
+    margin-bottom: 1.2rem;
+    max-width: 65ch;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  .pull {
+    margin: 2.5rem 0;
+    padding: 1.25rem 0 1.25rem 1.5rem;
+    border-left: 4px solid #1A1A1A;
+    background: #f5f5f5;
+  }
+  .pull p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.5;
+    color: #1A1A1A;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  /* Stack grid */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid #1A1A1A;
+    margin: 2rem 0;
+  }
+  .stack-cell {
+    padding: 1.5rem;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+  }
+  .stack-cell:nth-child(even) { border-right: none; }
+  .stack-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .stack-tool {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    display: block;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .stack-role {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    color: #444;
+    line-height: 1.55;
+  }
+
+  /* Use case boxes */
+  .usecase {
+    background: #1A1A1A;
+    padding: 1.75rem 2rem;
+    margin: 2rem 0;
+  }
+  .usecase-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #888;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #333;
+  }
+  .usecase-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .usecase-items li {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    color: #bbb;
+    padding: 0.6rem 0 0.6rem 1.5rem;
+    border-bottom: 1px solid #2a2a2a;
+    line-height: 1.6;
+    position: relative;
+  }
+  .usecase-items li:last-child { border-bottom: none; }
+  .usecase-items li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    top: 0.62rem;
+    color: #666;
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+  .usecase-items li strong { color: #fff; font-weight: 500; }
+
+  /* Cost block */
+  .cost-block {
+    border: 1px solid #1A1A1A;
+    margin: 2rem 0;
+  }
+  .cost-block-header {
+    background: #1A1A1A;
+    padding: 0.75rem 1.25rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.04em;
+  }
+  .cost-items {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .cost-items li {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    color: #444;
+    padding: 0.65rem 1.25rem 0.65rem 2.75rem;
+    border-bottom: 1px solid #DEDEDA;
+    line-height: 1.6;
+    position: relative;
+  }
+  .cost-items li:last-child { border-bottom: none; }
+  .cost-items li::before {
+    content: "×";
+    position: absolute;
+    left: 1.25rem;
+    top: 0.65rem;
+    color: #B91C1C;
+    font-weight: 700;
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  /* Closing */
+  .closing {
+    background: #1A1A1A;
+    padding: 3.5rem 2rem;
+    text-align: center;
+    margin-top: 0;
+  }
+  .closing-inner { max-width: 580px; margin: 0 auto; }
+  .closing h2 {
+    font-family: 'IBM Plex Serif', serif;
+    color: #fff;
+    font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .closing p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #888;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 1.25rem;
+  }
+  .closing .note-line {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #aaa;
+    margin-top: 1.25rem;
+    display: block;
+  }
+
+  /* Nav breadcrumb */
+  .breadcrumb {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.25rem 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: #777;
+  }
+  .breadcrumb a {
+    color: #777;
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { color: #1A1A1A; }
+  .breadcrumb span { margin: 0 0.4rem; }
+
+  /* Site footer */
+  .site-footer {
+    border-top: 2px solid #1A1A1A;
+    padding: 2rem;
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .site-footer .footer-name {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1A1A1A;
+  }
+  .site-footer .footer-tagline {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    color: #777;
+    margin-top: 0.2rem;
+  }
+  .footer-links {
+    display: flex;
+    gap: 1.25rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+  }
+  .footer-links a {
+    color: #777;
+    text-decoration: none;
+  }
+  .footer-links a:hover { color: #1A1A1A; }
+
+  /* Next article */
+  .next-article {
+    border-top: 1px solid #DEDEDA;
+    padding: 1.5rem 2rem;
+    max-width: 720px;
+    margin: 0 auto;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .next-article span {
+    font-size: 0.68rem;
+    color: #777;
+    display: block;
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.04em;
+  }
+  .next-article a {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    text-decoration: none;
+  }
+  .next-article a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .stack-grid { grid-template-columns: 1fr; }
+    .stack-cell { border-right: none; }
+    .stack-cell:nth-last-child(-n+2) { border-bottom: 1px solid #1A1A1A; }
+    .stack-cell:last-child { border-bottom: none; }
+    .site-footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<script src="../assets/nav.js"></script>
+
+<div class="breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>→</span>
+  <a href="index.html">Artificial Intelligence</a>
+  <span>→</span>
+  The Stack You Already Own
+</div>
+
+<div class="hero-statement">
+  <div class="hero-statement-inner">
+    <h1>The Stack You Already Own</h1>
+    <p class="sub">Google Workspace is a full automation stack. Most businesses are sitting on it and don't know it. No new software. No extra subscriptions. No developers needed.</p>
+  </div>
+</div>
+
+<div class="article-meta">
+  <span>HR Srinivas</span>
+  <span>September 2026</span>
+  <span>Artificial Intelligence</span>
+  <span>8 min read</span>
+</div>
+
+<div class="body-wrap">
+
+  <div class="body-section">
+    <p>Most businesses are sitting on a fully functional automation platform and don't know it. Google Workspace can run automated agents, parse documents, generate AI-drafted communications, manage multi-step workflows, and surface live business signals to a real-time dashboard.</p>
+    <p>The barrier isn't tech capability. I didn't have any when I started. All you need is process depth — understanding what your business actually does, step by step — and an AI model to tell you what to build. Everything else is already in your Google account, unused and underestimated.</p>
+
+    <div class="pull">
+      <p>"The infrastructure you need is probably already sitting in your Google account. The cost of fixing this is lower than you think. The cost of not fixing it compounds every week."</p>
+    </div>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">The Real Cost of Manual</span>
+    <h2>What "we'll handle it manually" actually costs you</h2>
+    <p>It doesn't look like a cost. It looks like work getting done. But trace the steps and the picture changes.</p>
+
+    <div class="cost-block">
+      <div class="cost-block-header">What manual operations actually look like</div>
+      <ul class="cost-items">
+        <li>Someone exports data. Pastes it somewhere else. Formats it. Emails it.</li>
+        <li>Someone else reads it two days later and acts on numbers that are already stale.</li>
+        <li>An exception gets missed. A deadline slips. A payment goes out wrong.</li>
+        <li>Nothing talks to anything else.</li>
+        <li>Your sharpest people are doing data entry.</li>
+        <li>Every report is a one-off effort that disappears the moment it's sent.</li>
+      </ul>
+    </div>
+
+    <p>This is not a people problem. Your people are capable. It's an infrastructure problem — and the infrastructure you need is probably already sitting in your Google account, unused and underestimated.</p>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">Use Case</span>
+    <h2>Financial operations — the full cycle, automated</h2>
+    <p>Any business that manages payouts, splits, or settlements across multiple parties knows the pain. Rate grids. Calculations. Deductions. Reconciliation. Statements. Disputes. The whole cycle done manually, every month, by someone who has better things to do.</p>
+    <p>We automated the entire cycle inside Google Workspace.</p>
+
+    <div class="usecase">
+      <span class="usecase-label">What the automated system does</span>
+      <ul class="usecase-items">
+        <li><strong>Source data loaded once,</strong> reused every cycle — no re-entry, no copy-paste errors</li>
+        <li><strong>Calculations run</strong> across the full dataset in a single trigger</li>
+        <li><strong>Statutory adjustments applied automatically</strong> — no manual formulas, no lookup errors</li>
+        <li><strong>Statements and payment documents</strong> generated and dispatched on schedule</li>
+        <li><strong>Incoming documents parsed</strong> directly from PDF and reconciled against your own numbers</li>
+        <li><strong>Every exception surfaced.</strong> Human approval before anything goes out.</li>
+        <li><strong>Operator interface:</strong> a spreadsheet and a button. No training required.</li>
+      </ul>
+    </div>
+
+    <p>The complexity lives in the engine. The interface stays simple. That's the point.</p>
+    <p>If your team manages any kind of multi-party financial settlement — commissions, referral fees, revenue splits, partner payouts — this pattern works for you. The domain changes. The architecture doesn't.</p>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">Use Case</span>
+    <h2>Business intelligence — the briefing that runs itself</h2>
+    <p>What if your business briefed you every morning without anyone preparing it?</p>
+    <p>We built that. Multiple AI agents running inside Google Workspace, each watching a different part of the operation simultaneously.</p>
+
+    <div class="usecase">
+      <span class="usecase-label">What each agent does</span>
+      <ul class="usecase-items">
+        <li>Reads its designated data source — costs, invoices, pipeline, capacity, activity</li>
+        <li>Sends the data to an AI model for interpretation</li>
+        <li><strong>Writes a structured signal</strong> — OK, WARNING, or CRITICAL — to a central dashboard</li>
+        <li>Colour coded. One-click drill-down into the detail.</li>
+        <li><strong>Runs on a schedule.</strong> Nobody triggers it. Nobody compiles it. Nobody formats it.</li>
+      </ul>
+    </div>
+
+    <p>Drop a vendor invoice into a Drive folder and it's parsed and processed automatically. Update a row in a sheet and the dashboard reflects it in real time. Every Monday morning the infrastructure cost report runs without anyone asking it to.</p>
+    <p>Adding a new area to monitor means updating a row in a spreadsheet. Not writing code. Not calling a developer.</p>
+
+    <div class="pull">
+      <p>"Any organisation with more than a few moving parts is flying partially blind without something like this. The data exists. It just isn't connected, interpreted, or surfaced in time to act on it."</p>
+    </div>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">The Architecture</span>
+    <h2>One Google account. One API key. Nothing else.</h2>
+    <p>The insight isn't any individual tool. It's knowing how to wire them together so they behave as one coherent system rather than a collection of disconnected apps.</p>
+
+    <div class="stack-grid">
+      <div class="stack-cell">
+        <span class="stack-tool">Google Sheets</span>
+        <span class="stack-role">The data layer, the configuration store, and the operator interface. Everything the business needs to see or control lives in a sheet. No proprietary UI. No training required.</span>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-tool">Google Drive</span>
+        <span class="stack-role">Document ingestion, file-based triggers, and storage. Drop a file in a folder — the system picks it up, processes it, and moves on.</span>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-tool">Gmail</span>
+        <span class="stack-role">Automated communications — drafted by AI, reviewed by a human, dispatched on schedule. Nothing goes out unreviewed. Everything that should go automatically does.</span>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-tool">Apps Script</span>
+        <span class="stack-role">The engine. Runs the logic, connects every component, calls external APIs, and executes on triggers — time-based, file-based, or manual. This is where the intelligence lives.</span>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-tool">Claude API</span>
+        <span class="stack-role">Interpretation, narration, classification, and draft generation. Reads structured data and turns it into signals, summaries, and communications that a human can act on immediately.</span>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-tool">The pattern</span>
+        <span class="stack-role">Financial operations. Business intelligence. Compliance monitoring. People management. Operational command centres. The architecture is the same. The domain is wherever your manual work lives.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="closing">
+  <div class="closing-inner">
+    <h2>The stack is already there. The question is whether you're using it.</h2>
+    <p>We've built these systems across financial operations, business intelligence, compliance monitoring, people management, and full operational command centres.</p>
+    <p>The architecture is the same. The pattern is repeatable. The domain is wherever your manual work lives.</p>
+    <span class="note-line">Reach out if you want to know more — happy to share what we've learned.</span>
+  </div>
+</div>
+
+<div class="next-article">
+  <span>Next in Artificial Intelligence</span>
+  <a href="#">More coming soon</a>
+</div>
+
+<div class="site-footer">
+  <div>
+    <div class="footer-name">HR Srinivas</div>
+    <div class="footer-tagline">Curious about most things. Certain about very few. Writing it out loud — with AI.</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://x.com/HRSrinivas" target="_blank" rel="noopener">X @HRSrinivas</a>
+    <a href="https://github.com/hrsrini/srinivas-writes" target="_blank" rel="noopener">GitHub</a>
+    <a href="../about.html">About</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -4,225 +4,828 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The $127 Billion Illusion — HR Srinivas</title>
-  <meta name="description" content="India raised more from a three-month NRI deposit scheme than it attracted in net FDI over four years. That is not confidence. That is a confession.">
+  <meta name="description" content="India raised more from a three-month leveraged NRI deposit scheme than it attracted in net foreign direct investment over four years. That is not a triumph of capital attraction. It is a confession of its failure.">
   <link rel="stylesheet" href="../assets/style.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #1A1A1A;
+    --ink-mid:    #444444;
+    --ink-light:  #777777;
+    --paper:      #FAFAF8;
+    --rule:       #DEDEDA;
+    --amber:      #C17A2A;
+    --amber-pale: #FBF4E8;
+    --amber-dark: #8B5210;
+    --red:        #B91C1C;
+    --green:      #15803d;
+    --white:      #ffffff;
+  }
+
+  html { font-size: 17px; }
+
+  body {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.75;
+  }
+
+  /* ── BREADCRUMB ── */
+  .article-breadcrumb {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    padding: 1.25rem 2rem 0;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .article-breadcrumb a {
+    color: var(--ink-light);
+    text-decoration: none;
+  }
+  .article-breadcrumb a:hover { color: var(--amber); }
+  .article-breadcrumb .sep { color: var(--rule); }
+
+  /* ── HEADER ── */
+  .header {
+    padding: 3rem 2rem 0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .pub-line {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--ink-light);
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.75rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .pub-line span { color: var(--amber); }
+
+  h1 {
+    font-size: clamp(2.6rem, 7vw, 4.8rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  h1 .the {
+    font-weight: 300;
+    display: block;
+    font-size: 0.55em;
+    letter-spacing: 0.01em;
+    color: var(--ink-mid);
+    margin-bottom: 0.15em;
+  }
+
+  .deck {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--ink-mid);
+    max-width: 58ch;
+    border-left: 3px solid var(--amber);
+    padding-left: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  /* ── HERO CHART ── */
+  .hero-chart {
+    background: var(--ink);
+    padding: 3rem 2rem;
+    margin-bottom: 0;
+  }
+  .hero-chart-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .chart-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #888;
+    letter-spacing: 0.08em;
+    margin-bottom: 2rem;
+  }
+  .bars-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 1.5rem;
+  }
+  .bar-group { display: flex; flex-direction: column; gap: 0.75rem; }
+  .bar-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #aaa;
+    line-height: 1.4;
+  }
+  .bar-outer {
+    background: #333;
+    height: 12px;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .bar-fill.fcnr { background: var(--amber); }
+  .bar-fill.fdi-old { background: #4a9d6f; }
+  .bar-fill.fdi-new { background: #e05555; }
+
+  .bar-val {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1;
+    display: block;
+    margin-top: 0.5rem;
+  }
+  .bar-val.amber { color: var(--amber); }
+  .bar-val.green { color: #4a9d6f; }
+  .bar-val.red   { color: #e05555; }
+
+  .bar-sublabel {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    color: #666;
+    margin-top: 0.25rem;
+    line-height: 1.4;
+  }
+
+  .chart-divider {
+    border: none;
+    border-top: 1px solid #333;
+    margin: 1.5rem 0;
+  }
+  .chart-note {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    color: #666;
+    line-height: 1.6;
+  }
+  .chart-note strong { color: var(--amber); }
+
+  /* ── CALLOUT BANNER ── */
+  .callout-banner {
+    background: var(--amber);
+    padding: 2rem;
+    text-align: center;
+  }
+  .callout-banner p {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.4;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .callout-banner p em {
+    font-style: italic;
+    opacity: 0.85;
+  }
+
+  /* ── BODY ── */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  section:last-of-type { border-bottom: none; }
+
+  .section-marker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-size: 1.55rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+    color: var(--ink);
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.82;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+    max-width: 65ch;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 600; }
+
+  /* ── COMPARISON TABLE ── */
+  .data-wrap {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border: 1px solid var(--ink);
+  }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+  }
+  .data-table thead { background: var(--ink); color: var(--white); }
+  .data-table th {
+    padding: 0.7rem 1rem;
+    text-align: left;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .data-table td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-mid);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr.total-row td {
+    background: var(--amber-pale);
+    font-weight: 600;
+    color: var(--ink);
+    border-top: 2px solid var(--amber);
+  }
+  .data-table td.num {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .data-table td.good { color: var(--green); font-weight: 600; }
+  .data-table td.bad  { color: var(--red);   font-weight: 600; }
+  .data-table td.warn { color: var(--amber-dark); font-weight: 600; }
+  .table-note {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.67rem;
+    color: var(--ink-light);
+    margin-top: 0.6rem;
+    line-height: 1.55;
+  }
+
+  /* ── PULL QUOTE ── */
+  .pull {
+    margin: 2.5rem 0;
+    padding: 1.5rem 0 1.5rem 1.5rem;
+    border-left: 4px solid var(--amber);
+  }
+  .pull p {
+    font-size: 1.15rem;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+    max-width: 100%;
+  }
+
+  /* ── STAT STRIP ── */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+  }
+  .stat-cell {
+    padding: 1.25rem 1rem;
+    border-right: 1px solid var(--ink);
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1;
+    display: block;
+    color: var(--ink);
+  }
+  .stat-num.amber { color: var(--amber-dark); }
+  .stat-num.red   { color: var(--red); }
+  .stat-num.green { color: var(--green); }
+  .stat-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    color: var(--ink-light);
+    margin-top: 0.4rem;
+    line-height: 1.5;
+    display: block;
+  }
+
+  /* ── MECHANISM BOX ── */
+  .mechanism {
+    background: var(--ink);
+    color: var(--white);
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  .mechanism h3 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--amber);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.25rem;
+  }
+  .mechanism-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .mstep {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #333;
+  }
+  .mstep:last-child { border-bottom: none; }
+  .mstep-n {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--amber);
+    padding-top: 0.15rem;
+  }
+  .mstep-t {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    color: #ccc;
+    line-height: 1.55;
+  }
+  .mstep-t strong { color: var(--white); }
+  .mstep-t .flag {
+    display: inline-block;
+    background: var(--amber);
+    color: var(--white);
+    font-size: 0.62rem;
+    font-weight: 600;
+    padding: 0.1rem 0.4rem;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+
+  /* ── CLOSING ── */
+  .closing {
+    background: var(--ink);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .closing-inner { max-width: 640px; margin: 0 auto; }
+  .closing h2 {
+    color: var(--white);
+    font-size: clamp(1.4rem, 4vw, 2.1rem);
+    margin-bottom: 1.25rem;
+    line-height: 1.3;
+  }
+  .closing p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #888;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto 0.75rem;
+  }
+  .closing .amber-line {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--amber);
+    margin-top: 1.5rem;
+  }
+
+  /* ── FOOTNOTE ── */
+  .footnote {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.67rem;
+    color: var(--ink-light);
+    line-height: 1.7;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ── NEXT ARTICLE ── */
+  .article-next {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+  .article-next-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--ink-light);
+    margin-bottom: 0.5rem;
+  }
+  .article-next a {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .article-next a:hover { color: var(--amber); }
+
+  @media (max-width: 600px) {
+    html { font-size: 15px; }
+    .bars-wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+    .stat-strip { grid-template-columns: 1fr; }
+    .stat-cell { border-right: none; border-bottom: 1px solid var(--ink); }
+    .stat-cell:last-child { border-bottom: none; }
+    h1 { font-size: 2.4rem; }
+  }
+</style>
 </head>
 <body>
 <script src="../assets/nav.js"></script>
 
-<div class="article-body">
+<nav class="article-breadcrumb">
+  <a href="../index.html">Home</a>
+  <span class="sep">→</span>
+  <a href="index.html">India &amp; Economy</a>
+  <span class="sep">→</span>
+  <span>The $127 Billion Illusion</span>
+</nav>
 
-  <div class="breadcrumb">
-    <nav class="breadcrumb-nav">
-      <a href="../index.html">Home</a>
-      <span class="breadcrumb-sep">→</span>
-      <a href="index.html">India &amp; Economy</a>
-      <span class="breadcrumb-sep">→</span>
-      <span>The $127 Billion Illusion</span>
-    </nav>
+<!-- HEADER -->
+<div class="header">
+  <div class="pub-line">
+    <span>India External Sector · September 2026</span>
+    <span>Analysis</span>
   </div>
+  <h1>
+    <span class="the">The</span>
+    $127 Billion<br>Illusion
+  </h1>
+  <p class="deck">India raised more from a three-month leveraged NRI deposit scheme than it attracted in net foreign direct investment over four years. That is not a triumph of capital attraction. It is a confession of its failure.</p>
+</div>
 
-  <header class="article-header">
-    <span class="section-marker">India &amp; Economy</span>
-    <h1>The $127 Billion Illusion</h1>
-    <div class="article-byline">
-      <span>HR Srinivas</span>
-      <span class="byline-sep">·</span>
-      <span>September 2026</span>
-      <span class="byline-sep">·</span>
-      <span>13 min read</span>
+<!-- HERO CHART -->
+<div class="hero-chart">
+  <div class="hero-chart-inner">
+    <p class="chart-title">Genuine foreign capital vs engineered inflows — two periods compared</p>
+    <div class="bars-wrap">
+      <div>
+        <div class="bar-group">
+          <div class="bar-label">Net FDI · FY2013–16<br>Foreign capital on its own steam</div>
+          <div class="bar-outer">
+            <div class="bar-fill fdi-old" style="width: 76%"></div>
+          </div>
+          <span class="bar-val green">$97B</span>
+          <span class="bar-sublabel">Genuine 4-year net inflow · UPA era</span>
+        </div>
+        <br>
+        <div class="bar-group" style="margin-top:1.5rem">
+          <div class="bar-label">Net FDI · FY2023–26<br>Foreign capital on its own steam</div>
+          <div class="bar-outer">
+            <div class="bar-fill fdi-new" style="width: 36%"></div>
+          </div>
+          <span class="bar-val red">$46B</span>
+          <span class="bar-sublabel">Genuine 4-year net inflow · current era</span>
+        </div>
+      </div>
+      <div>
+        <div class="bar-group">
+          <div class="bar-label">FCNR(B) scheme · 2026<br>Engineered inflow over 3 months</div>
+          <div class="bar-outer">
+            <div class="bar-fill fcnr" style="width: 100%"></div>
+          </div>
+          <span class="bar-val amber">$127B</span>
+          <span class="bar-sublabel">Leveraged · subsidised · forex risk nationalised</span>
+        </div>
+      </div>
     </div>
-  </header>
+    <hr class="chart-divider">
+    <p class="chart-note"><strong>The ratio that matters:</strong> In 2013 the FCNR raise was 27% of the period's net FDI. In 2026 it is <strong>276%</strong> — nearly three times the entire four-year net FDI. The scheme is no longer a supplement to genuine capital attraction. It is a substitute for it.</p>
+  </div>
+</div>
 
-  <div class="stat-strip">
-    <div class="stat-item">
-      <div class="stat-number amber">$127B</div>
-      <div class="stat-label">Total FCNR(B) + NRE hard-currency<br>deposits outstanding, RBI 2024</div>
+<!-- CALLOUT BANNER -->
+<div class="callout-banner">
+  <p>In the era India calls its worst, foreign capital came willingly. In the era India calls its best, <em>it had to be engineered.</em></p>
+</div>
+
+<!-- BODY -->
+<div class="container">
+
+  <!-- SECTION 1 -->
+  <section>
+    <span class="section-marker">The FDI Story Nobody Is Telling</span>
+    <h2>Gross FDI looks three times better. Net FDI collapsed.</h2>
+    <p>Every government press release on foreign investment quotes gross FDI. India recorded $81 billion in gross FDI inflows in FY25 — a 14% rise. A triumph, by that measure.</p>
+    <p>Net FDI — what actually stays after repatriation, disinvestment, and outward investment by Indian companies — tells a different story entirely. Net FDI decreased to <strong>$0.96 billion in FY25</strong>. Not $96 billion. Not $9.6 billion. Less than one billion dollars in a year when the gross number was $81 billion.</p>
+    <p>The gap between gross and net is the money leaving. Foreign investors taking profits out. Earlier investors exiting. Indian companies investing abroad at a faster rate than foreign capital is coming in. In FY26, total dollars flowing out of India exceeded inflows by <strong>$30.8 billion</strong> — a more than six-fold increase over FY25.</p>
+
+    <div class="data-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Gross FDI</th>
+            <th>Net FDI</th>
+            <th>Retention Rate</th>
+            <th>What it signals</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>FY13</strong></td>
+            <td class="num">~$22B</td>
+            <td class="num good">~$19B</td>
+            <td class="num good">86%</td>
+            <td>Foreign capital staying</td>
+          </tr>
+          <tr>
+            <td><strong>FY14</strong></td>
+            <td class="num">~$24B</td>
+            <td class="num good">~$21B</td>
+            <td class="num good">88%</td>
+            <td>Stable, high retention</td>
+          </tr>
+          <tr>
+            <td><strong>FY15</strong></td>
+            <td class="num">~$31B</td>
+            <td class="num good">~$27B</td>
+            <td class="num good">87%</td>
+            <td>Genuine growth</td>
+          </tr>
+          <tr>
+            <td><strong>FY16</strong></td>
+            <td class="num">~$36B</td>
+            <td class="num good">~$30B</td>
+            <td class="num good">83%</td>
+            <td>Peak genuine inflow</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>FY13–16 total</strong></td>
+            <td class="num">~$113B</td>
+            <td class="num">~$97B</td>
+            <td class="num">86%</td>
+            <td>UPA's "worst period"</td>
+          </tr>
+          <tr>
+            <td><strong>FY23</strong></td>
+            <td class="num">~$71B</td>
+            <td class="num warn">$28B</td>
+            <td class="num warn">39%</td>
+            <td>Gap beginning to widen</td>
+          </tr>
+          <tr>
+            <td><strong>FY24</strong></td>
+            <td class="num">~$71B</td>
+            <td class="num bad">$10B</td>
+            <td class="num bad">14%</td>
+            <td>Repatriation accelerating</td>
+          </tr>
+          <tr>
+            <td><strong>FY25</strong></td>
+            <td class="num">~$81B</td>
+            <td class="num bad">$0.96B</td>
+            <td class="num bad">1.2%</td>
+            <td>Effectively zero net</td>
+          </tr>
+          <tr>
+            <td><strong>FY26</strong></td>
+            <td class="num">~$84B</td>
+            <td class="num bad">$6.95B</td>
+            <td class="num bad">8.3%</td>
+            <td>Net outflow year overall</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>FY23–26 total</strong></td>
+            <td class="num">~$307B</td>
+            <td class="num">~$46B</td>
+            <td class="num">15%</td>
+            <td>Current "best period"</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="stat-item">
-      <div class="stat-number">$34B</div>
-      <div class="stat-label">Raised via FCNR(B) swap scheme<br>in 3 months, Sept–Nov 2013</div>
+    <p class="table-note">Source: RBI Balance of Payments data, Ministry of Commerce &amp; Industry, Rajya Sabha written reply July 2026. Net FDI = gross inflows minus repatriation/disinvestment minus outward FDI by Indian companies.</p>
+
+    <div class="pull">
+      <p>"Gross FDI tripled. Net FDI collapsed to near zero. The retention rate fell from 86% to 15%. That is not an investment attraction story. That is an investment exit story."</p>
     </div>
-    <div class="stat-item">
-      <div class="stat-number">$83B</div>
-      <div class="stat-label">Net FDI equity inflows,<br>FY21–FY24 combined, RBI</div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section>
+    <span class="section-marker">The Leverage Structure</span>
+    <h2>What $127 billion actually is</h2>
+    <p>When the RBI announced the FCNR(B) swap scheme in June 2026 and it mobilised $127.2 billion by August 31, it was described as proof of global confidence in India. The number deserves closer examination.</p>
+    <p>The scheme enabled a leverage structure that banks actively marketed. An NRI puts in $100,000. The Indian bank issues a Standby Letter of Credit to an overseas lender. The overseas lender lends the NRI $900,000 against that guarantee. The NRI deposits the full $1,000,000 as FCNR(B). The deposit earns 6.5%. The loan costs 5.7%. The NRI pockets a leveraged return of 15–16% on their original $100,000.</p>
+    <p>Some foreign banks — competing aggressively for business — pushed the leverage ratio to <strong>19x</strong>, not 9x. At 19x, the real fresh dollar from the NRI's own pocket is just 5% of the deposited amount.</p>
+
+    <div class="mechanism">
+      <h3>How the leverage structure works</h3>
+      <div class="mechanism-steps">
+        <div class="mstep">
+          <span class="mstep-n">01</span>
+          <span class="mstep-t">NRI contributes <strong>$100,000</strong> of own money</span>
+        </div>
+        <div class="mstep">
+          <span class="mstep-n">02</span>
+          <span class="mstep-t">Indian bank issues <strong>Standby Letter of Credit (SBLC)</strong> to overseas lender <span class="flag">Bank risk</span></span>
+        </div>
+        <div class="mstep">
+          <span class="mstep-n">03</span>
+          <span class="mstep-t">Overseas lender provides <strong>$900,000 loan</strong> to NRI at ~5.7%</span>
+        </div>
+        <div class="mstep">
+          <span class="mstep-n">04</span>
+          <span class="mstep-t">Full <strong>$1,000,000</strong> deposited as FCNR(B) at 6.5% — this enters RBI swap</span>
+        </div>
+        <div class="mstep">
+          <span class="mstep-n">05</span>
+          <span class="mstep-t">RBI swaps dollars for rupees at today's rate — <strong>full forex risk absorbed by RBI</strong> <span class="flag">Sovereign risk</span></span>
+        </div>
+        <div class="mstep">
+          <span class="mstep-n">06</span>
+          <span class="mstep-t">NRI earns spread on <strong>9x leveraged capital</strong> — effective return 15–27% on own money</span>
+        </div>
+        <div class="mstep">
+          <span class="mstep-n">07</span>
+          <span class="mstep-t">At maturity 2029: NRI repays loan, takes deposit back, exits. <strong>RBI must return full $1M at original swap rate regardless of where rupee is.</strong> <span class="flag">Sovereign cost</span></span>
+        </div>
+      </div>
     </div>
+
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <span class="stat-num amber">5–10%</span>
+        <span class="stat-desc">Genuine fresh NRI dollar at maximum 9x leverage. Rest is borrowed from overseas banks against Indian bank guarantees.</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num red">19x</span>
+        <span class="stat-desc">Maximum leverage some foreign banks offered to win FCNR business. At 19x, real NRI money is just 5% of the deposit.</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num red">$127B</span>
+        <span class="stat-desc">RBI's swap obligation — against the full leveraged deposit, not just the genuine NRI contribution.</span>
+      </div>
+    </div>
+
+    <p>There is no public disclosure of what proportion of the $127.2 billion was leveraged. The RBI has not released a breakdown. The headline number — celebrated as proof of NRI confidence in India — conflates genuine diaspora savings with an arbitrage trade structured by Indian banks and overseas lenders.</p>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section>
+    <span class="section-marker">The 2013 Comparison</span>
+    <h2>Last time was emergency medicine. This time is elective surgery at five times the dose.</h2>
+    <p>The 2013 FCNR scheme is the template being invoked to justify the 2026 one. The comparison deserves to be made precisely, not selectively.</p>
+
+    <div class="data-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>2013 Scheme</th>
+            <th>2026 Scheme</th>
+            <th>Direction of risk</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Amount raised</td>
+            <td class="num">~$26B</td>
+            <td class="num bad">$127.2B</td>
+            <td>5x larger</td>
+          </tr>
+          <tr>
+            <td>Trigger</td>
+            <td>Rupee crisis — Fragile Five</td>
+            <td class="warn">Preventive — reserves adequate</td>
+            <td>Weaker justification</td>
+          </tr>
+          <tr>
+            <td>Hedging cost borne by banks</td>
+            <td class="num good">3.5% p.a.</td>
+            <td class="num bad">0%</td>
+            <td>100% shifted to RBI</td>
+          </tr>
+          <tr>
+            <td>US borrowing rate for NRIs</td>
+            <td class="num good">~0.25%</td>
+            <td class="num bad">~5.7%</td>
+            <td>Leverage trade much thinner</td>
+          </tr>
+          <tr>
+            <td>FCNR-to-NetFDI ratio</td>
+            <td class="num good">27%</td>
+            <td class="num bad">276%</td>
+            <td>Supplement → substitute</td>
+          </tr>
+          <tr>
+            <td>Max leverage available</td>
+            <td class="num">10–20x</td>
+            <td class="num bad">up to 19x</td>
+            <td>Similar — but spread far thinner</td>
+          </tr>
+          <tr>
+            <td>RBI pre-existing forward book</td>
+            <td class="num good">Modest</td>
+            <td class="num bad">$64B+ before scheme</td>
+            <td>Added to a stressed book</td>
+          </tr>
+          <tr>
+            <td>Even then, it was called</td>
+            <td colspan="3" class="warn">"FCNR Scam" — Business Standard letters, September 2013. "Least bad option" — Rajan himself, 2016.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>In 2013, economists including Ajit Ranade of Aditya Birla Group explicitly warned that leveraged NRI deposit flows could reverse as abruptly as they arrive. The 2016 unwind of just $20 billion required Rajan to publicly reassure markets, caused visible weekly declines in reserves, and put pressure on the rupee. Rajan called the scheme the "least bad option" — not a triumph. A necessary gamble under crisis conditions.</p>
+    <p>In 2026, the same mechanism has been deployed at five times the scale, at zero hedging cost to banks, into a forward book that was already stretched, with reserves that were described as "comfortable" before the scheme launched. The crisis justification that made 2013 defensible does not exist in 2026.</p>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section>
+    <span class="section-marker">The Forward Liability</span>
+    <h2>What ₹1.27 lakh crore of exposure looks like in 2029</h2>
+    <p>At the swap inception rate of approximately ₹94 per dollar, the RBI's obligation is to return $127.2 billion at that rate in 2029 — regardless of where the rupee actually is.</p>
+    <p>The rupee fell 9.6% against the dollar in FY26 alone. It touched a record low of ₹96.97 in May 2026. The structural depreciation trend over the last decade has averaged 3–5% annually. A conservative move from ₹94 to ₹104 by 2029 — less than the FY26 depreciation in a single year — produces the following:</p>
+
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <span class="stat-num red">₹1.27L cr</span>
+        <span class="stat-desc">RBI's swap loss if rupee moves from ₹94 to ₹104. In dollar terms: ~$12.2 billion.</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num red">~$25B</span>
+        <span class="stat-desc">Expected loss at ₹114 — one standard deviation above the conservative scenario.</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num red">$38–50B</span>
+        <span class="stat-desc">Midpoint expected loss range at historical 6% annual depreciation over 3–5 year tenor.</span>
+      </div>
+    </div>
+
+    <p>None of this appears on any balance sheet today. It sits in the RBI's swap book as a contingent liability, accruing quietly until 2029 when the deposits mature in a concentrated window. The forex reserves — celebrated at a record $729 billion — include the dollars that came in under FCNR. Those dollars are not free reserves. They are matched by a forward obligation to return them at the swap rate.</p>
+    <p>Gross reserves of $729 billion net of the forward book — now at a record $136.7 billion and rising — gives freely deployable reserves of approximately $592 billion. Still large. But 19% smaller than the number in every press release.</p>
+  </section>
+
+</div>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="closing-inner">
+    <h2>The question is not whether the scheme worked. It is what it reveals.</h2>
+    <p>In FY13–16 — the period India describes as its worst economic stretch — net FDI was $97 billion over four years. Foreign capital came because the underlying investment case was strong enough, even through a crisis, to retain 86 cents of every dollar that came in.</p>
+    <p>In FY23–26 — the period India describes as its strongest — net FDI was $46 billion over four years, with a retention rate of 15%. The economy needed a three-month, heavily subsidised, RBI-guaranteed, leverage-amplified scheme to raise $127 billion to compensate for what genuine capital attraction is no longer delivering.</p>
+    <p>The FCNR scheme is not evidence of India's external strength. It is a measure of the gap between the external strength being claimed and the external strength that actually exists.</p>
+    <p class="amber-line">The $127 billion is real. The confidence it represents is not.</p>
   </div>
+</div>
 
-  <p>In September 2013, India's rupee was in freefall. It had lost over 20% of its value against the dollar in a matter of months, driven by the taper tantrum that followed the US Federal Reserve's signal that it would begin withdrawing stimulus. The current account deficit was running at 4.8% of GDP — a level that, in India's history, had previously preceded the 1991 crisis. Foreign exchange reserves were adequate but not comfortable.</p>
+<!-- FOOTNOTE -->
+<div class="footnote">
+  <strong>Sources &amp; qualifications:</strong> Net FDI data from RBI Balance of Payments statistics and Ministry of Commerce &amp; Industry (Rajya Sabha written reply, July 28, 2026). Gross FDI from DPIIT. FCNR(B) final position from RBI Press Release 2026-2027/1024, dated September 2, 2026 (signed Brij Raj, Chief General Manager). Leverage structure details from Canara Bank marketing materials, Vinod Kothari Consultants analysis (July 30, 2026), Jefferies India research, and JM Financial analysis. The 2013 comparison uses figures from RBI Annual Reports and Business Standard contemporaneous reporting. Forward book data from RBI Weekly Statistical Supplement. The $38–50B loss estimate uses a 6% annual rupee depreciation assumption compounded over 3–5 years on $127.2B — consistent with the rupee's historical average depreciation against the dollar since 2014. Actual cost will depend on the rupee/dollar rate at each deposit's maturity date between 2029–2031. No public disclosure exists of the proportion of the $127.2B that was leveraged vs genuine fresh NRI savings. This is a critical disclosure gap. The RBI's decision not to publish this breakdown is itself a data point.
+</div>
 
-  <p>The newly appointed Reserve Bank governor, Raghuram Rajan, needed hard currency. Fast.</p>
-
-  <p>His solution was an FCNR(B) deposit scheme: India would offer Non-Resident Indians a specially priced three-year foreign currency deposit with the RBI absorbing the currency swap risk. The scheme ran for three months. It raised $34 billion.</p>
-
-  <p>That number is routinely cited as evidence of NRI confidence in India. It is cited as evidence of nothing of the sort. It is evidence of what happens when a government offers a sufficiently attractive interest rate to diaspora investors who are already holding dollar savings and are offered a hedged, government-guaranteed instrument with above-market returns.</p>
-
-  <p>The $34 billion was not confidence. It was yield-seeking. And the $127 billion sitting on India's books today in accumulated NRI hard-currency deposits is built on the same foundation.</p>
-
-  <h2>What FCNR(B) actually is</h2>
-
-  <p>FCNR stands for Foreign Currency Non-Resident (Banks). It is a deposit account held by Non-Resident Indians in India, denominated in a foreign currency — primarily US dollars, though sterling, euro, yen, and Canadian dollars are also permitted. The depositor bears no currency risk: they deposit in dollars and withdraw in dollars. The Indian bank (and through the swap market, ultimately the RBI) absorbs the rupee-dollar exchange risk.</p>
-
-  <p>This is categorically different from a foreign direct investment. An FDI investor buys an equity stake or builds productive capacity in India. They take rupee risk. They take business risk. If India's economy deteriorates, they lose. Their money is committed, illiquid, and structurally long on India's economic future.</p>
-
-  <p>An FCNR(B) depositor takes none of those risks. They hold a time deposit, denominated in their home currency, at a rate premium over what they could earn abroad, with a government-guaranteed institution backing it. It is a savings account with a patriotism story attached.</p>
-
-  <div class="pull-quote">
-    <p>"Calling FCNR deposits evidence of NRI confidence in India is like calling a high-yield savings account evidence of confidence in the banking system. The confidence is in the rate, not the story."</p>
-  </div>
-
-  <h2>The $127 billion in context</h2>
-
-  <p>India's total NRI deposit book — combining FCNR(B) accounts and NRE (Non-Resident External) rupee term deposits — stood at approximately $127 billion as of the RBI's 2024 data. This figure has grown substantially over the last decade, particularly through periods of rupee weakness when the RBI has signalled it would protect NRI deposit holders from currency losses.</p>
-
-  <p>Over the same period, India's net FDI equity inflows tell a different story.</p>
-
-  <div class="table-wrap">
-    <table class="article-table">
-      <thead>
-        <tr>
-          <th>Fiscal Year</th>
-          <th>Gross FDI Equity Inflows ($B)</th>
-          <th>FDI Equity Outflows ($B)</th>
-          <th>Net FDI Equity ($B)</th>
-          <th>NRI Deposit Inflows ($B)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>FY21</td>
-          <td>59.6</td>
-          <td>15.2</td>
-          <td>44.4</td>
-          <td>7.4</td>
-        </tr>
-        <tr>
-          <td>FY22</td>
-          <td>58.8</td>
-          <td>12.8</td>
-          <td>46.0</td>
-          <td>8.3</td>
-        </tr>
-        <tr>
-          <td>FY23</td>
-          <td>46.0</td>
-          <td>18.0</td>
-          <td>28.0</td>
-          <td>11.2</td>
-        </tr>
-        <tr>
-          <td>FY24</td>
-          <td>44.4</td>
-          <td>17.9</td>
-          <td>26.5</td>
-          <td>14.8</td>
-        </tr>
-        <tr>
-          <td><strong>FY21–24 Total</strong></td>
-          <td><strong>208.8</strong></td>
-          <td><strong>63.9</strong></td>
-          <td><strong>144.9</strong></td>
-          <td><strong>41.7</strong></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="table-note">Net FDI equity = gross equity inflows minus repatriation and equity outflows by Indian companies. NRI deposit inflows represent fresh deposit mobilisation. Sources: RBI Annual Report, RBI Handbook of Statistics on the Indian Economy.</p>
-
-  <p>On these numbers, net FDI equity remains larger over the four-year aggregate. But the trajectory is what matters. Net FDI equity has dropped by 40% from FY21 to FY24. Meanwhile, fresh NRI deposit mobilisation has doubled. The composition of India's external financing is shifting — from productive long-term investment toward yield-seeking short-duration deposits. This is the wrong direction.</p>
-
-  <h2>The crisis test</h2>
-
-  <p>The best evidence of what NRI deposits really are comes from the moments when the money moved.</p>
-
-  <p>In the 2013 taper tantrum, NRI deposit balances fell as depositors — having put money in during calmer times — chose not to renew maturing deposits when uncertainty increased. The RBI had to run the special FCNR(B) scheme precisely because organic deposit renewal was insufficient to maintain the external account balance. The government had to price a crisis instrument to replace money that was walking out.</p>
-
-  <p>In 2022, when the rupee again depreciated sharply in response to US rate rises, NRI deposit growth slowed significantly. Fresh inflows barely covered maturities. The RBI responded by raising the interest rate ceiling on NRI deposits in July 2022 — a market intervention to defend the external account that would be unnecessary if the deposits represented unconditional confidence.</p>
-
-  <div class="table-wrap">
-    <table class="article-table">
-      <thead>
-        <tr>
-          <th>Episode</th>
-          <th>Trigger</th>
-          <th>RBI Response</th>
-          <th>Amount Mobilised</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Resurgent India Bonds, 1998</td>
-          <td>Sanctions post-nuclear tests, FX pressure</td>
-          <td>Sovereign NRI bond at 7.75%</td>
-          <td>$4.2B in 5 weeks</td>
-        </tr>
-        <tr>
-          <td>India Millennium Deposits, 2000</td>
-          <td>Post-Kargil sentiment, weak external account</td>
-          <td>SBI sovereign bond at 8.5%</td>
-          <td>$5.5B in 6 weeks</td>
-        </tr>
-        <tr>
-          <td>FCNR(B) Swap Scheme, 2013</td>
-          <td>Taper tantrum, rupee collapse to ₹68/$</td>
-          <td>Below-market swap, 3-year FCNR(B)</td>
-          <td>$34B in 3 months</td>
-        </tr>
-        <tr>
-          <td>NRI deposit rate ceiling lifted, 2022</td>
-          <td>US rate hikes, rupee depreciation</td>
-          <td>FEMA exemption for higher rates</td>
-          <td>Stabilised outflows</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="table-note">Sources: RBI Annual Reports, Ministry of Finance press releases, IMF Article IV consultations.</p>
-
-  <p>The pattern is unmistakeable. Each episode of external account stress has produced a pricing intervention to hold NRI money in place. This is not the behaviour of a country that has secured stable long-term capital. It is the behaviour of a country that has substituted a price lever for a structural one.</p>
-
-  <h2>What FDI actually measures</h2>
-
-  <p>When a foreign company establishes a manufacturing unit in India, they are making a bet on India's labour market, its regulatory environment, its infrastructure, its logistics, its judiciary, and the stability of its economic policy. They are taking rupee risk for potentially a decade or more. They cannot exit quickly. Their investment decision reflects a genuine conviction about India's economic trajectory.</p>
-
-  <p>When net FDI equity falls from $44 billion to $26 billion in three years, that is 14,000 such decisions, in aggregate, trending toward caution. The reasons are visible in the data: land acquisition difficulties, regulatory uncertainty, infrastructure gaps that remain despite the capital expenditure announcements, and the relentless complexity of operating in India's compliance environment.</p>
-
-  <p>No amount of NRI deposit mobilisation repairs those signals. The deposits tell global capital markets that India can attract diaspora savings at the right price. They say nothing about whether India is an attractive place to build something.</p>
-
-  <div class="pull-quote">
-    <p>"The distinction between NRI deposits and FDI is the distinction between lending and investing. India needs investors, not lenders. The lenders are easier to attract and leave faster."</p>
-  </div>
-
-  <h2>The illusion in the headline number</h2>
-
-  <p>$127 billion in NRI deposits is a large and impressive-sounding number. It is used in official communications as evidence of diaspora confidence, of the strength of India's external accounts, of the resilience of its financial system.</p>
-
-  <p>But consider what $127 billion in deposits represents relative to $127 billion in FDI equity:</p>
-
-  <ul>
-    <li>The deposits mature and must be repriced or they leave. The FDI equity is permanent.</li>
-    <li>The deposits generate no employment, no technology transfer, no supply chain development. FDI can generate all three.</li>
-    <li>The deposits require periodic incentive interventions to maintain. FDI, once established, tends to generate further FDI as companies expand and create supplier ecosystems.</li>
-    <li>The deposits count toward India's foreign exchange reserves when held at the RBI. When the rupee weakens sharply, these deposits become a liability that must be defended.</li>
-  </ul>
-
-  <p>The NRI deposit book is not worthless. It provides liquidity, it supports the external account in the short term, and it is a genuine expression of diaspora attachment to India's economy. But it is not a substitute for the productive capital formation that FDI represents, and conflating the two is a category error that has real consequences for policy.</p>
-
-  <h2>What the data is actually saying</h2>
-
-  <p>India's trajectory on external financing deserves honest reading. Gross FDI inflows peaked in FY22 and have declined in both subsequent years. Net FDI equity — which accounts for Indian companies investing abroad and profits being repatriated — has fallen even faster, dropping to its lowest level in a decade in FY24.</p>
-
-  <p>Meanwhile, India's current account deficit remains structurally negative. It is being financed increasingly by portfolio flows (volatile) and NRI deposits (yield-sensitive). The mix has become more fragile even as the aggregate numbers have grown.</p>
-
-  <p>The 2013 episode should be remembered not as a triumph but as a diagnostic. It revealed, in real time, that India's external account could be destabilised quickly and that the stabilisation tool was an above-market rate offer to diaspora savers. Twelve years later, the structural vulnerability is larger. The deposit book is bigger. The net FDI trend is weaker. The repricing interventions have become more frequent.</p>
-
-  <p>That is not confidence. That is a recurring confession that the underlying investment story has work to do.</p>
-
-  <div class="next-article">
-    <div class="next-article-label">Also in India &amp; Economy</div>
-    <a href="gdp-gap.html">7.8% and Zero — India's Two Economies →</a>
-  </div>
-
+<div class="article-next">
+  <div class="article-next-label">Also in India &amp; Economy</div>
+  <a href="gdp-gap.html">7.8% and Zero — India's Two Economies →</a>
 </div>
 
 <footer class="site-footer">

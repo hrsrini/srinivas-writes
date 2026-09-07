@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>16 Million Views for a Folder Structure — HR Srinivas</title>
+<meta name="description" content="In April 2026, Andrej Karpathy posted a GitHub Gist describing a folder structure. 16 million views. 5,000 stars. Here is what he actually said — and why it matters far beyond engineering.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:         #1A1A1A;
+    --ink-mid:     #444444;
+    --ink-light:   #777777;
+    --paper:       #FAFAF8;
+    --rule:        #DEDEDA;
+    --green:       #166534;
+    --green-pale:  #f0fdf4;
+    --green-mid:   #16a34a;
+    --green-dark:  #14532d;
+    --green-light: #4ade80;
+    --red:         #B91C1C;
+    --white:       #ffffff;
+    --code-bg:     #1e1e2e;
+    --code-text:   #cdd6f4;
+    --code-comment:#6c7086;
+    --code-accent: #89b4fa;
+  }
+
+  html { font-size: 17px; }
+
+  body {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.75;
+  }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1.25rem 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+  }
+  .breadcrumb a { color: var(--ink-light); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--green); }
+  .breadcrumb span { margin: 0 0.4rem; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--green-dark);
+    padding: 5rem 2rem 4rem;
+  }
+  .hero-inner { max-width: 800px; margin: 0 auto; }
+  .hero-kicker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--green-light);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 2rem;
+  }
+  .hero h1 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 1.75rem;
+  }
+  .hero h1 strong {
+    font-weight: 700;
+    font-style: normal;
+    display: block;
+    font-size: 0.65em;
+    letter-spacing: 0.01em;
+    color: var(--green-light);
+    margin-bottom: 0.4rem;
+  }
+  .hero-stat-row {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #1a4731;
+  }
+  .hero-stat-num {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    display: block;
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    color: #4ade80;
+    display: block;
+    margin-top: 0.3rem;
+    line-height: 1.4;
+  }
+  .hero-deck {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #86efac;
+    line-height: 1.65;
+    max-width: 580px;
+  }
+
+  /* ── META ── */
+  .article-meta {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── BODY ── */
+  .body-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .body-section {
+    padding: 2.75rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .body-section:last-of-type { border-bottom: none; }
+
+  .section-marker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+    color: var(--ink);
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+    max-width: 66ch;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── PULL QUOTE ── */
+  .pull {
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid var(--green);
+    background: var(--green-pale);
+  }
+  .pull p {
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+    max-width: 100%;
+  }
+  .pull cite {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.67rem;
+    color: var(--green);
+    font-style: normal;
+    display: block;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── TWEET CARD ── */
+  .tweet-card {
+    border: 1px solid var(--ink);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    background: var(--white);
+  }
+  .tweet-author {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .tweet-author span {
+    font-weight: 400;
+    color: var(--ink-light);
+  }
+  .tweet-body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--ink-mid);
+    margin-bottom: 0.75rem;
+    max-width: 100%;
+  }
+  .tweet-date {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.67rem;
+    color: var(--ink-light);
+  }
+
+  /* ── COMPARISON DIAGRAM ── */
+  .comparison-diagram {
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+    overflow: hidden;
+  }
+  .cd-header {
+    background: var(--ink);
+    padding: 0.75rem 1.25rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.04em;
+  }
+  .cd-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cd-col {
+    padding: 1.5rem;
+    border-right: 1px solid var(--ink);
+  }
+  .cd-col:last-child { border-right: none; }
+  .cd-col-header {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid;
+  }
+  .cd-col:first-child .cd-col-header { color: var(--red); border-color: var(--red); }
+  .cd-col:last-child .cd-col-header  { color: var(--green); border-color: var(--green); }
+  .cd-flow { display: flex; flex-direction: column; gap: 0.5rem; }
+  .cd-step {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    color: var(--ink-mid);
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--rule);
+    line-height: 1.45;
+  }
+  .cd-step.highlight-bad  { border-color: var(--red);   background: #fef2f2; color: var(--red);   font-weight: 600; }
+  .cd-step.highlight-good { border-color: var(--green); background: var(--green-pale); color: var(--green); font-weight: 600; }
+  .cd-arrow {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    color: var(--ink-light);
+    text-align: center;
+    padding: 0.15rem 0;
+  }
+  .cd-verdict {
+    padding: 1rem 1.25rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    border-top: 1px solid var(--rule);
+    line-height: 1.55;
+    background: var(--paper);
+  }
+  .cd-verdict strong { color: var(--ink); }
+
+  /* ── THREE LAYERS ── */
+  .layers {
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+  }
+  .layer {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  .layer:last-child { border-bottom: none; }
+  .layer-id {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--rule);
+    line-height: 1;
+  }
+  .layer-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .layer-folder {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    font-style: italic;
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+  .layer-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    margin-bottom: 0.6rem;
+  }
+  .layer-quote {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--ink-light);
+    border-left: 2px solid var(--green);
+    padding-left: 0.75rem;
+    line-height: 1.55;
+  }
+
+  /* ── OPERATIONS ── */
+  .ops-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+  }
+  .op-cell {
+    padding: 1.5rem 1.25rem;
+    border-right: 1px solid var(--ink);
+  }
+  .op-cell:last-child { border-right: none; }
+  .op-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .op-trigger {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    color: var(--ink-light);
+    display: block;
+    margin-bottom: 0.75rem;
+    font-style: italic;
+  }
+  .op-what {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .op-what li {
+    padding: 0.3rem 0 0.3rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .op-what li:last-child { border-bottom: none; }
+  .op-what li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    top: 0.32rem;
+    color: var(--green);
+    font-size: 0.7rem;
+    line-height: 1;
+  }
+
+  /* ── CODE BLOCK ── */
+  .code-block {
+    background: var(--code-bg);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+  .code-block-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--code-accent);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #313244;
+  }
+  .code-block pre {
+    font-family: 'IBM Plex Sans', monospace, sans-serif;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--code-text);
+    white-space: pre;
+    margin: 0;
+  }
+  .code-comment { color: var(--code-comment); }
+  .code-key     { color: var(--code-accent); }
+
+  /* ── MEMEX BOX ── */
+  .memex-box {
+    background: var(--ink);
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  .memex-year {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--green-light);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.5rem;
+    opacity: 0.4;
+  }
+  .memex-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--green-light);
+    letter-spacing: 0.06em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .memex-text {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #86efac;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    max-width: 100%;
+  }
+  .memex-chain {
+    display: flex;
+    gap: 0;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+    border-top: 1px solid #1a4731;
+    padding-top: 1.25rem;
+  }
+  .memex-node {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: #4ade80;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid #1a4731;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .memex-arrow {
+    font-size: 0.8rem;
+    color: #166534;
+    padding: 0.3rem 0.25rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ── PERSONAL SECTION ── */
+  .personal-section {
+    background: var(--green-pale);
+    border: 2px solid var(--green);
+    padding: 2.5rem;
+    margin: 3rem 0 0;
+  }
+  .personal-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .personal-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--green-dark);
+  }
+  .personal-section p { color: var(--ink-mid); font-size: 0.95rem; }
+
+  /* ── IDEA FILE BOX ── */
+  .idea-file {
+    border: 2px dashed var(--green);
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+  .idea-file-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .idea-file p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--ink-mid);
+    line-height: 1.65;
+    max-width: 100%;
+    margin-bottom: 0.75rem;
+  }
+  .idea-file p:last-child { margin-bottom: 0; }
+
+  /* ── CLOSING ── */
+  .closing {
+    background: var(--ink);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .closing-inner { max-width: 620px; margin: 0 auto; }
+  .closing h2 {
+    font-family: 'IBM Plex Serif', serif;
+    color: var(--white);
+    font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.35;
+    margin-bottom: 1.25rem;
+  }
+  .closing p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #888;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 0.75rem;
+  }
+  .closing-line {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--green-light);
+    margin-top: 1.5rem;
+    display: block;
+  }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    border-top: 1px solid var(--rule);
+    padding: 2rem;
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-name {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .footer-tagline {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    color: var(--ink-light);
+    margin-top: 0.2rem;
+  }
+  .footer-links {
+    display: flex;
+    gap: 1.25rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+  }
+  .footer-links a { color: var(--ink-light); text-decoration: none; }
+  .footer-links a:hover { color: var(--green); }
+
+  /* ── FOOTNOTE ── */
+  .footnote {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 3rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.67rem;
+    color: var(--ink-light);
+    line-height: 1.7;
+    border-top: 1px solid var(--rule);
+  }
+
+  @media (max-width: 640px) {
+    html { font-size: 15px; }
+    .hero-stat-row { gap: 1.5rem; }
+    .cd-grid { grid-template-columns: 1fr; }
+    .cd-col { border-right: none; border-bottom: 1px solid var(--ink); }
+    .cd-col:last-child { border-bottom: none; }
+    .ops-grid { grid-template-columns: 1fr; }
+    .op-cell { border-right: none; border-bottom: 1px solid var(--ink); }
+    .op-cell:last-child { border-bottom: none; }
+    .layer { grid-template-columns: 60px 1fr; }
+    .site-footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<script src="../assets/nav.js"></script>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>→</span>
+  <a href="index.html">Artificial Intelligence</a>
+  <span>→</span>
+  16 Million Views for a Folder Structure
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-kicker">Artificial Intelligence · April 2026 · Analysis</span>
+    <h1>
+      <strong>Andrej Karpathy posted a folder structure.</strong>
+      Sixteen million people felt something shift.
+    </h1>
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <span class="hero-stat-num">16M</span>
+        <span class="hero-stat-label">Views on a single post<br>about a folder structure</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">5,000</span>
+        <span class="hero-stat-label">GitHub stars in<br>the first week</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">4,282</span>
+        <span class="hero-stat-label">Forks — engineers building<br>their own versions immediately</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">1945</span>
+        <span class="hero-stat-label">The year Vannevar Bush<br>described the same idea first</span>
+      </div>
+    </div>
+    <p class="hero-deck">He called it LLM Wiki. A persistent knowledge base that an AI agent builds and maintains — so knowledge compounds over time instead of evaporating at the end of every session. Here is what he actually proposed, why engineers recognised it instantly, and what it means for everyone who thinks with their hands.</p>
+  </div>
+</div>
+
+<!-- META -->
+<div class="article-meta">
+  <span>HR Srinivas</span>
+  <span>September 2026</span>
+  <span>Artificial Intelligence</span>
+  <span>10 min read</span>
+</div>
+
+<!-- BODY -->
+<div class="body-wrap">
+
+  <div class="body-section">
+    <span class="section-marker">The Viral Moment</span>
+    <h2>It was not a product launch. It was not a research paper. It was a GitHub Gist.</h2>
+
+    <p>On April 3, 2026, Andrej Karpathy — co-founder of OpenAI, former head of AI at Tesla, the person who coined "vibe coding" — posted a tweet about how he had been using AI. Not for code. For knowledge.</p>
+
+    <div class="tweet-card">
+      <span class="tweet-author">Andrej Karpathy <span>@karpathy · April 2, 2026</span></span>
+      <p class="tweet-body">LLM Knowledge Bases<br><br>Something I'm finding very useful recently: using LLMs to build personal knowledge bases for various topics of research interest. In this way, a large fraction of my recent token throughput is going less into manipulating code, and more into manipulating knowledge structures that I can query, refine, and build on over time...</p>
+      <span class="tweet-date">16,000,000+ views · 5,000 stars on the follow-up Gist</span>
+    </div>
+
+    <p>It exploded. Karpathy himself was surprised: "Wow, this tweet went very viral!" So he did something interesting. Instead of shipping an app or publishing a paper, he shared what he called an "idea file" — a GitHub Gist written in plain prose, designed to be copy-pasted directly into an AI agent so the agent could build the system for you.</p>
+
+    <div class="idea-file">
+      <span class="idea-file-label">What is an Idea File?</span>
+      <p>Karpathy introduced a new format for sharing ideas in the AI era. His exact words: "The idea of the idea file is that in this era of LLM agents, there is less of a point/need of sharing the specific code/app, you just share the idea, then the other person's agent customizes and builds it for your specific needs."</p>
+      <p>You don't clone a repo. You copy a description and give it to your AI agent. The agent builds a version customised to your tools, your environment, your needs. Open ideas rather than open source.</p>
+    </div>
+
+    <p>16 million people watched engineers read that idea file and feel something shift. The question is what they recognised — and whether that recognition belongs only to engineers.</p>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">The Problem Karpathy Named</span>
+    <h2>Every AI session starts from zero. Nothing you learn carries forward.</h2>
+
+    <p>If you have ever uploaded a PDF to an AI tool, asked a question, and then uploaded the same PDF again the next day to ask a follow-up — you already understand the problem Karpathy's idea solves.</p>
+    <p>The dominant pattern for giving AI access to your documents is called RAG — Retrieval-Augmented Generation. You upload files. When you ask a question, the system finds relevant chunks, feeds them to the model, and generates an answer. It works. But it has a fundamental limitation that Karpathy states precisely:</p>
+
+    <div class="pull">
+      <p>"The LLM is rediscovering knowledge from scratch on every question. There's no accumulation."</p>
+      <cite>— Andrej Karpathy, LLM Wiki Gist, April 2026</cite>
+    </div>
+
+    <p>Ask a question that requires synthesising five documents, and the system pieces together the relevant fragments every time. Ask the same question tomorrow, and it does the same work again. Nothing is built. Nothing compounds. The model retrieves, answers, and forgets.</p>
+
+    <div class="comparison-diagram">
+      <div class="cd-header">RAG vs LLM Wiki — What actually happens</div>
+      <div class="cd-grid">
+        <div class="cd-col">
+          <span class="cd-col-header">Traditional RAG — The Problem</span>
+          <div class="cd-flow">
+            <div class="cd-step">You upload raw documents</div>
+            <div class="cd-arrow">↓</div>
+            <div class="cd-step">You ask a question</div>
+            <div class="cd-arrow">↓</div>
+            <div class="cd-step">System retrieves relevant chunks</div>
+            <div class="cd-arrow">↓</div>
+            <div class="cd-step">Model generates answer</div>
+            <div class="cd-arrow">↓</div>
+            <div class="cd-step highlight-bad">Session ends. Everything forgotten. Tomorrow: start again from raw documents.</div>
+          </div>
+        </div>
+        <div class="cd-col">
+          <span class="cd-col-header">LLM Wiki — The Solution</span>
+          <div class="cd-flow">
+            <div class="cd-step">You add a source to raw/</div>
+            <div class="cd-arrow">↓</div>
+            <div class="cd-step">LLM reads, synthesises, integrates into wiki</div>
+            <div class="cd-arrow">↓</div>
+            <div class="cd-step">You ask a question</div>
+            <div class="cd-arrow">↓</div>
+            <div class="cd-step">LLM reads wiki index, drills into pages</div>
+            <div class="cd-arrow">↓</div>
+            <div class="cd-step highlight-good">Good answers get filed back as wiki pages. Knowledge compounds with every session.</div>
+          </div>
+        </div>
+      </div>
+      <div class="cd-verdict"><strong>The key distinction:</strong> In RAG, knowledge is processed at query time — every time, from scratch. In the LLM Wiki, knowledge is compiled once at ingest time and kept current. "The knowledge is compiled once and then kept current, not re-derived on every query." — Karpathy</div>
+    </div>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">The Architecture</span>
+    <h2>Three layers. Each with a clear owner and a clear purpose.</h2>
+
+    <p>The LLM Wiki is not an app. It is a pattern — a way of organising three things that already exist: your source documents, a folder of markdown files, and a schema that tells the AI how to behave. Karpathy defines each layer precisely.</p>
+
+    <div class="layers">
+      <div class="layer">
+        <span class="layer-id">01</span>
+        <div class="layer-content">
+          <span class="layer-name">Raw Sources</span>
+          <span class="layer-folder">raw/ — immutable, never modified by the LLM</span>
+          <p class="layer-desc">Your curated collection of source documents. Articles, papers, repos, images, data files. These are sacred — the LLM reads from them but never touches them. This is your ground truth.</p>
+          <p class="layer-quote">"These are immutable — the LLM reads from them but never modifies them. This is your source of truth." — Karpathy</p>
+        </div>
+      </div>
+      <div class="layer">
+        <span class="layer-id">02</span>
+        <div class="layer-content">
+          <span class="layer-name">The Wiki</span>
+          <span class="layer-folder">wiki/ — LLM-generated, LLM-maintained</span>
+          <p class="layer-desc">A directory of interconnected markdown files. Summaries, entity pages, concept pages, comparisons, an overview, a synthesis. The LLM owns this entirely. It creates pages, updates them when new sources arrive, maintains cross-references, notes where new data contradicts old claims.</p>
+          <p class="layer-quote">"You read it; the LLM writes it. Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase." — Karpathy</p>
+        </div>
+      </div>
+      <div class="layer">
+        <span class="layer-id">03</span>
+        <div class="layer-content">
+          <span class="layer-name">The Schema</span>
+          <span class="layer-folder">CLAUDE.md / AGENTS.md — persistent instructions across sessions</span>
+          <p class="layer-desc">A document that tells the LLM how the wiki is structured, what the conventions are, and what workflows to follow. Without the schema, the LLM is a chatbot with file access. With it, the LLM becomes a disciplined wiki maintainer that follows consistent rules whether the session is today or three months from now.</p>
+          <p class="layer-quote">"You and the LLM co-evolve this over time as you figure out what works for your domain." — Karpathy</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <span class="code-block-label">Directory Structure — The Complete Pattern</span>
+      <pre>
+my-research/
+├── raw/                    <span class="code-comment"># Layer 1: Your sources. NEVER modify.</span>
+│   ├── articles/
+│   ├── papers/
+│   ├── repos/
+│   └── assets/             <span class="code-comment"># Downloaded images</span>
+│
+├── wiki/                   <span class="code-comment"># Layer 2: The LLM writes this.</span>
+│   ├── index.md            <span class="code-comment"># Master catalog — LLM reads this first</span>
+│   ├── log.md              <span class="code-comment"># Append-only activity record</span>
+│   ├── overview.md         <span class="code-comment"># High-level synthesis</span>
+│   ├── concepts/           <span class="code-comment"># Topic pages</span>
+│   ├── entities/           <span class="code-comment"># People, orgs, products</span>
+│   ├── sources/            <span class="code-comment"># Per-document summaries</span>
+│   └── comparisons/        <span class="code-comment"># Filed from good queries</span>
+│
+└── CLAUDE.md               <span class="code-comment"># Layer 3: The schema. How the LLM behaves.</span>
+                            <span class="code-comment"># (AGENTS.md for Codex / OPENCODE.md for OpenCode)</span></pre>
+    </div>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">Three Operations</span>
+    <h2>Ingest. Query. Lint. The complete loop.</h2>
+
+    <p>The wiki runs on three operations. Each has a clear trigger, a clear process, and a clear output. Together they create the compounding loop that makes the wiki worth building.</p>
+
+    <div class="ops-grid">
+      <div class="op-cell">
+        <span class="op-name">Ingest</span>
+        <span class="op-trigger">Trigger: "Ingest raw/articles/filename.md"</span>
+        <ul class="op-what">
+          <li>LLM reads the source</li>
+          <li>Discusses key takeaways with you</li>
+          <li>Creates a summary page in wiki/sources/</li>
+          <li>Updates relevant concept and entity pages</li>
+          <li>Flags where new data contradicts old claims</li>
+          <li>Updates index.md and log.md</li>
+          <li>One source may touch 10–15 pages</li>
+        </ul>
+      </div>
+      <div class="op-cell">
+        <span class="op-name">Query</span>
+        <span class="op-trigger">Trigger: Any question you ask</span>
+        <ul class="op-what">
+          <li>LLM reads index.md to find relevant pages</li>
+          <li>Drills into those pages</li>
+          <li>Synthesises answer with wiki-link citations</li>
+          <li>Good answers get filed back as new pages</li>
+          <li>Your explorations compound the wiki too</li>
+          <li>Output can be markdown, table, slide deck</li>
+        </ul>
+      </div>
+      <div class="op-cell">
+        <span class="op-name">Lint</span>
+        <span class="op-trigger">Trigger: "Lint the wiki"</span>
+        <ul class="op-what">
+          <li>Finds contradictions between pages</li>
+          <li>Flags stale claims superseded by new sources</li>
+          <li>Identifies orphan pages with no links</li>
+          <li>Lists concepts mentioned but lacking own page</li>
+          <li>Suggests questions to investigate next</li>
+          <li>Run weekly as the wiki grows</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pull">
+      <p>"You never write the wiki yourself — the LLM writes and maintains all of it. You're in charge of sourcing, exploration, and asking the right questions. The LLM does all the grunt work — the summarising, cross-referencing, filing, and bookkeeping."</p>
+      <cite>— Andrej Karpathy, LLM Wiki Gist, April 2026</cite>
+    </div>
+
+    <p>The key insight about the Query operation: good answers get filed back. A comparison you asked for, an analysis, a connection you discovered — these shouldn't disappear into chat history. File them as wiki pages. This way your own thinking compounds in the knowledge base alongside the ingested sources. The wiki grows not just from what you read, but from what you understand.</p>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">The 81-Year Connection</span>
+    <h2>Karpathy closes with a reference to 1945. It is not a footnote.</h2>
+
+    <p>Karpathy ends his gist with a historical connection that puts the whole idea in a different register. He traces LLM Wiki back to something Vannevar Bush described in 1945 — a thought experiment called the Memex.</p>
+
+    <div class="memex-box">
+      <span class="memex-year">1945</span>
+      <span class="memex-title">Vannevar Bush — "As We May Think" — The Atlantic</span>
+      <p class="memex-text">Bush described a hypothetical desk-sized device where a person could store all their books, records, and communications, search them rapidly, and most importantly — create associative trails. Linked sequences of documents following their own logic, not alphabetical filing.</p>
+      <p class="memex-text">His key insight: the human mind works by association, not hierarchy. Rigid filing systems force you into categories. The Memex would let you follow your own paths through knowledge.</p>
+      <p class="memex-text">But Bush couldn't solve one problem: who does the maintenance? Creating trails, updating connections, keeping everything consistent — humans abandon knowledge systems because the maintenance burden grows faster than the value.</p>
+      <div class="memex-chain">
+        <div class="memex-node">Bush 1945 — Memex</div>
+        <div class="memex-arrow">→</div>
+        <div class="memex-node">Engelbart — Personal computing</div>
+        <div class="memex-arrow">→</div>
+        <div class="memex-node">Nelson — Hypertext</div>
+        <div class="memex-arrow">→</div>
+        <div class="memex-node">Berners-Lee — The Web</div>
+        <div class="memex-arrow">→</div>
+        <div class="memex-node">Karpathy 2026 — LLM Wiki</div>
+      </div>
+    </div>
+
+    <p>The web became public and chaotic rather than private and curated. Bush's vision was personal — your knowledge, your connections, your trails. The LLM Wiki is closer to what Bush actually described.</p>
+
+    <div class="pull">
+      <p>"The part he couldn't solve was who does the maintenance. The LLM handles that. LLMs don't get bored, don't forget to update a cross-reference, and can touch 15 files in one pass. The wiki stays maintained because the cost of maintenance is near zero."</p>
+      <cite>— Andrej Karpathy, LLM Wiki Gist, April 2026</cite>
+    </div>
+
+    <p>Humans abandon wikis because the maintenance burden grows faster than the value. The LLM Wiki inverts this: maintenance is free. The only cost is your attention — sourcing, exploration, asking the right questions. The bookkeeping is handled.</p>
+    <p>Bush had the idea in 1945. It took 81 years to find the person who could do the filing.</p>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">What It Means</span>
+    <h2>Why a folder structure got 16 million views</h2>
+
+    <p>The number is worth sitting with. 16 million views for a description of a directory layout. That is not a viral product launch. That is not a breakthrough paper. It is engineers recognising a problem they have been working around for a long time, and seeing someone with Karpathy's standing in the research community name it precisely.</p>
+    <p>The question is what they recognised. Technically, it is the stateless problem in AI knowledge tools — every session starting from zero, nothing accumulating. But that technical recognition sits inside something larger.</p>
+    <p>Karpathy's framing of what he's actually doing: "A large fraction of my recent token throughput is going less into manipulating code, and more into manipulating knowledge structures." The shift he's describing is from AI as a tool for producing outputs to AI as a collaborator in building understanding. Not generating. Compounding.</p>
+    <p>The engineers who starred the Gist, forked it within days, built their own versions — they weren't just impressed by the architecture. They were recognising a mode of working that feels different from everything before it. A mode where the AI doesn't just answer and forget. It builds alongside you.</p>
+    <p>Karpathy's gist ends with a deliberate instruction: "The right way to use this is to share it with your LLM agent and work together to instantiate a version that fits your needs. The document's only job is to communicate the pattern. Your LLM can figure out the rest."</p>
+    <p>Don't wait for someone to build the perfect tool. Copy the idea. Give it to your agent. Start with one topic and 10 sources. The LLM builds the structure. You provide the questions.</p>
+  </div>
+
+  <div class="personal-section">
+    <span class="personal-label">A personal note — the citizen developer's read</span>
+    <h2>I read Karpathy's Gist in April 2026. Starred it. Felt something shift. Did nothing with it for six months.</h2>
+    <p>That is probably the most honest thing I can say about how most practitioners engage with ideas like this. We recognise them. We file them under "important." We keep building the way we have always built.</p>
+    <p>I am an insurance professional who builds automation systems with AI. Not an engineer. A citizen developer — someone who brings 25 years of domain depth and a real problem, with no formal engineering background. The AI handles the technical vocabulary. I handle knowing what the problem actually is.</p>
+    <p>What Karpathy described is built for engineers — people who live in markdown, GitHub Gists, and directory structures. But the underlying idea is not about engineering at all. It is about knowledge that compounds instead of evaporates. And that problem belongs to everyone who builds with AI, not just people who can configure a CLAUDE.md schema from memory.</p>
+    <p>So here is what I am going to do — starting now, not in the next six months.</p>
+    <p>For my insurance domain: a wiki. Every IRDAI regulation I have had to re-explain to Claude across twenty different projects gets compiled once. Every claims pattern, every product structure, every underwriting rule I have described in session after session — filed, maintained, compounded. The domain expertise I have spent 25 years building should not be re-explained to an AI every time I start a new session. It should live somewhere that gets richer every time I use it.</p>
+    <p>For my builds: the Pre-Build Method already handles the thinking discipline. The LLM Wiki handles the domain knowledge underneath it. They are not the same thing. They are complementary. One structures how I think about a specific build. The other structures everything I know about the domain I build in. <em>(For how I structure the thinking before any build, see the Pre-Build Method — a separate article on this site.)</em></p>
+    <p>The citizen developer's advantage over the engineer is domain depth. The citizen developer's disadvantage is that this depth lives entirely in their head — re-explained, session by session, to an AI that forgets. Karpathy's idea solves exactly that problem. The engineer read the Gist and saw a knowledge management architecture. I read it and saw six months of domain knowledge that could have been compounding instead of evaporating.</p>
+    <p>That is what I am fixing now.</p>
+  </div>
+
+</div>
+
+<div class="closing">
+  <div class="closing-inner">
+    <h2>"The document's only job is to communicate the pattern. Your LLM can figure out the rest."</h2>
+    <p>Karpathy posted a folder structure. 16 million people felt something shift. The structure was never the point.</p>
+    <p>The point was naming a mode of working that makes AI a collaborator in building understanding — not a tool for generating outputs that evaporate at the end of the session.</p>
+    <p>Bush had the idea in 1945. The LLM handles the filing now.</p>
+    <span class="closing-line">Start with one topic and 10 sources. Let the wiki build itself.</span>
+  </div>
+</div>
+
+<div class="site-footer">
+  <div>
+    <div class="footer-name">HR Srinivas</div>
+    <div class="footer-tagline">Curious about most things. Certain about very few. Writing it out loud — with AI.</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://x.com/HRSrinivas" target="_blank" rel="noopener">X @HRSrinivas</a>
+    <a href="https://github.com/hrsrini/srinivas-writes" target="_blank" rel="noopener">GitHub</a>
+    <a href="../about.html">About</a>
+  </div>
+</div>
+
+<div class="footnote">
+  <strong>Sources:</strong> Andrej Karpathy, original tweet "LLM Knowledge Bases" (April 2, 2026) and "idea file" GitHub Gist llm-wiki.md (April 4, 2026) at gist.github.com/karpathy/442a6bf555914893e9891c11519de94f. View counts and star data from Agentpedia Codes, remio.ai, and multiple contemporaneous reports (April 2026). Vannevar Bush, "As We May Think," The Atlantic, July 1945. The Memex genealogy (Engelbart → Nelson → Berners-Lee) is standard intellectual history documented in multiple sources. qmd search engine by Tobi Lutke (github.com/tobi/qmd). All Karpathy quotations are from the published Gist; reproduced here under fair use for commentary and education. The personal note in this article is the author's own reflection and makes no claim to have implemented the LLM Wiki pattern as Karpathy defined it architecturally.
+  <br><br>
+  <strong>Note:</strong> This article was researched and written with Claude (Anthropic) as a research collaborator. The Karpathy Gist content was fetched from primary sources and quoted with attribution. The personal reflection is the author's own.
+</div>
+
+</body>
+</html>

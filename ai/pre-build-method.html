@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pre-Build Method — HR Srinivas</title>
+<meta name="description" content="Every failed build has the same root cause: someone started coding before they finished thinking. Nine stages. One document per stage. No code until the thinking is done.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #1A1A1A;
+    --ink-mid:    #444444;
+    --ink-light:  #777777;
+    --paper:      #FAFAF8;
+    --rule:       #DEDEDA;
+    --navy:       #1e3a5f;
+    --navy-pale:  #eff4fb;
+    --navy-mid:   #2d5fa0;
+    --navy-light: #93b8e8;
+    --orange:     #c2410c;
+    --orange-pale:#fff7ed;
+    --white:      #ffffff;
+    --green:      #15803d;
+  }
+
+  html { font-size: 17px; }
+
+  body {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.75;
+  }
+
+  .breadcrumb {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1.25rem 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+  }
+  .breadcrumb a { color: var(--ink-light); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--navy); }
+  .breadcrumb span { margin: 0 0.4rem; }
+
+  .hero {
+    background: var(--navy);
+    padding: 5rem 2rem 4rem;
+  }
+  .hero-inner { max-width: 800px; margin: 0 auto; }
+  .hero-kicker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--navy-light);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--orange); }
+  .hero-thesis {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--navy-light);
+    line-height: 1.65;
+    max-width: 600px;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #2d4a6a;
+  }
+  .hero-pills {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .hero-pill {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--navy-light);
+    border: 1px solid #2d4a6a;
+    padding: 0.3rem 0.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  .article-meta {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .body-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .body-section {
+    padding: 2.75rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .body-section:last-of-type { border-bottom: none; }
+
+  .section-marker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--navy-mid);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+    color: var(--ink);
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+    max-width: 66ch;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  .pull {
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid var(--navy);
+    background: var(--navy-pale);
+  }
+  .pull p {
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .principles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+  }
+  .principle {
+    padding: 1.5rem;
+    border-right: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .principle:nth-child(even) { border-right: none; }
+  .principle:nth-last-child(-n+2) { border-bottom: none; }
+  .principle-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--navy);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .principle-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+
+  .pipeline {
+    margin: 2.5rem 0;
+    overflow-x: auto;
+  }
+  .pipeline-inner {
+    display: flex;
+    gap: 0;
+    min-width: 600px;
+  }
+  .pipe-stage {
+    flex: 1;
+    border: 1px solid var(--ink);
+    margin-right: -1px;
+    padding: 1rem 0.75rem;
+    background: var(--white);
+  }
+  .pipe-stage.thinking { border-top: 3px solid var(--navy); }
+  .pipe-stage.building { border-top: 3px solid var(--orange); }
+  .pipe-stage.execute  { border-top: 3px solid var(--green); }
+  .pipe-num {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--ink-light);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .pipe-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 0.2rem;
+    line-height: 1.3;
+  }
+  .pipe-q {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    color: var(--ink-light);
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .pipeline-legend {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.75rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.67rem;
+    color: var(--ink-light);
+    flex-wrap: wrap;
+  }
+  .leg-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 0.35rem;
+    vertical-align: middle;
+  }
+
+  .stage-card {
+    border: 1px solid var(--ink);
+    margin: 1.5rem 0;
+    overflow: hidden;
+  }
+  .stage-header {
+    background: var(--navy);
+    padding: 1rem 1.5rem;
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: 1rem;
+    align-items: center;
+  }
+  .stage-num {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--navy-light);
+    line-height: 1;
+    opacity: 0.5;
+  }
+  .stage-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--white);
+    display: block;
+  }
+  .stage-question {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--navy-light);
+    font-style: italic;
+    display: block;
+    margin-top: 0.15rem;
+  }
+  .stage-artefact-tag {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--navy);
+    background: var(--navy-light);
+    padding: 0.2rem 0.5rem;
+    white-space: nowrap;
+  }
+  .stage-body { padding: 1.25rem 1.5rem; }
+  .stage-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--ink-mid);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+    max-width: 100%;
+  }
+  .stage-gate {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 0.75rem 1rem;
+  }
+  .stage-gate-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 0.06em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .stage-gate ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .stage-gate ul li {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    color: var(--ink-mid);
+    padding: 0.2rem 0 0.2rem 1.25rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .stage-gate ul li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-size: 0.7rem;
+  }
+
+  .citizen-section {
+    background: var(--orange-pale);
+    border: 2px solid var(--orange);
+    padding: 2.5rem;
+    margin: 3rem 0 0;
+  }
+  .citizen-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .citizen-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--navy);
+  }
+  .citizen-section p { color: var(--ink-mid); font-size: 0.95rem; }
+
+  .rule-box {
+    background: var(--ink);
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+  .rule-box p {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.5;
+    max-width: 100%;
+    margin: 0;
+  }
+  .rule-box p em { color: var(--orange); font-style: normal; }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+  }
+  .how-cell {
+    padding: 1.5rem 1.25rem;
+    border-right: 1px solid var(--ink);
+  }
+  .how-cell:last-child { border-right: none; }
+  .how-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--navy);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .how-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+
+  .closing {
+    background: var(--navy);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .closing-inner { max-width: 620px; margin: 0 auto; }
+  .closing h2 {
+    font-family: 'IBM Plex Serif', serif;
+    color: var(--white);
+    font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1.25rem;
+  }
+  .closing p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--navy-light);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 0.75rem;
+  }
+  .closing-line {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--orange);
+    margin-top: 1.5rem;
+    display: block;
+  }
+
+  .site-footer {
+    border-top: 1px solid var(--rule);
+    padding: 2rem;
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-name {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .footer-tagline {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    color: var(--ink-light);
+    margin-top: 0.2rem;
+  }
+  .footer-links {
+    display: flex;
+    gap: 1.25rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+  }
+  .footer-links a { color: var(--ink-light); text-decoration: none; }
+  .footer-links a:hover { color: var(--navy); }
+
+  .footnote {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 3rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.67rem;
+    color: var(--ink-light);
+    line-height: 1.7;
+    border-top: 1px solid var(--rule);
+  }
+
+  @media (max-width: 640px) {
+    html { font-size: 15px; }
+    .principles { grid-template-columns: 1fr; }
+    .principle { border-right: none; }
+    .principle:nth-last-child(-n+2) { border-bottom: 1px solid var(--ink); }
+    .principle:last-child { border-bottom: none; }
+    .how-grid { grid-template-columns: 1fr; }
+    .how-cell { border-right: none; border-bottom: 1px solid var(--ink); }
+    .how-cell:last-child { border-bottom: none; }
+    .stage-header { grid-template-columns: 2.5rem 1fr; }
+    .stage-artefact-tag { display: none; }
+    .site-footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<script src="../assets/nav.js"></script>
+
+<div class="breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>→</span>
+  <a href="index.html">Artificial Intelligence</a>
+  <span>→</span>
+  The Pre-Build Method
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-kicker">Artificial Intelligence · How I Build · Methodology</span>
+    <h1>The Pre-Build <em>Method</em></h1>
+    <div class="hero-pills">
+      <span class="hero-pill">Nine stages</span>
+      <span class="hero-pill">One document per stage</span>
+      <span class="hero-pill">No code until the thinking is done</span>
+    </div>
+    <p class="hero-thesis">Every failed build has the same root cause: someone started coding before they finished thinking. This method makes the thinking explicit, sequential, and documented — so the build is execution, not exploration.</p>
+  </div>
+</div>
+
+<div class="article-meta">
+  <span>HR Srinivas</span>
+  <span>September 2026</span>
+  <span>Artificial Intelligence</span>
+  <span>Methodology</span>
+  <span>12 min read</span>
+</div>
+
+<div class="body-wrap">
+
+  <div class="body-section">
+    <span class="section-marker">The Thesis</span>
+    <h2>Code is the cheapest part. Clarity is the expensive part.</h2>
+
+    <p>I build automation systems and intelligent workflows using AI — Google Workspace, Apps Script, Copilot Studio, Claude API. No formal engineering background. What I have is 25 years of domain depth and a method that separates thinking from building so cleanly that by the time I write the first line of code, every decision has already been made.</p>
+    <p>The method produces nine artefacts. Each one exists because the previous one surfaced a question that needed answering. Skip a stage and the next stage is built on assumptions instead of decisions. The sequence matters.</p>
+    <p>Every hour spent in pre-build saves five in rework. I know this not from theory but from the builds where I skipped stages and paid for it later — in code that had to be thrown away, in features that didn't fit, in UX that made sense on paper and fell apart the moment someone tried to use it.</p>
+
+    <div class="pull">
+      <p>"The build should be execution, not exploration. Every decision was made in Stages 1–8. Stage 9 is where you type, not where you think."</p>
+    </div>
+
+    <div class="principles">
+      <div class="principle">
+        <span class="principle-name">Think First, Build Last</span>
+        <span class="principle-desc">Code is the cheapest part. Clarity is the expensive part. Every hour spent in pre-build saves five in rework.</span>
+      </div>
+      <div class="principle">
+        <span class="principle-name">One Document Per Stage</span>
+        <span class="principle-desc">Each stage produces exactly one artefact. If you can't fit it in one document, the thinking isn't clear enough yet.</span>
+      </div>
+      <div class="principle">
+        <span class="principle-name">Exit Gates, Not Deadlines</span>
+        <span class="principle-desc">You don't move forward when time runs out. You move forward when the exit gate is satisfied. Quality over speed.</span>
+      </div>
+      <div class="principle">
+        <span class="principle-name">Rinse and Repeat</span>
+        <span class="principle-desc">The method is the same whether you're building a compliance engine, a CRM module, or a customer portal. The domain changes. The process doesn't.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">The Nine Stages</span>
+    <h2>Each stage answers one question. If the answer is "not yet" — that's the stage you're in.</h2>
+
+    <div class="pipeline">
+      <div class="pipeline-inner">
+        <div class="pipe-stage thinking">
+          <span class="pipe-num">01</span>
+          <span class="pipe-name">Genesis</span>
+          <span class="pipe-q">What if...</span>
+        </div>
+        <div class="pipe-stage thinking">
+          <span class="pipe-num">02</span>
+          <span class="pipe-name">Iteration</span>
+          <span class="pipe-q">What exactly...</span>
+        </div>
+        <div class="pipe-stage thinking">
+          <span class="pipe-num">03</span>
+          <span class="pipe-name">Scope</span>
+          <span class="pipe-q">What's in, what's out</span>
+        </div>
+        <div class="pipe-stage thinking">
+          <span class="pipe-num">04</span>
+          <span class="pipe-name">Detail Fill</span>
+          <span class="pipe-q">Every detail</span>
+        </div>
+        <div class="pipe-stage thinking">
+          <span class="pipe-num">05</span>
+          <span class="pipe-name">Requirements</span>
+          <span class="pipe-q">Specify everything</span>
+        </div>
+        <div class="pipe-stage building">
+          <span class="pipe-num">06</span>
+          <span class="pipe-name">Prototype</span>
+          <span class="pipe-q">Make it visible</span>
+        </div>
+        <div class="pipe-stage building">
+          <span class="pipe-num">07</span>
+          <span class="pipe-name">UX Deep Dive</span>
+          <span class="pipe-q">Walk every path</span>
+        </div>
+        <div class="pipe-stage building">
+          <span class="pipe-num">08</span>
+          <span class="pipe-name">Build Doc</span>
+          <span class="pipe-q">Build-ready brief</span>
+        </div>
+        <div class="pipe-stage execute">
+          <span class="pipe-num">09</span>
+          <span class="pipe-name">Build</span>
+          <span class="pipe-q">Code it</span>
+        </div>
+      </div>
+      <div class="pipeline-legend">
+        <span><span class="leg-dot" style="background:var(--navy)"></span>Thinking stages (1–5) — Claude Chat</span>
+        <span><span class="leg-dot" style="background:var(--orange)"></span>Visualisation stages (6–8) — HTML + docs</span>
+        <span><span class="leg-dot" style="background:var(--green)"></span>Execution stage (9) — Claude Code</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">The Stages In Detail</span>
+    <h2>Nine stages. Nine artefacts. One working application.</h2>
+
+    <div class="stage-card">
+      <div class="stage-header">
+        <span class="stage-num">01</span>
+        <div>
+          <span class="stage-name">Genesis</span>
+          <span class="stage-question">What's the idea and why does it matter?</span>
+        </div>
+        <span class="stage-artefact-tag">Idea note</span>
+      </div>
+      <div class="stage-body">
+        <p class="stage-desc">The spark. The raw idea before anyone tries to make it sensible. Write it in plain language. What's the problem? Who has it? What would "solved" look like from their perspective? Don't research. Don't design. Just articulate. The only job is to capture it honestly — before the inner editor cleans it up, before feasibility enters the picture.</p>
+        <div class="stage-gate">
+          <span class="stage-gate-label">Exit Gate</span>
+          <ul>
+            <li>The idea is written down in plain language</li>
+            <li>You can explain it to someone in under two minutes</li>
+            <li>The problem is clear even if the solution isn't</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-header">
+        <span class="stage-num">02</span>
+        <div>
+          <span class="stage-name">Iteration</span>
+          <span class="stage-question">What does this actually look like when fleshed out?</span>
+        </div>
+        <span class="stage-artefact-tag">Evolved concept doc</span>
+      </div>
+      <div class="stage-body">
+        <p class="stage-desc">Take the genesis note and have a conversation with it. This is the back-and-forth stage — you and Claude going through rounds of "but what about..." and "how would that work when...". The idea evolves here. Features appear. Constraints emerge. The user becomes real — not abstract. Don't lock anything down yet. Explore every branch before you prune.</p>
+        <div class="stage-gate">
+          <span class="stage-gate-label">Exit Gate</span>
+          <ul>
+            <li>The concept is fleshed out enough to debate specifics</li>
+            <li>User types are identified with distinct needs</li>
+            <li>Key features are listed — not detailed, listed</li>
+            <li>Open questions are flagged, not buried</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-header">
+        <span class="stage-num">03</span>
+        <div>
+          <span class="stage-name">Scope &amp; Structure</span>
+          <span class="stage-question">What's in, what's out, and how does it hang together?</span>
+        </div>
+        <span class="stage-artefact-tag">Scope document</span>
+      </div>
+      <div class="stage-body">
+        <p class="stage-desc">This is the convergence stage. The iteration gave you breadth — now you define edges. What modules exist? How do they relate? What's Phase 1 vs Phase 2? What gets cut entirely? Think of it as the table of contents for everything that follows. Every module is named. Every data flow identified. The boundary between "ours" and "theirs" is drawn. This is also where you make the hard priority calls — everything can't be Phase 1.</p>
+        <div class="stage-gate">
+          <span class="stage-gate-label">Exit Gate</span>
+          <ul>
+            <li>Every module is named and its responsibility is clear</li>
+            <li>The module relationship map exists</li>
+            <li>Phase 1 scope is explicitly defined</li>
+            <li>Out-of-scope items are listed, not just implied</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-header">
+        <span class="stage-num">04</span>
+        <div>
+          <span class="stage-name">Detail Fill</span>
+          <span class="stage-question">What happens inside every module, every flow, every edge case?</span>
+        </div>
+        <span class="stage-artefact-tag">Feature specs</span>
+      </div>
+      <div class="stage-body">
+        <p class="stage-desc">You have the skeleton from Stage 3. Now put flesh on the bones. Take each module and describe exactly what happens inside it — every user action, every system response, every conditional path, every error state. This is where "the user can manage policies" becomes a paragraph of precise behaviour. Work module by module. No hand-waving. No "the system handles this."</p>
+        <div class="stage-gate">
+          <span class="stage-gate-label">Exit Gate</span>
+          <ul>
+            <li>Every module has a detailed specification</li>
+            <li>Every user flow is documented step-by-step</li>
+            <li>Edge cases and error states are covered</li>
+            <li>Business rules are explicit, not implied</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-header">
+        <span class="stage-num">05</span>
+        <div>
+          <span class="stage-name">Requirements Document</span>
+          <span class="stage-question">Is every requirement captured at granular, build-ready detail?</span>
+        </div>
+        <span class="stage-artefact-tag">Requirements spec</span>
+      </div>
+      <div class="stage-body">
+        <p class="stage-desc">Stages 1–4 were exploratory. This stage is definitive. Take everything from the previous stages and compress it into a single, comprehensive requirements document that reads like a contract between the thinker and the builder. The discipline: if something isn't in this document, it doesn't get built. If it's ambiguous in this document, it gets built wrong. This is the single source of truth.</p>
+        <div class="stage-gate">
+          <span class="stage-gate-label">Exit Gate</span>
+          <ul>
+            <li>The document is self-contained — no external references needed</li>
+            <li>Every requirement is specific enough to test against</li>
+            <li>A developer reading only this document would know what to build</li>
+            <li>Ambiguities have been resolved, not deferred</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-header">
+        <span class="stage-num">06</span>
+        <div>
+          <span class="stage-name">HTML Prototype</span>
+          <span class="stage-question">Can I see and click through what I'm building?</span>
+        </div>
+        <span class="stage-artefact-tag">Interactive prototype</span>
+      </div>
+      <div class="stage-body">
+        <p class="stage-desc">Words lie. Screens don't. Build an interactive HTML/CSS prototype — not a wireframe, not a sketch, but a clickable representation of every screen, every state, every interaction. Build it in Claude as an HTML artifact. Use real labels, real data shapes, real navigation. The goal is to experience the application before investing in building it. This prototype surfaces questions that words never could.</p>
+        <div class="stage-gate">
+          <span class="stage-gate-label">Exit Gate</span>
+          <ul>
+            <li>Every screen from the requirements document is prototyped</li>
+            <li>Major user flows are clickable end-to-end</li>
+            <li>Discoveries from the prototype are fed back into the requirements</li>
+            <li>Stakeholders have "walked" the app</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-header">
+        <span class="stage-num">07</span>
+        <div>
+          <span class="stage-name">UX Deep Dive</span>
+          <span class="stage-question">Have I walked every user journey, every screen, every interaction?</span>
+        </div>
+        <span class="stage-artefact-tag">UX walkthrough doc</span>
+      </div>
+      <div class="stage-body">
+        <p class="stage-desc">The prototype shows what the application looks like. The UX deep dive documents what it feels like to use. Take each user type. Walk through their entire journey — from first login to daily use to edge-case scenarios. Document what they see, what they do, what the system responds with. Note where the experience is smooth and where it's rough. This is also where accessibility, responsiveness, and performance expectations are documented.</p>
+        <div class="stage-gate">
+          <span class="stage-gate-label">Exit Gate</span>
+          <ul>
+            <li>Every user type has a documented journey</li>
+            <li>Interaction patterns are explicit and consistent</li>
+            <li>The prototype has been updated with UX findings</li>
+            <li>No screen exists without a documented purpose and flow</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-header">
+        <span class="stage-num">08</span>
+        <div>
+          <span class="stage-name">Build Document</span>
+          <span class="stage-question">Can a developer — or AI agent — build this without asking questions?</span>
+        </div>
+        <span class="stage-artefact-tag">Build playbook</span>
+      </div>
+      <div class="stage-body">
+        <p class="stage-desc">The translation layer — where everything from Stages 1–7 gets compressed into a single technical brief. Technology stack with rationale. Database schema — every table, field, relationship, index. Folder structure. API design. Authentication model. Deployment target. Third-party services. Phased build plan with verification gates. For AI-assisted builds using Claude Code, this document IS the prompt. If the agent has to guess, the document failed.</p>
+        <div class="stage-gate">
+          <span class="stage-gate-label">Exit Gate</span>
+          <ul>
+            <li>The document is self-contained — all technical decisions are made</li>
+            <li>Database schema is complete — no TBD fields</li>
+            <li>Build phases are defined with explicit deliverables per phase</li>
+            <li>An AI coding agent given only this document can start building immediately</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-header" style="background:#1A1A1A">
+        <span class="stage-num" style="color:#4ade80;opacity:1">09</span>
+        <div>
+          <span class="stage-name" style="color:#4ade80">Build</span>
+          <span class="stage-question" style="color:#6b7280">Does the running application match the spec?</span>
+        </div>
+        <span class="stage-artefact-tag" style="background:#4ade80;color:#14532d">Working application</span>
+      </div>
+      <div class="stage-body" style="background:#1A1A1A">
+        <p class="stage-desc" style="color:#94a3b8">If Stages 1–8 were done properly, this stage is mechanical. The build document goes into Claude Code. Each phase is executed in order. Each verification gate is checked before moving to the next. The rule: one phase per session. When something discovered during the build contradicts the spec — stop and go back to the document. Don't patch it in code. Fix the spec, then fix the code. The document stays the source of truth even during the build.</p>
+        <div class="stage-gate" style="background:#0f1114;border-color:#2d3748">
+          <span class="stage-gate-label">Exit Gate</span>
+          <ul>
+            <li style="color:#94a3b8">Every phase's verification gate has passed</li>
+            <li style="color:#94a3b8">The running application matches the requirements document</li>
+            <li style="color:#94a3b8">The prototype and the application are recognisably the same thing</li>
+            <li style="color:#94a3b8">No features were added or dropped without a documented decision</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">The One Rule</span>
+    <h2>If you're making architectural decisions during the build, you skipped a stage.</h2>
+
+    <div class="rule-box">
+      <p>Every stage has an exit gate. You don't move forward when time runs out. You move forward when the gate is satisfied. If you find yourself in Stage 6 making decisions that should have been made in Stage 3 — <em>stop, go back, and make them there.</em></p>
+    </div>
+
+    <p>The most commonly skipped stages are Stage 3 (Scope) and Stage 7 (UX Deep Dive). These cause the most pain downstream. Stage 3 because everyone wants to skip from idea to building. Stage 7 because it feels like documentation — but it's actually the last chance to discover UX problems before they're coded into the product.</p>
+
+    <div class="how-grid">
+      <div class="how-cell">
+        <span class="how-title">For a new project</span>
+        <span class="how-desc">Start at Stage 1. One document per stage. Stages 1–4 typically take a few sessions. Stages 5–8 take a few more. The entire pre-build takes days, not weeks — and saves weeks, not days.</span>
+      </div>
+      <div class="how-cell">
+        <span class="how-title">For a project already started</span>
+        <span class="how-desc">Identify which stage you're actually at based on the exit gates. Write the missing documents retroactively. The thinking still needs to happen — it's just more expensive to do it late.</span>
+      </div>
+      <div class="how-cell">
+        <span class="how-title">For a feature within a product</span>
+        <span class="how-desc">The same process at a smaller scale. Genesis is the feature idea. Requirements is the feature spec. The prototype might be a single screen. Scale to scope — but don't skip stages.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="citizen-section">
+    <span class="citizen-label">For the citizen developer</span>
+    <h2>The engineer without domain experience and the domain expert without engineering — this method serves both. Differently.</h2>
+    <p>A software engineer who has never worked in insurance can build an insurance system from a requirements document. The domain expertise is encoded in Stages 1–5. By the time the build document reaches the engineer — or the AI agent — the domain knowledge has been translated into specifications they can execute without needing to understand the underlying problem.</p>
+    <p>A citizen developer — someone with 25 years of domain depth and no formal engineering background — can now build systems that previously required that engineer. The Pre-Build Method is what makes that possible. Not because it replaces engineering knowledge, but because it externalises domain knowledge into a form that AI can execute.</p>
+    <p>The citizen developer's advantage is that Stages 1–5 are trivial — they know the domain, the user, the edge cases, the regulatory constraints, the business rules, intuitively. These stages are hard for the engineer. The citizen developer's challenge is Stages 6–8 — the technical translation. This is where AI does the heavy lifting.</p>
+    <p>The method works because it separates what each party does best. The domain expert thinks. The AI translates. Neither pretends to do the other's job.</p>
+  </div>
+
+</div>
+
+<div class="closing">
+  <div class="closing-inner">
+    <h2>Think first. Document always. Build last.</h2>
+    <p>Nine stages. Nine artefacts. One working application that matches the spec because the spec was worth building from.</p>
+    <p>The build is the easy part — if the thinking was done properly. Code is the cheapest part of any software project. Clarity is what costs.</p>
+    <span class="closing-line">Every hour spent in pre-build saves five in rework.</span>
+  </div>
+</div>
+
+<div class="site-footer">
+  <div>
+    <div class="footer-name">HR Srinivas</div>
+    <div class="footer-tagline">Curious about most things. Certain about very few. Writing it out loud — with AI.</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://x.com/HRSrinivas" target="_blank" rel="noopener">X @HRSrinivas</a>
+    <a href="https://github.com/hrsrini/srinivas-writes" target="_blank" rel="noopener">GitHub</a>
+    <a href="../about.html">About</a>
+  </div>
+</div>
+
+<div class="footnote">
+  <strong>About this method:</strong> The Pre-Build Method is a repeatable nine-stage process developed through building automation systems, CRM modules, compliance engines, and workflow tools across insurance, fintech, and enterprise domains using AI — primarily Claude (Anthropic) for thinking stages and Claude Code for the build stage. It is not a theoretical framework — it is what emerged from repeatedly discovering, through painful experience, which stages cannot be skipped. The methodology is published here as a working document. It is intended to be adapted, not followed rigidly — the exit gates matter more than the stage names. This article was researched and written with Claude (Anthropic) as a writing collaborator.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Someone Already Built It — HR Srinivas</title>
+<meta name="description" content="Your idea doesn't need to be new. Your perspective does. Build it anyway.">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rust:       #9a3412;
+    --rust-pale:  #fff7ed;
+    --rust-mid:   #c2410c;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 6rem 2rem 5rem;
+    text-align: center;
+  }
+  .hero-inner { max-width: 680px; margin: 0 auto; }
+  .hero-kicker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--ink-light);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 2rem;
+  }
+  .hero-statement {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 400;
+    font-style: italic;
+    color: #555;
+    line-height: 1.5;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+  .hero-counter {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(2.8rem, 8vw, 5rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.05;
+    display: block;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-counter em {
+    color: var(--rust-mid);
+    font-style: normal;
+  }
+  .hero-sub {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── META ── */
+  .article-meta {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── BODY ── */
+  .body-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .body-section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .body-section:last-of-type { border-bottom: none; }
+
+  .section-marker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--rust);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+
+  p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--ink);
+    margin-bottom: 1.35rem;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── EXAMPLES ── */
+  .examples {
+    border: 1px solid var(--ink);
+    margin: 2.5rem 0;
+  }
+  .examples-header {
+    background: var(--ink);
+    padding: 0.75rem 1.25rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.04em;
+  }
+  .example-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .example-row:last-child { border-bottom: none; }
+  .example-cell {
+    padding: 1rem 1.25rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.8rem;
+    color: var(--ink-mid);
+    line-height: 1.55;
+    border-right: 1px solid var(--border);
+  }
+  .example-cell:last-child { border-right: none; }
+  .example-cell strong {
+    display: block;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── BIG QUOTE ── */
+  .big-quote {
+    margin: 3rem 0;
+    padding: 2.5rem 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    text-align: center;
+  }
+  .big-quote-text {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-weight: 700;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.35;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .big-quote-attr {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    color: var(--ink-light);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── PERSONAL NOTE ── */
+  .personal-note {
+    background: var(--rust-pale);
+    border-left: 4px solid var(--rust);
+    padding: 1.75rem 2rem;
+    margin: 3rem 0 0;
+  }
+  .personal-note-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--rust);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .personal-note p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--ink-mid);
+    margin-bottom: 0.6rem;
+  }
+  .personal-note p:last-child { margin-bottom: 0; }
+  .personal-note-credit {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    color: var(--rust);
+    margin-top: 0.75rem;
+    display: block;
+    font-style: italic;
+  }
+
+  /* ── CLOSING ── */
+  .closing-line {
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .closing-line p {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ink-light);
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .example-row { grid-template-columns: 1fr; }
+    .example-cell { border-right: none; border-bottom: 1px solid var(--border); }
+    .example-cell:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+<script src="../assets/nav.js"></script>
+
+<nav class="article-breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>→</span>
+  <a href="index.html">Leadership</a>
+  <span>→</span>
+  Someone Already Built It
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-kicker">Leadership · September 2026</span>
+    <span class="hero-statement">"Someone already built it."</span>
+    <span class="hero-counter">So <em>what?</em></span>
+    <p class="hero-sub">Your idea doesn't need to be new. Your perspective does. The history of everything worth building is a history of people who built it anyway.</p>
+  </div>
+</div>
+
+<!-- META -->
+<div class="article-meta">
+  <span>HR Srinivas</span>
+  <span>September 2026</span>
+  <span>Leadership</span>
+  <span>3 min read</span>
+</div>
+
+<!-- BODY -->
+<div class="body-wrap">
+
+  <div class="body-section">
+    <span class="section-marker">The Excuse</span>
+    <h2>It is the most common reason people don't start. And the least honest one.</h2>
+
+    <p>"Someone already built it" is not an observation about the market. It is a story we tell ourselves to make not starting feel reasonable. It is the respectable version of fear.</p>
+
+    <p>Search for any idea you have ever had. You will find it. Someone built it. Someone wrote it. Someone launched it. Someone pitched it. Someone failed at it. Someone succeeded at it. Someone has been doing it for fifteen years and has a newsletter about it.</p>
+
+    <p>And yet. Ford didn't invent the automobile. Jobs didn't invent the personal computer. Zuckerberg didn't invent social networking. Bezos didn't invent e-commerce. Every one of them looked at something that already existed and said: not like this. My version. My perspective. My execution.</p>
+
+    <div class="examples">
+      <div class="examples-header">What "someone already built it" would have stopped</div>
+      <div class="example-row">
+        <div class="example-cell">
+          <strong>THE EXISTING THING</strong>
+          Steam engines existed. Railways existed.
+        </div>
+        <div class="example-cell">
+          <strong>WHAT GOT BUILT ANYWAY</strong>
+          The transcontinental railroad. A continent connected in seven years.
+        </div>
+      </div>
+      <div class="example-row">
+        <div class="example-cell">
+          <strong>THE EXISTING THING</strong>
+          Search engines existed. Yahoo, AltaVista, Excite.
+        </div>
+        <div class="example-cell">
+          <strong>WHAT GOT BUILT ANYWAY</strong>
+          Google. PageRank. The organising of the world's information.
+        </div>
+      </div>
+      <div class="example-row">
+        <div class="example-cell">
+          <strong>THE EXISTING THING</strong>
+          Mobile phones existed. Blackberry dominated.
+        </div>
+        <div class="example-cell">
+          <strong>WHAT GOT BUILT ANYWAY</strong>
+          The iPhone. A computer in every pocket.
+        </div>
+      </div>
+      <div class="example-row">
+        <div class="example-cell">
+          <strong>THE EXISTING THING</strong>
+          Insurance broking existed. Paper-based, manual, slow.
+        </div>
+        <div class="example-cell">
+          <strong>WHAT GOT BUILT ANYWAY</strong>
+          Every automation, every digital workflow, every system that made it faster, cheaper, less dependent on people doing things manually.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body-section">
+    <span class="section-marker">The Real Question</span>
+    <h2>Not "does it exist?" but "does your version of it exist?"</h2>
+
+    <p>There is no idea that hasn't been had before. There is no problem that hasn't been noticed before. There is no market that hasn't been seen before. The question was never originality of idea. It was always originality of perspective, execution, timing, and stubbornness.</p>
+
+    <p>Your version of the thing — the one built from your specific domain, your specific experience, your specific frustration with how it currently works — that version does not exist. It cannot exist until you build it. Nobody else has your 25 years, your clients, your problems, your particular combination of what you know and what you've seen go wrong.</p>
+
+    <p>The idea is common. The perspective is rare. The execution is rarer still. And the willingness to start despite "someone already built it" — that is rarest of all.</p>
+
+    <div class="big-quote">
+      <span class="big-quote-text">"Your idea doesn't need to be new.<br>Your perspective does."</span>
+      <span class="big-quote-attr">— ALEX ANG</span>
+    </div>
+
+    <p>Two sentences. The first removes the pressure of originality. The second restores the responsibility. You don't need a new idea. You need your idea — filtered through everything you know, everything you've seen, everything you've built and broken and rebuilt. That version is original by definition. Nobody else can make it.</p>
+  </div>
+
+  <!-- PERSONAL NOTE -->
+  <div class="personal-note">
+    <span class="personal-note-label">A personal note</span>
+    <p>Every system I have built in the last two years existed in some form already. Commission management systems existed. Workflow automation existed. AI-assisted document extraction existed. Insurance broker CRMs existed.</p>
+    <p>None of them were built by someone with 25 years of insurance domain depth who also happened to learn how to build with AI. That combination — that perspective — did not exist. So I built my version. The fact that someone had already built something in the same space was not a reason to stop. It was proof the problem was real.</p>
+    <p>Someone already built it. Build it anyway.</p>
+    <span class="personal-note-credit">Original spark: Alex Ang</span>
+  </div>
+
+  <div class="closing-line">
+    <p>The market doesn't reward the first person with the idea. It rewards the person whose version was worth using.</p>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">HR Srinivas</div>
+      <div class="footer-tagline">Curious about most things. Certain about very few. Writing it out loud — with AI.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://x.com/HRSrinivas" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">X / Twitter</span>
+        <span class="footer-link-value">@HRSrinivas</span>
+      </a>
+      <a href="https://bit.ly/4xtO6BV" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">LinkedIn</span>
+        <span class="footer-link-value">HR Srinivas</span>
+      </a>
+      <a href="https://github.com/hrsrini/srinivas-writes" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">GitHub</span>
+        <span class="footer-link-value">hrsrini</span>
+      </a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 HR Srinivas. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

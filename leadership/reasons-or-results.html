@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Someone Already Built It — HR Srinivas</title>
-<meta name="description" content="Your idea doesn't need to be new. Your perspective does. Build it anyway.">
+<title>Reasons or Results — HR Srinivas</title>
+<meta name="description" content="Chuck Yeager said it in nine words. Aseem Dhru said why we forget it. Between the two is the most uncomfortable truth in leadership.">
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -15,53 +15,41 @@
     --rust-mid:   #c2410c;
   }
 
-  /* ── HERO ── */
+  /* ── HERO — TWO QUOTES SPLIT ── */
   .hero {
     background: var(--ink);
-    padding: 6rem 2rem 5rem;
-    text-align: center;
+    padding: 5rem 2rem;
   }
-  .hero-inner { max-width: 680px; margin: 0 auto; }
-  .hero-kicker {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 500;
-    color: var(--ink-light);
-    letter-spacing: 0.08em;
-    display: block;
-    margin-bottom: 2rem;
-  }
-  .hero-statement {
-    font-family: 'IBM Plex Serif', serif;
-    font-size: clamp(1.4rem, 4vw, 2rem);
-    font-weight: 400;
-    font-style: italic;
-    color: #555;
-    line-height: 1.5;
-    display: block;
-    margin-bottom: 1.5rem;
-  }
-  .hero-counter {
-    font-family: 'IBM Plex Serif', serif;
-    font-size: clamp(2.8rem, 8vw, 5rem);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.05;
-    display: block;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-  }
-  .hero-counter em {
-    color: var(--rust-mid);
-    font-style: normal;
-  }
-  .hero-sub {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 0.95rem;
-    color: #555;
-    line-height: 1.6;
-    max-width: 480px;
+  .hero-inner {
+    max-width: 860px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .hero-quote {
+    padding: 2rem 2.5rem;
+    border-right: 1px solid #333;
+  }
+  .hero-quote:last-child { border-right: none; }
+  .hero-quote-text {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 600;
+    font-style: italic;
+    color: #ffffff;
+    line-height: 1.45;
+    display: block;
+    margin-bottom: 1.25rem;
+  }
+  .hero-quote-attr {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--rust-mid);
+    letter-spacing: 0.06em;
+    display: block;
+    line-height: 1.5;
   }
 
   /* ── META ── */
@@ -119,44 +107,7 @@
   }
   p:last-child { margin-bottom: 0; }
 
-  /* ── EXAMPLES ── */
-  .examples {
-    border: 1px solid var(--ink);
-    margin: 2.5rem 0;
-  }
-  .examples-header {
-    background: var(--ink);
-    padding: 0.75rem 1.25rem;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: #ffffff;
-    letter-spacing: 0.04em;
-  }
-  .example-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-bottom: 1px solid var(--border);
-  }
-  .example-row:last-child { border-bottom: none; }
-  .example-cell {
-    padding: 1rem 1.25rem;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 0.8rem;
-    color: var(--ink-mid);
-    line-height: 1.55;
-    border-right: 1px solid var(--border);
-  }
-  .example-cell:last-child { border-right: none; }
-  .example-cell strong {
-    display: block;
-    color: var(--ink);
-    margin-bottom: 0.2rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.02em;
-  }
-
-  /* ── BIG QUOTE ── */
+  /* ── THE BIG QUOTE ── */
   .big-quote {
     margin: 3rem 0;
     padding: 2.5rem 0;
@@ -166,17 +117,18 @@
   }
   .big-quote-text {
     font-family: 'IBM Plex Serif', serif;
-    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
     font-weight: 700;
     font-style: italic;
     color: var(--ink);
-    line-height: 1.35;
+    line-height: 1.3;
     display: block;
     margin-bottom: 1rem;
   }
   .big-quote-attr {
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
+    font-weight: 500;
     color: var(--ink-light);
     letter-spacing: 0.06em;
   }
@@ -213,7 +165,7 @@
     font-style: italic;
   }
 
-  /* ── CLOSING ── */
+  /* ── CLOSING LINE ── */
   .closing-line {
     padding: 3rem 0;
     text-align: center;
@@ -228,9 +180,9 @@
   }
 
   @media (max-width: 600px) {
-    .example-row { grid-template-columns: 1fr; }
-    .example-cell { border-right: none; border-bottom: 1px solid var(--border); }
-    .example-cell:last-child { border-bottom: none; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-quote { border-right: none; border-bottom: 1px solid #333; }
+    .hero-quote:last-child { border-bottom: none; }
   }
 </style>
 </head>
@@ -242,16 +194,20 @@
   <span>→</span>
   <a href="index.html">Leadership</a>
   <span>→</span>
-  Someone Already Built It
+  Reasons or Results
 </nav>
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <span class="hero-kicker">Leadership · September 2026</span>
-    <span class="hero-statement">"Someone already built it."</span>
-    <span class="hero-counter">So <em>what?</em></span>
-    <p class="hero-sub">Your idea doesn't need to be new. Your perspective does. The history of everything worth building is a history of people who built it anyway.</p>
+    <div class="hero-quote">
+      <span class="hero-quote-text">"At the moment of truth, there are either reasons or results."</span>
+      <span class="hero-quote-attr">GENERAL CHUCK YEAGER<br>First human to break the sound barrier · 1947<br>From: Yeager: An Autobiography, 1986</span>
+    </div>
+    <div class="hero-quote">
+      <span class="hero-quote-text">"We judge others on outcomes and ourselves on efforts."</span>
+      <span class="hero-quote-attr">ASEEM DHRU<br>The uncomfortable corollary<br>That makes Yeager's line complete</span>
+    </div>
   </div>
 </div>
 
@@ -260,96 +216,67 @@
   <span>HR Srinivas</span>
   <span>September 2026</span>
   <span>Leadership</span>
-  <span>3 min read</span>
+  <span>4 min read</span>
 </div>
 
 <!-- BODY -->
 <div class="body-wrap">
 
+  <!-- THE MAN -->
   <div class="body-section">
-    <span class="section-marker">The Excuse</span>
-    <h2>It is the most common reason people don't start. And the least honest one.</h2>
+    <span class="section-marker">The Man Behind The Line</span>
+    <h2>He didn't say this from a podium. He said it from a cockpit.</h2>
 
-    <p>"Someone already built it" is not an observation about the market. It is a story we tell ourselves to make not starting feel reasonable. It is the respectable version of fear.</p>
+    <p>Charles Elwood Yeager grew up in Hamlin, West Virginia, the son of a gas driller. He enlisted in the US Army Air Forces at 18. By the time he was 20 he had been shot down over occupied France, evaded capture, and walked out through the Pyrenees on foot. By the time he was 24 he had become an ace — five confirmed kills in a single mission.</p>
 
-    <p>Search for any idea you have ever had. You will find it. Someone built it. Someone wrote it. Someone launched it. Someone pitched it. Someone failed at it. Someone succeeded at it. Someone has been doing it for fifteen years and has a newsletter about it.</p>
+    <p>On October 12, 1947, two days before the most important flight of his life, Yeager fell off a horse and broke two ribs. He told no one except his wife and a civilian flight surgeon friend. On October 14, he climbed into the Bell X-1 experimental aircraft at 42,000 feet, having used a sawn-off broomstick to lock the cockpit hatch because his injured arm couldn't reach it. Then he pushed the throttle.</p>
 
-    <p>And yet. Ford didn't invent the automobile. Jobs didn't invent the personal computer. Zuckerberg didn't invent social networking. Bezos didn't invent e-commerce. Every one of them looked at something that already existed and said: not like this. My version. My perspective. My execution.</p>
+    <p>The X-1 shook violently approaching Mach 1 — the speed at which many believed the aircraft would disintegrate. Yeager later wrote that just before breakthrough, the cockpit shook the most. Then, suddenly, it stopped. The Mach needle tipped off the scale. The sound barrier was gone.</p>
 
-    <div class="examples">
-      <div class="examples-header">What "someone already built it" would have stopped</div>
-      <div class="example-row">
-        <div class="example-cell">
-          <strong>THE EXISTING THING</strong>
-          Steam engines existed. Railways existed.
-        </div>
-        <div class="example-cell">
-          <strong>WHAT GOT BUILT ANYWAY</strong>
-          The transcontinental railroad. A continent connected in seven years.
-        </div>
-      </div>
-      <div class="example-row">
-        <div class="example-cell">
-          <strong>THE EXISTING THING</strong>
-          Search engines existed. Yahoo, AltaVista, Excite.
-        </div>
-        <div class="example-cell">
-          <strong>WHAT GOT BUILT ANYWAY</strong>
-          Google. PageRank. The organising of the world's information.
-        </div>
-      </div>
-      <div class="example-row">
-        <div class="example-cell">
-          <strong>THE EXISTING THING</strong>
-          Mobile phones existed. Blackberry dominated.
-        </div>
-        <div class="example-cell">
-          <strong>WHAT GOT BUILT ANYWAY</strong>
-          The iPhone. A computer in every pocket.
-        </div>
-      </div>
-      <div class="example-row">
-        <div class="example-cell">
-          <strong>THE EXISTING THING</strong>
-          Insurance broking existed. Paper-based, manual, slow.
-        </div>
-        <div class="example-cell">
-          <strong>WHAT GOT BUILT ANYWAY</strong>
-          Every automation, every digital workflow, every system that made it faster, cheaper, less dependent on people doing things manually.
-        </div>
-      </div>
-    </div>
+    <p>He could have reported the broken ribs. He could have postponed. He had reasons — good ones, legitimate ones, the kind that would have satisfied any review board. He chose results instead.</p>
   </div>
 
+  <!-- THE QUOTE -->
   <div class="body-section">
-    <span class="section-marker">The Real Question</span>
-    <h2>Not "does it exist?" but "does your version of it exist?"</h2>
-
-    <p>There is no idea that hasn't been had before. There is no problem that hasn't been noticed before. There is no market that hasn't been seen before. The question was never originality of idea. It was always originality of perspective, execution, timing, and stubbornness.</p>
-
-    <p>Your version of the thing — the one built from your specific domain, your specific experience, your specific frustration with how it currently works — that version does not exist. It cannot exist until you build it. Nobody else has your 25 years, your clients, your problems, your particular combination of what you know and what you've seen go wrong.</p>
-
-    <p>The idea is common. The perspective is rare. The execution is rarer still. And the willingness to start despite "someone already built it" — that is rarest of all.</p>
+    <span class="section-marker">Nine Words</span>
+    <h2>The quote doesn't comfort you. It strips away the comfort you gave yourself.</h2>
 
     <div class="big-quote">
-      <span class="big-quote-text">"Your idea doesn't need to be new.<br>Your perspective does."</span>
-      <span class="big-quote-attr">— ALEX ANG</span>
+      <span class="big-quote-text">"At the moment of truth, there are either reasons or results."</span>
+      <span class="big-quote-attr">— CHUCK YEAGER</span>
     </div>
 
-    <p>Two sentences. The first removes the pressure of originality. The second restores the responsibility. You don't need a new idea. You need your idea — filtered through everything you know, everything you've seen, everything you've built and broken and rebuilt. That version is original by definition. Nobody else can make it.</p>
+    <p>Notice what the sentence doesn't say. It doesn't say reasons are wrong. It doesn't say effort doesn't matter. It doesn't say circumstances are irrelevant. It says: at the moment of truth, they don't exist. At that precise moment, the only thing that is real is what happened. Or didn't.</p>
+
+    <p>Yeager spent his life in environments where this was literal. A cockpit at 42,000 feet doesn't accept explanations. The sound barrier doesn't grant extensions. The outcome is binary — you broke through or you didn't — and the reasons evaporate the moment the Mach needle moves.</p>
+
+    <p>Most of us will never fly an X-1. But we all have moments of truth. The proposal that didn't get done. The conversation that kept getting postponed. The build that was always one more week away. The decision that stayed unmade until circumstances made it for us. At each of those moments, we had reasons. Good ones. Legitimate ones. The kind that satisfied us completely — because we were the ones judging.</p>
+  </div>
+
+  <!-- THE SYNTHESIS -->
+  <div class="body-section">
+    <span class="section-marker">The Uncomfortable Corollary</span>
+    <h2>Dhru's line is what makes Yeager's land.</h2>
+
+    <p>Aseem Dhru's observation cuts from a different angle: we judge others on outcomes and ourselves on efforts. Not because we are hypocrites — but because we have access to our own reasoning and not to others'. We know why we didn't deliver. We felt the pressure, the competing priorities, the genuine constraints. The effort was real. The intention was sincere.</p>
+
+    <p>But when someone else doesn't deliver — we see only the gap between what was promised and what arrived. We don't have access to their reasoning. So we judge the result. And we are correct to do so. The result is the only thing that was real.</p>
+
+    <p>The uncomfortable truth is that we are applying two different standards simultaneously — a generous one inward and an accurate one outward. And the people who depend on us are applying the accurate one to us too. They don't see the effort. They see the result. Or its absence.</p>
+
+    <p>Yeager and Dhru are describing the same phenomenon from opposite ends. Yeager from the cockpit — what matters at the moment of truth. Dhru from the observation deck — what we notice when we watch others face it. Together they close the loop: the standard you apply to others is the standard being applied to you. Results. Not reasons.</p>
   </div>
 
   <!-- PERSONAL NOTE -->
   <div class="personal-note">
     <span class="personal-note-label">A personal note</span>
-    <p>Every system I have built in the last two years existed in some form already. Commission management systems existed. Workflow automation existed. AI-assisted document extraction existed. Insurance broker CRMs existed.</p>
-    <p>None of them were built by someone with 25 years of insurance domain depth who also happened to learn how to build with AI. That combination — that perspective — did not exist. So I built my version. The fact that someone had already built something in the same space was not a reason to stop. It was proof the problem was real.</p>
-    <p>Someone already built it. Build it anyway.</p>
-    <span class="personal-note-credit">Original spark: Alex Ang</span>
+    <p>I didn't find Yeager first. I found Dhru's line — shared in a post — and it stopped me mid-scroll. We judge others on outcomes and ourselves on efforts. I had been doing exactly this, for longer than I care to admit, and calling it context.</p>
+    <p>Yeager's nine words arrived the same week and completed the thought. There is no context at the moment of truth. There is what happened. Or what didn't. Both lines now sit at the top of my working notes — not as inspiration, but as a standard I am trying to hold myself to.</p>
+    <span class="personal-note-credit">Original spark: Aseem Dhru</span>
   </div>
 
   <div class="closing-line">
-    <p>The market doesn't reward the first person with the idea. It rewards the person whose version was worth using.</p>
+    <p>The reasons were real. The result was not. At the moment of truth, only one of those existed.</p>
   </div>
 
 </div>

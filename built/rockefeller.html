@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John D. Rockefeller — The Man Who Controlled Everything — HR Srinivas</title>
+<meta name="description" content="Rockefeller didn't find oil. He controlled it. By 1880 Standard Oil refined 90% of American oil. He didn't win by being smarter. He won by understanding that the money was never in the resource — it was in the infrastructure that moved it.">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rule:       #DEDEDA;
+    --oil:        #1c1917;
+    --oil-mid:    #57534e;
+    --amber:      #92400e;
+    --amber-pale: #fffbeb;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--oil);
+    padding: 5rem 2rem 4rem;
+  }
+  .hero-inner { max-width: 680px; margin: 0 auto; }
+  .hero-series {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--oil-mid);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .hero-series-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: #78716c;
+    display: block;
+    margin-bottom: 2.5rem;
+    font-style: italic;
+  }
+  .hero h1 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+  .hero-dates {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--oil-mid);
+    display: block;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.04em;
+  }
+  .hero-deck {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: #78716c;
+    line-height: 1.65;
+    max-width: 56ch;
+    border-top: 1px solid #292524;
+    padding-top: 1.5rem;
+  }
+
+  /* ── META ── */
+  .article-meta {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── BODY ── */
+  .body-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .body-section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .body-section:last-of-type { border-bottom: none; }
+
+  .section-marker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--amber);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+
+  p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--ink);
+    margin-bottom: 1.35rem;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    border-left: 2px solid var(--oil);
+    margin: 2.5rem 0;
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+  }
+  .timeline-year {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--oil-mid);
+    padding: 0.85rem 1rem 0.85rem 0;
+    text-align: right;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .timeline-year::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--oil);
+    border-radius: 50%;
+  }
+  .timeline-event {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--ink-mid);
+    padding: 0.85rem 0 0.85rem 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    line-height: 1.55;
+  }
+  .timeline-item:last-child .timeline-year,
+  .timeline-item:last-child .timeline-event { border-bottom: none; }
+  .timeline-event strong { color: var(--ink); }
+
+  /* ── BIG QUOTE ── */
+  .big-quote {
+    margin: 3rem 0;
+    padding: 2.5rem;
+    background: var(--oil);
+    text-align: center;
+  }
+  .big-quote-text {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    font-weight: 600;
+    font-style: italic;
+    color: #ffffff;
+    line-height: 1.4;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .big-quote-attr {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    color: var(--oil-mid);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── STAT ROW ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+  }
+  .stat-box {
+    padding: 1.25rem 1rem;
+    border-right: 1px solid var(--ink);
+    text-align: center;
+  }
+  .stat-box:last-child { border-right: none; }
+  .stat-val {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--ink);
+    display: block;
+    line-height: 1;
+  }
+  .stat-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    color: var(--ink-light);
+    margin-top: 0.4rem;
+    display: block;
+    line-height: 1.5;
+  }
+
+  /* ── COMPARISON ── */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+  }
+  .comp-col { padding: 1.5rem; }
+  .comp-col:first-child { border-right: 1px solid var(--ink); }
+  .comp-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--ink);
+    color: var(--ink);
+  }
+  .comp-col p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--ink-mid);
+    line-height: 1.65;
+    margin-bottom: 0.6rem;
+    max-width: 100%;
+  }
+
+  /* ── FORGOTTEN ── */
+  .forgotten {
+    background: var(--amber-pale);
+    border-left: 4px solid var(--amber);
+    padding: 1.5rem 1.75rem;
+    margin: 2.5rem 0;
+  }
+  .forgotten-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .forgotten p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--ink-mid);
+    margin-bottom: 0.6rem;
+    max-width: 100%;
+  }
+  .forgotten p:last-child { margin-bottom: 0; }
+
+  /* ── LESSON ── */
+  .lesson {
+    border: 2px solid var(--ink);
+    padding: 2rem;
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+  .lesson-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--oil-mid);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .lesson-text {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.45;
+    display: block;
+  }
+
+  /* ── CLOSING ── */
+  .closing-line {
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid var(--rule);
+  }
+  .closing-line p {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ink-light);
+    margin: 0;
+  }
+
+  /* ── SERIES NAV ── */
+  .series-nav {
+    border-top: 2px solid var(--ink);
+    padding: 1.5rem 2rem;
+    max-width: 680px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .series-nav-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+  }
+  .series-nav-title {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--oil);
+    text-decoration: none;
+    display: block;
+  }
+  .series-nav-title:hover { text-decoration: underline; }
+  .series-nav-item:last-child { text-align: right; }
+
+  @media (max-width: 600px) {
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .stat-box:nth-child(2) { border-right: none; }
+    .stat-box:nth-child(3) { border-top: 1px solid var(--ink); grid-column: span 2; }
+    .comparison { grid-template-columns: 1fr; }
+    .comp-col:first-child { border-right: none; border-bottom: 1px solid var(--ink); }
+    .series-nav { grid-template-columns: 1fr; }
+    .series-nav-item:last-child { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<script src="../assets/nav.js"></script>
+
+<nav class="article-breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>→</span>
+  <a href="index.html">Built</a>
+  <span>→</span>
+  John D. Rockefeller
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-series">Built — The Series</span>
+    <span class="hero-series-title">How the world got built. One story at a time.</span>
+    <h1>John D. Rockefeller</h1>
+    <span class="hero-dates">1839 — 1937 · Richford, New York → Cleveland, Ohio → New York</span>
+    <p class="hero-deck">Rockefeller didn't find oil. He controlled it. By 1880 Standard Oil refined 90% of American petroleum. He didn't win by being smarter than his competitors. He won by understanding that the money was never in the resource — it was in the infrastructure that moved it.</p>
+  </div>
+</div>
+
+<!-- META -->
+<div class="article-meta">
+  <span>HR Srinivas</span>
+  <span>September 2026</span>
+  <span>Built</span>
+  <span>8 min read</span>
+</div>
+
+<!-- BODY -->
+<div class="body-wrap">
+
+  <!-- THE BEGINNING -->
+  <div class="body-section">
+    <span class="section-marker">The Beginning</span>
+    <h2>He learned to count before he learned anything else. It stayed with him for 98 years.</h2>
+
+    <p>John Davison Rockefeller was born in 1839 in Richford, New York, to one of the most unusual families in American history. His father, William Avery Rockefeller, was a travelling salesman, a con artist, a bigamist, and occasionally a self-proclaimed cancer healer. He was absent for long stretches and present in ways that were not always welcome. His mother, Eliza, was devoutly religious, deeply disciplined, and the effective head of the household.</p>
+
+    <p>From his mother Rockefeller got his faith — Baptist, fervent, lifelong. From his father he got something less expected: financial education. William Rockefeller lent money to his own children at interest, charged them for everything, and kept meticulous accounts. He said he was training them. He was. John kept a ledger from the age of 16, recording every cent he earned, spent, and gave away. He called it Ledger A. He kept it for the rest of his life.</p>
+
+    <p>At 16, Rockefeller got his first job as an assistant bookkeeper in Cleveland. He earned 50 cents a day. He gave 6% of his first pay to charity. He had never been told to. He had decided it was the right proportion. He maintained charitable giving as a percentage of income — growing as the income grew — for the next eight decades.</p>
+
+    <p>At 20, he started his first business — a small commodities trading firm with a partner. By 23, the Civil War had made Cleveland a hub of oil refining activity. Rockefeller saw it clearly and made his move.</p>
+  </div>
+
+  <!-- THE INSIGHT -->
+  <div class="body-section">
+    <span class="section-marker">The Insight</span>
+    <h2>Everyone was drilling for oil. Rockefeller looked at the chaos and saw something different.</h2>
+
+    <p>The early American oil industry was a disaster of boom and bust. Drillers struck oil and prices collapsed. Wells ran dry and prices spiked. Nobody could plan, nobody could predict, nobody could build a sustainable business on a resource whose supply swung violently from month to month.</p>
+
+    <p>Rockefeller looked at this chaos and saw something almost nobody else did: the problem wasn't finding oil. The problem was refining it and moving it. The driller was at the mercy of the well. The refiner — the person who took crude oil and turned it into kerosene, lubricants, and fuel — controlled something the driller didn't: a process. Processes could be optimised. Costs could be driven down. Scale could be achieved. The refiner who got big enough could negotiate with the railroads. The refiner who controlled the railroads controlled everything.</p>
+
+    <p>In 1870, Rockefeller and his partners incorporated Standard Oil of Ohio with $1 million in capital. He was 31. He then executed one of the most systematic campaigns of market consolidation in business history.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">1839</div>
+        <div class="timeline-event">Born in Richford, New York. Father a travelling con man. Mother deeply religious and disciplined.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1855</div>
+        <div class="timeline-event">First job: assistant bookkeeper, Cleveland. Earns 50 cents a day. Gives 6% to charity immediately.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1859</div>
+        <div class="timeline-event">Starts commodities trading firm. First oil well drilled in Pennsylvania same year.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1870</div>
+        <div class="timeline-event"><strong>Standard Oil of Ohio incorporated.</strong> $1 million capital. Rockefeller 31 years old.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1872</div>
+        <div class="timeline-event">The "Cleveland Massacre" — acquires 22 of 26 Cleveland refineries in 6 weeks.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1880</div>
+        <div class="timeline-event"><strong>Standard Oil controls 90% of US oil refining.</strong> Richest private entity in American history.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1911</div>
+        <div class="timeline-event">US Supreme Court orders Standard Oil broken into 34 companies. Creates even more wealth.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1937</div>
+        <div class="timeline-event">Dies aged 97. Has given away $540 million during his lifetime.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE MACHINE -->
+  <div class="body-section">
+    <span class="section-marker">The Machine</span>
+    <h2>The "Cleveland Massacre" — six weeks that changed everything.</h2>
+
+    <p>In early 1872, Rockefeller moved. In the space of six weeks — a period later called the Cleveland Massacre — Standard Oil acquired 22 of Cleveland's 26 oil refineries. Some were bought willingly, at fair prices. Others were acquired under pressure — Rockefeller made clear that those who didn't sell would face competition from a company with dramatically lower costs, because of his secret railroad rebates, that they could not match. Most sold.</p>
+
+    <p>The railroad rebates were the secret weapon. Rockefeller had negotiated with the railroads to receive a lower rate per barrel than any competitor — a rate so low that it was essentially impossible to compete with Standard Oil on price. The railroads agreed because Standard Oil gave them guaranteed volume. Everyone else paid the listed rate. Standard Oil paid a fraction of it. The playing field was not level. Rockefeller had tilted it.</p>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <span class="stat-val">90%</span>
+        <span class="stat-desc">Share of US oil refining controlled by Standard Oil by 1880.</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-val">$540M</span>
+        <span class="stat-desc">Amount given away during his lifetime. More than Carnegie in absolute terms.</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-val">$400B</span>
+        <span class="stat-desc">Estimated peak net worth in today's terms. The wealthiest private individual in history.</span>
+      </div>
+    </div>
+
+    <p>By 1880 Standard Oil controlled 90% of American oil refining, most of the pipelines, significant portions of the railroad tank car fleet, and substantial interests in retail distribution. It was not a monopoly in the legal sense — it was a trust, a collection of companies nominally separate but all controlled by the same group of shareholders through the Standard Oil Trust arrangement. The distinction was mostly semantic. Standard Oil controlled the American oil industry.</p>
+
+    <p>And then something unexpected happened. The price of kerosene — the main product of oil refining, used by ordinary Americans to light their homes — fell dramatically. In 1865 kerosene cost 58 cents a gallon. By 1900 it cost 8 cents. Standard Oil's efficiency had made light affordable to people who had previously lived in darkness after sunset. The monopolist had delivered a genuine consumer benefit. This is the complication at the heart of the Rockefeller story that the simple narrative of villain ignores.</p>
+  </div>
+
+  <!-- CARNEGIE VS ROCKEFELLER -->
+  <div class="body-section">
+    <span class="section-marker">The Contrast</span>
+    <h2>Carnegie built to give. Rockefeller gave because he had always given — since his first pay cheque at 16.</h2>
+
+    <p>Carnegie and Rockefeller were contemporaries, rivals in wealth, and utterly different in character and method. They are often discussed together as the twin titans of the Gilded Age. The differences are more instructive than the similarities.</p>
+
+    <div class="comparison">
+      <div class="comp-col">
+        <span class="comp-title">Carnegie</span>
+        <p>Built emotionally — driven by the memory of poverty and the library that saved him.</p>
+        <p>Retired at 65. Spent 18 years giving it away consciously and publicly.</p>
+        <p>Built through vertical integration — owned the whole value chain.</p>
+        <p>Wrote about giving. Made it a philosophy. "The Gospel of Wealth."</p>
+        <p>Complicated on labour — the Homestead Strike the unresolved stain.</p>
+      </div>
+      <div class="comp-col">
+        <span class="comp-title">Rockefeller</span>
+        <p>Built analytically — driven by a belief in order, efficiency, and the elimination of waste.</p>
+        <p>Never retired. Giving was built into his system from the first pay cheque.</p>
+        <p>Built through control of infrastructure — owned the pipes, not the wells.</p>
+        <p>Never wrote about giving publicly. Just gave — quietly, systematically, for 80 years.</p>
+        <p>Complicated on competition — the Standard Oil methods changed antitrust law forever.</p>
+      </div>
+    </div>
+
+    <div class="big-quote">
+      <span class="big-quote-text">"I believe the power to make money is a gift from God — to be developed and used to the best of our ability for the good of mankind."</span>
+      <span class="big-quote-attr">— JOHN D. ROCKEFELLER</span>
+    </div>
+  </div>
+
+  <!-- THE BREAKUP -->
+  <div class="body-section">
+    <span class="section-marker">The Breakup</span>
+    <h2>The Supreme Court broke Standard Oil into 34 companies. It made Rockefeller richer.</h2>
+
+    <p>In 1911, after years of antitrust litigation — much of it triggered by Ida Tarbell's devastating investigative series in McClure's Magazine — the US Supreme Court ordered Standard Oil broken up into 34 separate companies. It was presented as a defeat for Rockefeller. It wasn't.</p>
+
+    <p>Rockefeller owned shares in all 34 successor companies. When the breakup happened and each company began trading independently, the combined market value of the 34 companies quickly exceeded the market value of the unified Standard Oil. The breakup unlocked value that the trust structure had obscured. Within three years of the court order, Rockefeller's net worth had more than doubled.</p>
+
+    <p>The 34 successor companies included Standard Oil of New Jersey (which became Exxon), Standard Oil of New York (which became Mobil), Standard Oil of California (which became Chevron), and Standard Oil of Indiana (which became Amoco). The companies that emerged from the breakup of Standard Oil went on to dominate the global oil industry for the next century. Rockefeller had built something so durable that even dismantling it created new empires.</p>
+
+    <div class="forgotten">
+      <span class="forgotten-label">What the history books forget</span>
+      <p>Rockefeller was the most hated businessman in America for most of his adult life. Ida Tarbell's "The History of Standard Oil Company" — published between 1902 and 1904 — is considered the founding document of investigative journalism. It destroyed his public reputation. He was burned in effigy. He received death threats. His security detail was one of the largest in the country.</p>
+      <p>He responded to none of it publicly. He never gave interviews defending himself. He played golf, attended church, gave money to causes he believed in, and waited. He lived to 97. He outlasted all of his critics, most of his competitors, and the Supreme Court order that was supposed to end him. He gave away $540 million — more than Carnegie in absolute terms — mostly without public announcement. He funded the University of Chicago, the Rockefeller Institute for Medical Research (now Rockefeller University), and the General Education Board. The eradication of hookworm disease in the American South was funded entirely by Rockefeller.</p>
+      <p>He is remembered primarily as a monopolist. The hookworm is forgotten.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- LESSON -->
+<div class="body-wrap">
+  <div class="lesson">
+    <span class="lesson-label">The lesson that time kept</span>
+    <span class="lesson-text">"Rockefeller never competed on the resource. He competed on the infrastructure. The oil belonged to whoever drilled it. The money belonged to whoever moved it. Every platform business built in the last thirty years — from Amazon's logistics to Google's advertising pipes — is a variation of the same insight: own the infrastructure, not the content."</span>
+  </div>
+
+  <div class="closing-line">
+    <p>He kept a ledger from age 16 to age 97. Every cent in. Every cent out. Every cent given. He called it discipline. It was actually a philosophy — that money is a tool, not an end, and tools are only worth what you build with them.</p>
+  </div>
+</div>
+
+<!-- SERIES NAV -->
+<div class="series-nav">
+  <div class="series-nav-item">
+    <span class="series-nav-label">← Previous in Built</span>
+    <a href="andrew-carnegie.html" class="series-nav-title">Andrew Carnegie — The Man Who Gave It All Away</a>
+  </div>
+  <div class="series-nav-item">
+    <span class="series-nav-label">Next in Built →</span>
+    <a href="ford.html" class="series-nav-title">Henry Ford — The Man Who Invented the Middle Class</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">HR Srinivas</div>
+      <div class="footer-tagline">Curious about most things. Certain about very few. Writing it out loud — with AI.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://x.com/HRSrinivas" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">X / Twitter</span>
+        <span class="footer-link-value">@HRSrinivas</span>
+      </a>
+      <a href="https://bit.ly/4xtO6BV" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">LinkedIn</span>
+        <span class="footer-link-value">HR Srinivas</span>
+      </a>
+      <a href="https://github.com/hrsrini/srinivas-writes" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">GitHub</span>
+        <span class="footer-link-value">hrsrini</span>
+      </a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 HR Srinivas. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build Your LLM Wiki — A Citizen Developer's Implementation Guide</title>
+<meta name="description" content="Karpathy described the idea. Here is the exact implementation — folder structure, schema file, session prompts, and a domain starter kit for practitioners who build with AI.">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rule:        #DEDEDA;
+    --green:       #166534;
+    --green-pale:  #f0fdf4;
+    --green-mid:   #16a34a;
+    --green-dark:  #14532d;
+    --green-light: #4ade80;
+    --green-soft:  #86efac;
+    --code-bg:     #1e1e2e;
+    --code-text:   #cdd6f4;
+    --code-comment:#6c7086;
+    --code-accent: #89b4fa;
+    --code-green:  #a6e3a1;
+    --code-yellow: #f9e2af;
+    --amber:       #b45309;
+    --amber-pale:  #fffbeb;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--green-dark);
+    padding: 5rem 2rem 3rem;
+  }
+  .hero-inner { max-width: 800px; margin: 0 auto; }
+  .hero-kicker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--green-light);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: 1.25rem;
+  }
+  .hero-sub {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--green-soft);
+    line-height: 1.65;
+    max-width: 580px;
+    margin-bottom: 2rem;
+  }
+  .hero-part {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--green-light);
+    border: 1px solid #1a4731;
+    display: inline-block;
+    padding: 0.3rem 0.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── META ── */
+  .article-meta {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── BODY ── */
+  .body-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .body-section {
+    padding: 2.75rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .body-section:last-of-type { border-bottom: none; }
+
+  .section-marker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+    color: var(--ink);
+  }
+
+  h3 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 2rem 0 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+    max-width: 66ch;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── PULL ── */
+  .pull {
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid var(--green);
+    background: var(--green-pale);
+  }
+  .pull p {
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+    max-width: 100%;
+  }
+
+  /* ── CODE BLOCKS ── */
+  .code-wrap {
+    margin: 1.75rem 0;
+    overflow: hidden;
+    border: 1px solid #313244;
+  }
+  .code-header {
+    background: #181825;
+    padding: 0.6rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .code-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--code-accent);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .code-tag {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.62rem;
+    color: var(--code-comment);
+    letter-spacing: 0.04em;
+  }
+  .code-body {
+    background: var(--code-bg);
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+  }
+  .code-body pre {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--code-text);
+    white-space: pre;
+    margin: 0;
+  }
+  .cc { color: var(--code-comment); }
+  .ca { color: var(--code-accent); }
+  .cg { color: var(--code-green); }
+  .cy { color: var(--code-yellow); }
+
+  /* ── PROMPT BOX ── */
+  .prompt-box {
+    border: 2px solid var(--green);
+    margin: 2rem 0;
+    overflow: hidden;
+  }
+  .prompt-header {
+    background: var(--green);
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .prompt-header-text {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.04em;
+  }
+  .prompt-header-tag {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.62rem;
+    color: var(--green-soft);
+    letter-spacing: 0.04em;
+  }
+  .prompt-body {
+    background: var(--code-bg);
+    padding: 1.5rem;
+    overflow-x: auto;
+  }
+  .prompt-body pre {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.8;
+    color: var(--code-text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+  }
+  .prompt-note {
+    background: var(--green-pale);
+    padding: 0.75rem 1.25rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--green-dark);
+    border-top: 1px solid var(--green);
+    line-height: 1.55;
+  }
+
+  /* ── STEP CARDS ── */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    background: var(--green-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--green-light);
+    padding: 1.25rem 0;
+  }
+  .step-content {
+    padding: 1.25rem 1.5rem;
+  }
+  .step-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+  .step-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+  .step-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    background: var(--code-bg);
+    color: var(--code-green);
+    padding: 0.2rem 0.5rem;
+    margin-top: 0.4rem;
+    display: inline-block;
+  }
+
+  /* ── DOMAIN STARTER ── */
+  .domain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+  }
+  .domain-cell {
+    padding: 1.25rem;
+    border-right: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .domain-cell:nth-child(even) { border-right: none; }
+  .domain-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .domain-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--green);
+    display: block;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .domain-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .domain-items li {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    color: var(--ink-mid);
+    padding: 0.25rem 0 0.25rem 1rem;
+    position: relative;
+    line-height: 1.45;
+    border-bottom: 1px solid var(--rule);
+  }
+  .domain-items li:last-child { border-bottom: none; }
+  .domain-items li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    top: 0.28rem;
+    color: var(--green);
+    font-size: 0.7rem;
+    line-height: 1;
+  }
+
+  /* ── OPERATIONS ── */
+  .ops {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+  }
+  .op {
+    padding: 1.25rem;
+    border-right: 1px solid var(--ink);
+  }
+  .op:last-child { border-right: none; }
+  .op-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--green);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .op-trigger {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--code-comment);
+    display: block;
+    margin-bottom: 0.75rem;
+    background: var(--code-bg);
+    padding: 0.2rem 0.4rem;
+  }
+  .op-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+
+  /* ── WARNING BOX ── */
+  .warning {
+    border: 1px solid var(--amber);
+    background: var(--amber-pale);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+  }
+  .warning-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .warning p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .warning p:last-child { margin-bottom: 0; }
+
+  /* ── CLOSING ── */
+  .closing {
+    background: var(--ink);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .closing-inner { max-width: 620px; margin: 0 auto; }
+  .closing h2 {
+    font-family: 'IBM Plex Serif', serif;
+    color: #ffffff;
+    font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.35;
+    margin-bottom: 1.25rem;
+  }
+  .closing p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #888;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 0.75rem;
+  }
+  .closing-line {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--green-light);
+    margin-top: 1.5rem;
+    display: block;
+  }
+
+  /* ── SERIES ── */
+  .series-strip {
+    border-top: 2px solid var(--ink);
+    padding: 2rem;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .series-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .series-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .series-link {
+    border: 1px solid var(--rule);
+    padding: 1rem;
+    text-decoration: none;
+    display: block;
+  }
+  .series-link:hover { border-color: var(--green); }
+  .series-link-num {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    color: var(--green);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .series-link-title {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.35;
+    display: block;
+  }
+
+  /* ── FOOTNOTE ── */
+  .footnote {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 3rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.67rem;
+    color: var(--ink-light);
+    line-height: 1.7;
+    border-top: 1px solid var(--rule);
+  }
+
+  @media (max-width: 640px) {
+    .domain-grid { grid-template-columns: 1fr; }
+    .domain-cell { border-right: none; }
+    .domain-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--ink); }
+    .domain-cell:last-child { border-bottom: none; }
+    .ops { grid-template-columns: 1fr; }
+    .op { border-right: none; border-bottom: 1px solid var(--ink); }
+    .op:last-child { border-bottom: none; }
+    .series-links { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<script src="../assets/nav.js"></script>
+
+<nav class="article-breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>→</span>
+  <a href="index.html">Artificial Intelligence</a>
+  <span>→</span>
+  Build Your LLM Wiki
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-kicker">Artificial Intelligence · Implementation Guide · Citizen Developer</span>
+    <h1>Build Your LLM Wiki — The Implementation</h1>
+    <p class="hero-sub">Karpathy described the idea. This is the exact implementation — the folder structure, the schema file, the session prompts, and a domain starter kit for practitioners who build with AI and can't afford to re-explain their domain every time they open a new session.</p>
+    <span class="hero-part">Part II — Read Part I first: 16 Million Views for a Folder Structure</span>
+  </div>
+</div>
+
+<!-- META -->
+<div class="article-meta">
+  <span>HR Srinivas</span>
+  <span>September 2026</span>
+  <span>Artificial Intelligence</span>
+  <span>Implementation guide</span>
+  <span>15 min read</span>
+</div>
+
+<!-- BODY -->
+<div class="body-wrap">
+
+  <!-- WHY -->
+  <div class="body-section">
+    <span class="section-marker">Why You Need This</span>
+    <h2>Every session you start without a wiki is a session where your domain expertise starts from zero.</h2>
+
+    <p>If you have spent years in your field — insurance, legal, finance, healthcare, manufacturing, logistics — and are now building with AI, you have the same problem I had for two years without naming it.</p>
+    <p>Every time you open a new Claude session you re-explain the same things. If you work in insurance: IRDAI regulations, how commission structures work, what a bordereaux is, the difference between co-insurance and co-share. If you work in finance or accounting: the treatment of deferred tax, how a specific section of the Income Tax Act applies, how your client's holding structure affects their capital gains position, the particular way your firm classifies provisions.</p>
+    <p>You have explained all of this dozens of times. Each time from scratch. Each time to an AI that forgets the moment the session closes.</p>
+    <p>The LLM Wiki solves this. Your domain expertise — 25 years of it, or 10, or 5 — gets compiled once into a structured knowledge base that an AI agent builds and maintains. Every session starts from where the last one left off. Your knowledge compounds instead of evaporating.</p>
+
+    <div class="pull">
+      <p>"The domain expertise I have spent 25 years building should not be re-explained to an AI every time I start a new session. It should live somewhere that gets richer every time I use it."</p>
+    </div>
+
+    <div class="warning">
+      <span class="warning-label">Before you start — one honest note</span>
+      <p>This implementation requires a laptop and a text editor. The folder structure lives on your machine. You manage it through Claude sessions. There is no app to install, no SaaS to subscribe to, no complex setup. But it does require you to maintain a folder on your computer and commit to a habit.</p>
+      <p>If you start and abandon it, you get nothing. If you use it consistently — even one ingest session per week — it compounds into something genuinely valuable within a month.</p>
+    </div>
+  </div>
+
+  <!-- THE STRUCTURE -->
+  <div class="body-section">
+    <span class="section-marker">The Structure</span>
+    <h2>Three layers. You own one. Claude owns one. They share one.</h2>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-label">your-wiki/</span>
+        <span class="code-tag">complete folder structure</span>
+      </div>
+      <div class="code-body">
+        <pre>
+your-wiki/
+│
+├── <cg>CLAUDE.md</cg>                  <cc># The schema — Claude reads this first, every session</cc>
+│
+├── <ca>raw/</ca>                        <cc># Layer 1: YOUR sources. Never modified by Claude.</cc>
+│   ├── <ca>insurance/</ca>              <cc># IRDAI circulars, product docs, regulatory notes</cc>
+│   ├── <ca>ai-builds/</ca>             <cc># Patterns, learnings, architecture notes</cc>
+│   ├── <ca>india-economy/</ca>         <cc># RBI bulletins, MoSPI data, research papers</cc>
+│   ├── <ca>leadership/</ca>            <cc># Articles, books, observations</cc>
+│   └── <ca>startups/</ca>             <cc># Market research, competitor notes</cc>
+│
+└── <cg>wiki/</cg>                       <cc># Layer 2: Claude owns this entirely. You read it.</cc>
+    ├── <cy>index.md</cy>               <cc># Master catalog — Claude reads this first on every query</cc>
+    ├── <cy>log.md</cy>                 <cc># Append-only activity record — never delete entries</cc>
+    ├── <cy>overview.md</cy>            <cc># High-level synthesis of everything in the wiki</cc>
+    │
+    ├── <cy>concepts/</cy>              <cc># Topic pages: IRDAI, KV cache, commission structures...</cc>
+    ├── <cy>entities/</cy>              <cc># People, organisations, products, regulators</cc>
+    ├── <cy>sources/</cy>               <cc># One page per ingested document</cc>
+    ├── <cy>builds/</cy>                <cc># One page per active build project</cc>
+    └── <cy>comparisons/</cy>           <cc># Filed from good query sessions</cc>
+        </pre>
+      </div>
+    </div>
+
+    <h3>Layer 1 — raw/ (you own this)</h3>
+    <p>Your curated source documents. PDFs, markdown files, text notes, regulatory circulars, product manuals, anything you want Claude to learn from. These are sacred — Claude reads from them but never touches them. This is your ground truth. When a source becomes outdated, you replace it here.</p>
+
+    <h3>Layer 2 — wiki/ (Claude owns this)</h3>
+    <p>A directory of interconnected markdown files. Claude creates and maintains every file in here. You read it. You never write to it directly. When Claude ingests a source from raw/, it creates a summary page in wiki/sources/, updates the relevant concept and entity pages, and logs the activity in wiki/log.md. The wiki grows with every session.</p>
+
+    <h3>CLAUDE.md (the shared schema)</h3>
+    <p>A document that tells Claude how the wiki is structured and what rules to follow across every session. Without it, Claude is a chatbot with file access. With it, Claude becomes a disciplined wiki maintainer that follows consistent conventions whether the session is today or three months from now. You and Claude co-evolve this file over time.</p>
+  </div>
+
+  <!-- THE PROMPT -->
+  <div class="body-section">
+    <span class="section-marker">The Implementation Prompt</span>
+    <h2>Copy this. Paste it into a new Claude session. Fill in the bracketed parts. Run it.</h2>
+
+    <p>This is a complete, ready-to-use prompt. Customise the bracketed sections for your domain and active projects. Everything else can be used as written.</p>
+
+    <div class="prompt-box">
+      <div class="prompt-header">
+        <span class="prompt-header-text">IMPLEMENTATION PROMPT — paste into a new Claude session</span>
+        <span class="prompt-header-tag">copy exactly</span>
+      </div>
+      <div class="prompt-body">
+        <pre>
+I want to build my LLM Wiki — a persistent knowledge base
+that you build and maintain across sessions so my domain
+expertise compounds instead of evaporating.
+
+MY DOMAIN AND CONTEXT:
+[Replace this with your background — your industry, your
+years of experience, the specific domain knowledge you have
+that you keep re-explaining to AI. Be specific. E.g.:
+"25+ years in Indian insurance — underwriting, IRDAI regulation,
+broker operations, motor tariff, health and life products,
+commission structures. Also building automation on Google
+Workspace, Apps Script, Claude API, Copilot Studio."
+OR
+"CA with 15 years practice — Income Tax, GST, audit,
+corporate restructuring. Client base: SMEs and HNIs.
+Building client reporting automation on Google Workspace."]
+
+MY ACTIVE BUILD PROJECTS:
+[List your current projects. E.g.:
+- CALIBER: multi-tenant SaaS for insurance brokers
+- CaliberPO: commission management system
+- GAPLMB IOMS: agricultural market system for Goa APMC
+- QBE automation: Copilot Studio workflows]
+
+TASK 1 — Create CLAUDE.md with these rules:
+
+You follow these rules in every session with this wiki:
+
+1. START: Always read wiki/index.md before answering
+   any question. If index.md doesn't exist yet, say so.
+
+2. INGEST: When I say "Ingest [filename]":
+   - Read the source file from raw/
+   - Discuss 3-5 key takeaways with me
+   - Create wiki/sources/[name].md with a structured summary
+   - Update all relevant wiki/concepts/ and wiki/entities/ pages
+   - Update wiki/index.md with the new page
+   - Append an entry to wiki/log.md
+   - Tell me which pages were created or updated
+
+3. QUERY: When I ask any question:
+   - Read wiki/index.md to find relevant pages
+   - Drill into those pages before answering
+   - Cite which wiki pages you used with [[wiki-links]]
+   - Offer to file a good answer as a new wiki page
+
+4. LINT: When I say "Lint the wiki":
+   - Find contradictions between pages
+   - Flag stale claims that new sources may have superseded
+   - List orphan pages with no incoming links
+   - List concepts mentioned but lacking their own page
+   - Suggest 3 questions worth investigating next
+
+5. UPDATE BUILD: When I say "Update build [project name]":
+   - Update wiki/builds/[project].md with current status,
+     last decision made, next action, open questions
+
+6. FILE FORMAT for all wiki pages:
+   ---
+   title: [Page title]
+   last-updated: [Date]
+   related: [[page-name]], [[page-name]]
+   ---
+   [Content in plain prose. Use [[wiki-links]] to
+   reference other pages. One topic per page.
+   Keep pages under 500 words — link out rather
+   than expand.]
+
+7. NEVER modify anything in raw/
+8. NEVER delete from wiki/log.md — only append
+9. Keep wiki/index.md current after every operation
+
+TASK 2 — Create the full folder structure:
+- raw/ with subfolders for my domains above
+- wiki/ with index.md, log.md, overview.md as empty
+  scaffolds ready to receive content
+- wiki/concepts/, wiki/entities/, wiki/sources/,
+  wiki/builds/, wiki/comparisons/ as empty folders
+- wiki/builds/ pages for each of my active projects above
+
+TASK 3 — Show me the complete CLAUDE.md content
+first for my approval before creating anything else.
+
+Start with Task 3.
+        </pre>
+      </div>
+      <div class="prompt-note">Fill in the two bracketed sections — your domain context and your active projects. Everything else can be used as written. Claude will show you the CLAUDE.md content for approval before creating any files.</div>
+    </div>
+  </div>
+
+  <!-- FIRST SESSION -->
+  <div class="body-section">
+    <span class="section-marker">Your First Three Sessions</span>
+    <h2>The setup session is one. The first ingest is two. The first query is three. After that it runs itself.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <span class="step-title">Setup session — create the structure</span>
+          <span class="step-desc">Paste the implementation prompt above. Approve the CLAUDE.md. Let Claude create the folder structure. At the end of this session you have an empty wiki ready to receive content. Time: 20 minutes.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <span class="step-title">First ingest — put something in</span>
+          <span class="step-desc">Open a new session. Paste CLAUDE.md content at the start. Drop one document into raw/ — a regulatory circular, a product spec, a research paper. Say:</span>
+          <span class="step-code">Ingest raw/insurance/irdai-broker-regulations-2024.md</span>
+          <span class="step-desc" style="margin-top:0.5rem">Watch Claude create pages, update the index, and log the activity. Your first wiki pages appear. Time: 30 minutes.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <span class="step-title">First query — test the compounding</span>
+          <span class="step-desc">In the same or a new session, ask a question that the ingested document should answer. Watch Claude read index.md, drill into the relevant wiki pages, and answer with citations. If the answer is good — say:</span>
+          <span class="step-code">File this as a wiki page in comparisons/</span>
+          <span class="step-desc" style="margin-top:0.5rem">Your own question and its answer now compound the wiki. Time: 15 minutes.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <span class="step-title">Weekly habit — one ingest, one lint</span>
+          <span class="step-desc">Once a week: drop one new source into raw/ and ingest it. Once a month: run Lint to find gaps and contradictions. The wiki grows. The re-explaining stops. Your domain expertise starts compounding instead of evaporating. Time: 30 minutes per week.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THREE OPERATIONS -->
+  <div class="body-section">
+    <span class="section-marker">The Three Commands</span>
+    <h2>Three things you say to Claude. Everything else follows from them.</h2>
+
+    <div class="ops">
+      <div class="op">
+        <span class="op-name">Ingest</span>
+        <span class="op-trigger">Ingest raw/[folder]/[filename]</span>
+        <p class="op-desc">Claude reads the source, discusses takeaways, creates a summary page, updates concept and entity pages, updates index and log. Run after adding any new source to raw/.</p>
+      </div>
+      <div class="op">
+        <span class="op-name">Query</span>
+        <span class="op-trigger">Any question you ask</span>
+        <p class="op-desc">Claude reads index.md first, drills into relevant pages, answers with wiki citations. Good answers get filed back as new wiki pages. Your questions compound the wiki too.</p>
+      </div>
+      <div class="op">
+        <span class="op-name">Lint</span>
+        <span class="op-trigger">Lint the wiki</span>
+        <p class="op-desc">Claude finds contradictions, stale claims, orphan pages, concepts without pages, and suggests next questions. Run monthly as the wiki grows. Keeps the wiki honest.</p>
+      </div>
+    </div>
+
+    <p>One additional command worth adding to your practice: <strong>Update build [project name]</strong> — run this at the end of any build session to keep wiki/builds/ current. Your project state compounds alongside your domain knowledge.</p>
+  </div>
+
+  <!-- DOMAIN STARTER -->
+  <div class="body-section">
+    <span class="section-marker">Domain Starter Kit</span>
+    <h2>What to ingest first — by domain. Start with ten sources. The wiki does the rest.</h2>
+
+    <p>The hardest part of starting a wiki is knowing what to put in first. The answer is: the things you have explained to AI most often. Start there. What did you explain in your last three sessions that you will have to explain again next week?</p>
+
+    <div class="domain-grid">
+      <div class="domain-cell">
+        <span class="domain-name">Insurance professionals</span>
+        <ul class="domain-items">
+          <li>IRDAI broker regulations — latest circular</li>
+          <li>Product brochures for your main lines</li>
+          <li>Your standard policy wordings</li>
+          <li>Commission structure documents</li>
+          <li>Claims process SOPs</li>
+          <li>Regulatory compliance checklist</li>
+          <li>Key insurer empanelment terms</li>
+        </ul>
+      </div>
+      <div class="domain-cell">
+        <span class="domain-name">AI builders / automation</span>
+        <ul class="domain-items">
+          <li>Your Pre-Build Method document</li>
+          <li>Stack decisions for each active project</li>
+          <li>Apps Script patterns that work</li>
+          <li>Claude API prompt templates</li>
+          <li>Error patterns you've debugged before</li>
+          <li>Copilot Studio connector notes</li>
+          <li>Architecture decisions log</li>
+        </ul>
+      </div>
+      <div class="domain-cell">
+        <span class="domain-name">Finance / CA</span>
+        <ul class="domain-items">
+          <li>Income Tax Act sections you apply most</li>
+          <li>GST circulars relevant to your client base</li>
+          <li>Standard holding structure templates</li>
+          <li>Capital gains treatment notes by asset class</li>
+          <li>Deferred tax and provision classification rules</li>
+          <li>Client-specific structure summaries</li>
+          <li>Common audit observations and responses</li>
+        </ul>
+      </div>
+      <div class="domain-cell">
+        <span class="domain-name">Any domain — universal</span>
+        <ul class="domain-items">
+          <li>The glossary of terms you always explain</li>
+          <li>The org chart of your industry's key players</li>
+          <li>The regulatory framework that governs you</li>
+          <li>Your own past analysis and conclusions</li>
+          <li>The questions you keep being asked</li>
+          <li>The answers you keep giving</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="warning">
+      <span class="warning-label">One important constraint</span>
+      <p>The wiki lives in Claude's context window during each session. Keep CLAUDE.md concise — under 500 words. Keep wiki/index.md clean and well-organised — Claude reads it first on every query. A bloated index slows everything down.</p>
+      <p>The wiki is not an archive. It is a working knowledge base. Keep pages focused, under 500 words each, and link out rather than expand. Depth is in the links, not in the page length.</p>
+    </div>
+  </div>
+
+  <!-- CITIZEN DEV ANGLE -->
+  <div class="body-section">
+    <span class="section-marker">For the Citizen Developer specifically</span>
+    <h2>The engineer sees a knowledge management architecture. You see six months of domain knowledge that could have been compounding instead of evaporating.</h2>
+
+    <p>When Karpathy posted his Gist, engineers recognised a technical problem being solved. The stateless problem. The re-derivation problem. The lack of accumulation. They starred it and forked it within days.</p>
+    <p>The citizen developer's version of the same recognition is different. You don't think in terms of context windows and KV caches. You think in terms of the conversation you had last Tuesday where you spent forty minutes explaining how motor insurance endorsements work — or how a specific tax provision applies to your client's structure — and the conversation you will have again next Tuesday where you start from the same blank slate.</p>
+    <p>The LLM Wiki is not primarily a technical tool. It is a domain expertise preservation tool. The engineer's advantage is that they can configure it in an afternoon. The citizen developer's advantage is that they have something genuinely worth putting in it. Domain expertise accumulated over years — the kind that takes twenty minutes to explain to a generalist and twenty seconds to explain to someone who has been in the room for a decade.</p>
+    <p>You have been in the room for a decade. The wiki is how you stop explaining it from scratch and start building on it instead.</p>
+    <p>The prompt above is designed so you can paste it, fill in two sections, and have a working wiki structure in under an hour. The CLAUDE.md schema handles everything Claude needs to know. The folder structure handles everything you need to maintain. The three commands — Ingest, Query, Lint — are the only habit you need to build.</p>
+    <p>Start with ten sources. One ingest session. Ask one question. File one answer. That is the whole thing. The compounding handles itself from there.</p>
+  </div>
+
+</div>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="closing-inner">
+    <h2>"The document's only job is to communicate the pattern. Your LLM can figure out the rest."</h2>
+    <p>Karpathy's original instruction. The prompt above is the pattern. Your Claude session is the LLM. Your domain expertise is what makes it worth building.</p>
+    <p>Start with one domain. Ten sources. One session a week. In a month you will have a knowledge base that took years to accumulate — and zero minutes to re-explain.</p>
+    <span class="closing-line">The compounding starts the moment you run the first ingest.</span>
+  </div>
+</div>
+
+<!-- SERIES -->
+<div class="series-strip">
+  <span class="series-label">LLM Wiki Series</span>
+  <div class="series-links">
+    <a href="karpathy-llm-wiki.html" class="series-link">
+      <span class="series-link-num">Part I — The Idea</span>
+      <span class="series-link-title">16 Million Views for a Folder Structure</span>
+    </a>
+    <a href="pre-build-method.html" class="series-link">
+      <span class="series-link-num">Related</span>
+      <span class="series-link-title">The Pre-Build Method — How I structure every build</span>
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">HR Srinivas</div>
+      <div class="footer-tagline">Curious about most things. Certain about very few. Writing it out loud — with AI.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://x.com/HRSrinivas" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">X / Twitter</span>
+        <span class="footer-link-value">@HRSrinivas</span>
+      </a>
+      <a href="https://bit.ly/4xtO6BV" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">LinkedIn</span>
+        <span class="footer-link-value">HR Srinivas</span>
+      </a>
+      <a href="https://github.com/hrsrini/srinivas-writes" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">GitHub</span>
+        <span class="footer-link-value">hrsrini</span>
+      </a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 HR Srinivas. All rights reserved.</div>
+</footer>
+
+<!-- FOOTNOTE -->
+<div class="footnote">
+  <strong>About this guide:</strong> This is a practical implementation of Andrej Karpathy's LLM Wiki concept (April 2026 GitHub Gist, llm-wiki.md). The folder structure, CLAUDE.md schema, and three-operation framework are directly derived from Karpathy's idea file. The citizen developer framing, domain starter kit, and implementation prompt are original additions. The prompt above is designed to be used as written — paste, fill in the two bracketed sections, run. This article was researched and written with Claude (Anthropic) as a writing and implementation collaborator. The implementation has been tested and the prompt structure works as described.
+</div>
+
+</body>
+</html>

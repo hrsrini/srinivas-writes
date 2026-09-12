@@ -1,5 +1,5 @@
 (function () {
-  var SECTIONS = ['india', 'ai', 'startups', 'leadership'];
+  var SECTIONS = ['india', 'ai', 'built', 'leadership'];
 
   function getRootPath() {
     var path = window.location.pathname.replace(/\\/g, '/');
@@ -28,7 +28,7 @@
   var links = [
     { key: 'india',      label: 'India',      href: root + 'india/index.html' },
     { key: 'ai',         label: 'AI',         href: root + 'ai/index.html' },
-    { key: 'startups',   label: 'Startups',   href: root + 'startups/index.html' },
+    { key: 'built',      label: 'Built',      href: root + 'built/index.html' },
     { key: 'leadership', label: 'Leadership', href: root + 'leadership/index.html' },
     { key: 'about',      label: 'About',      href: root + 'about.html' },
   ];

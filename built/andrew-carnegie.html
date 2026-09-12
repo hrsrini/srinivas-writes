@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrew Carnegie — The Man Who Gave It All Away — HR Srinivas</title>
+<meta name="description" content="Carnegie is remembered as a steel baron. He was something rarer — a man who spent the first half of his life building a fortune and the second half systematically dismantling it. The steel was the means. The libraries were the point.">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel:      #374151;
+    --steel-pale: #f3f4f6;
+    --steel-mid:  #6b7280;
+    --gold:       #92400e;
+    --gold-pale:  #fffbeb;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--steel);
+    padding: 5rem 2rem 4rem;
+  }
+  .hero-inner { max-width: 680px; margin: 0 auto; }
+  .hero-series {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--steel-mid);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .hero-series-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #9ca3af;
+    display: block;
+    margin-bottom: 2.5rem;
+    font-style: italic;
+  }
+  .hero h1 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+  .hero-dates {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--steel-mid);
+    display: block;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.04em;
+  }
+  .hero-deck {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: #9ca3af;
+    line-height: 1.65;
+    max-width: 56ch;
+    border-top: 1px solid #4b5563;
+    padding-top: 1.5rem;
+  }
+
+  /* ── META ── */
+  .article-meta {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── BODY ── */
+  .body-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .body-section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .body-section:last-of-type { border-bottom: none; }
+
+  .section-marker {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+
+  p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--ink);
+    margin-bottom: 1.35rem;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    border-left: 2px solid var(--steel);
+    margin: 2.5rem 0;
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+  }
+  .timeline-year {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--steel-mid);
+    padding: 0.85rem 1rem 0.85rem 0;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .timeline-year::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--steel);
+    border-radius: 50%;
+  }
+  .timeline-event {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--ink-mid);
+    padding: 0.85rem 0 0.85rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.55;
+  }
+  .timeline-item:last-child .timeline-year,
+  .timeline-item:last-child .timeline-event { border-bottom: none; }
+  .timeline-event strong { color: var(--ink); }
+
+  /* ── BIG QUOTE ── */
+  .big-quote {
+    margin: 3rem 0;
+    padding: 2.5rem;
+    background: var(--steel);
+    text-align: center;
+  }
+  .big-quote-text {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    font-weight: 600;
+    font-style: italic;
+    color: #ffffff;
+    line-height: 1.4;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .big-quote-attr {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.7rem;
+    color: var(--steel-mid);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── STAT BOXES ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--ink);
+    margin: 2rem 0;
+  }
+  .stat-box {
+    padding: 1.25rem 1rem;
+    border-right: 1px solid var(--ink);
+    text-align: center;
+  }
+  .stat-box:last-child { border-right: none; }
+  .stat-val {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--ink);
+    display: block;
+    line-height: 1;
+  }
+  .stat-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.68rem;
+    color: var(--ink-light);
+    margin-top: 0.4rem;
+    display: block;
+    line-height: 1.5;
+  }
+
+  /* ── WHAT THEY FORGET BOX ── */
+  .forgotten {
+    background: var(--gold-pale);
+    border-left: 4px solid var(--gold);
+    padding: 1.5rem 1.75rem;
+    margin: 2.5rem 0;
+  }
+  .forgotten-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .forgotten p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--ink-mid);
+    margin-bottom: 0.6rem;
+  }
+  .forgotten p:last-child { margin-bottom: 0; }
+
+  /* ── THE LESSON ── */
+  .lesson {
+    border: 2px solid var(--ink);
+    padding: 2rem;
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+  .lesson-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--steel-mid);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .lesson-text {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.45;
+    display: block;
+  }
+
+  /* ── CLOSING ── */
+  .closing-line {
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .closing-line p {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ink-light);
+    margin: 0;
+  }
+
+  /* ── NEXT IN SERIES ── */
+  .next-series {
+    border-top: 2px solid var(--ink);
+    padding: 1.5rem 2rem;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .next-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+  }
+  .next-title {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--steel);
+    text-decoration: none;
+    display: block;
+  }
+  .next-title:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .stat-box:nth-child(2) { border-right: none; }
+    .stat-box:nth-child(3) { border-top: 1px solid var(--ink); grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+<script src="../assets/nav.js"></script>
+
+<nav class="article-breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>→</span>
+  <a href="index.html">Built</a>
+  <span>→</span>
+  Andrew Carnegie
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-series">Built — The Series</span>
+    <span class="hero-series-title">How the world got built. One story at a time. Starting at the beginning.</span>
+    <h1>Andrew Carnegie</h1>
+    <span class="hero-dates">1835 — 1919 · Dunfermline, Scotland → Pittsburgh, Pennsylvania → New York</span>
+    <p class="hero-deck">Carnegie is remembered as a steel baron. He was something rarer — a man who spent the first half of his life building a fortune and the second half systematically giving it away. The steel was the means. The libraries were the point.</p>
+  </div>
+</div>
+
+<!-- META -->
+<div class="article-meta">
+  <span>HR Srinivas</span>
+  <span>September 2026</span>
+  <span>Built</span>
+  <span>8 min read</span>
+</div>
+
+<!-- BODY -->
+<div class="body-wrap">
+
+  <!-- THE BEGINNING -->
+  <div class="body-section">
+    <span class="section-marker">The Beginning</span>
+    <h2>He arrived in America with nothing. That turned out to be an advantage.</h2>
+
+    <p>Andrew Carnegie was born in 1835 in Dunfermline, Scotland, to a linen weaver and a cobbler's daughter. His father William was a skilled craftsman — the kind of man whose trade had sustained his family for generations. Then the power loom arrived. Within a decade, William Carnegie's work was worth nothing. The machine had replaced him.</p>
+
+    <p>In 1848, the Carnegie family emigrated to America. Andrew was 13. They settled in Allegheny, Pennsylvania — a working-class suburb of Pittsburgh, grimy with coal smoke and alive with industry. The family had almost no money. Andrew went to work immediately.</p>
+
+    <p>His first job: bobbin boy in a cotton factory. He worked twelve-hour days, six days a week, for $1.20 a week. He was 13 years old. He later wrote that the work was dreadful — the smell, the darkness, the repetition. But he never complained. He was supporting his family.</p>
+
+    <p>What saved him was a library. Colonel James Anderson of Allegheny opened his personal library of 400 books every Saturday to working boys. Carnegie walked there every week. He read everything — history, science, economics, philosophy. He was educating himself in the only way available to him. He never forgot it. Forty years later, when he had more money than he knew what to do with, he built 2,509 libraries around the world. Every one of them was a debt repaid to Colonel Anderson.</p>
+  </div>
+
+  <!-- THE RISE -->
+  <div class="body-section">
+    <span class="section-marker">The Rise</span>
+    <h2>He didn't rise by working harder. He rose by seeing further.</h2>
+
+    <p>At 15, Carnegie got a job as a telegraph messenger boy — a step up from the factory, a foot in the door of the emerging communications industry. He learned Morse code. He got fast. He got noticed. Within two years he was a telegraph operator, one of the best in Pittsburgh.</p>
+
+    <p>Then Thomas Scott of the Pennsylvania Railroad hired him as a personal secretary and telegraph operator at $35 a month. This was the moment everything changed. Scott became Carnegie's mentor — the first of several powerful men who recognised something in Carnegie that Carnegie himself was still discovering.</p>
+
+    <p>Scott taught him how railroads worked. He taught him how capital worked. He introduced him to the idea of investment — of making money work while you slept. Carnegie's first investment: $500 in Adams Express Company, borrowed against his mother's house. The first dividend cheque arrived and Carnegie was transfixed. He called it the first money he had ever received that he had not worked for with his hands. He wanted more of it.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">1848</div>
+        <div class="timeline-event">Arrives in America aged 13. First job: bobbin boy, $1.20/week.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1850</div>
+        <div class="timeline-event">Telegraph messenger boy. Teaches himself Morse code. Gets noticed.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1853</div>
+        <div class="timeline-event">Hired by Thomas Scott, Pennsylvania Railroad. Learns capital and investment.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1865</div>
+        <div class="timeline-event">Leaves Pennsylvania Railroad. Focuses full time on business and investment.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1875</div>
+        <div class="timeline-event">Opens his first steel mill — Edgar Thomson Steel Works, Pittsburgh.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1889</div>
+        <div class="timeline-event">Publishes "The Gospel of Wealth." Pledges to give everything away.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1901</div>
+        <div class="timeline-event">Sells Carnegie Steel to J.P. Morgan for $480 million. Retires at 65.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1919</div>
+        <div class="timeline-event">Dies having given away $350 million — 90% of his fortune.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE STEEL -->
+  <div class="body-section">
+    <span class="section-marker">The Steel</span>
+    <h2>He didn't build a steel company. He built a system — and the system built everything else.</h2>
+
+    <p>Carnegie entered steel in the early 1870s when most people were still investing in iron. He had a simple thesis: America was about to build itself — railroads, bridges, skyscrapers, cities. All of it would need steel. Steel was stronger, cheaper, and more versatile than iron once you could produce it at scale. The question was who would produce it at scale first.</p>
+
+    <p>Carnegie's answer was vertical integration — a concept so fundamental today that it's hard to appreciate how radical it was in 1875. He didn't just build steel mills. He bought the iron ore mines in Minnesota. He bought the coal fields in Pennsylvania. He bought the limestone quarries. He bought the Great Lakes ore boats. He bought the railroads connecting them. Every input to his steel came from a Carnegie company. His competitors bought their inputs from the market. He made his own.</p>
+
+    <p>The result was cost leadership of a kind nobody could match. At the peak of Carnegie Steel, the company was producing more steel than all of Britain. The margins were extraordinary precisely because Carnegie had eliminated every external cost he could find.</p>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <span class="stat-val">$480M</span>
+        <span class="stat-desc">Sale price to J.P. Morgan in 1901. Equivalent to approximately $17 billion today.</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-val">$350M</span>
+        <span class="stat-desc">Amount given away in his lifetime. 90% of his total fortune.</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-val">2,509</span>
+        <span class="stat-desc">Libraries built worldwide. Every one a debt to Colonel Anderson's Saturday reading room.</span>
+      </div>
+    </div>
+
+    <p>But Carnegie's genius was not just operational. It was perceptual. He understood, before most, that the coming age of industry would reward not those who worked hardest but those who built the best systems. He was an extraordinarily hard worker — but he built organisations that worked while he wasn't in the room. He travelled extensively, wrote constantly, corresponded with the leading thinkers of his age. He was running a steel empire from a distance because he had built a machine that ran itself.</p>
+  </div>
+
+  <!-- THE THINKER -->
+  <div class="body-section">
+    <span class="section-marker">The Thinker</span>
+    <h2>The steel paid for the thinking. The thinking was always the point.</h2>
+
+    <p>Carnegie is most commonly described as an industrialist. He was more accurately a philosopher who happened to be very good at making steel.</p>
+
+    <p>He wrote prolifically throughout his life — essays, articles, two autobiographies, thousands of letters. He was friends with Mark Twain, Herbert Spencer, Matthew Arnold, and US presidents from Grant to Wilson. He corresponded with Gladstone, corresponded with Bismarck, was received by Queen Victoria. He was not a man who built a fortune and then sought intellectual company. He was an intellectual who built a fortune as a vehicle for his ideas.</p>
+
+    <div class="big-quote">
+      <span class="big-quote-text">"The man who dies rich, dies disgraced."</span>
+      <span class="big-quote-attr">— ANDREW CARNEGIE · The Gospel of Wealth, 1889</span>
+    </div>
+
+    <p>In 1889, twelve years before he sold Carnegie Steel, he published an essay called "The Gospel of Wealth." It is one of the most consequential essays in the history of capitalism. Its argument was simple and radical: the accumulation of wealth is not the end. It is the means. The wealthy man's obligation is to administer his surplus for the good of the community — during his lifetime, not through inheritance after his death.</p>
+
+    <p>Carnegie had watched the children of wealthy men squander their inheritances. He had seen what inherited wealth did to ambition, to character, to the hunger that had driven men like him to build. He concluded that leaving money to children was doing them a disservice. The greatest gift he could give his daughter was not his fortune — it was the experience of making her own.</p>
+
+    <div class="forgotten">
+      <span class="forgotten-label">What the history books forget</span>
+      <p>Carnegie was a pacifist. He spent years and millions trying to prevent the First World War — lobbying Kaiser Wilhelm, writing to European heads of state, funding peace organisations. He believed that the same rational self-interest that had built industrial capitalism could be applied to international relations. He was wrong about that. The war broke him. He died in 1919, six months after the armistice, a diminished man who had watched everything he believed about human rationality prove false on the battlefields of Europe.</p>
+      <p>He was also, by the standards of his time, complicated on labour. The Homestead Strike of 1892 — where Carnegie Steel's management crushed a union with Pinkerton guards, killing ten people — happened while Carnegie was in Scotland. He claimed ignorance. Most historians believe he knew. It is the irresolvable contradiction of a man who genuinely believed in the dignity of the working man and built a system that exploited them.</p>
+    </div>
+  </div>
+
+  <!-- THE LEGACY -->
+  <div class="body-section">
+    <span class="section-marker">The Legacy</span>
+    <h2>He didn't just give money away. He invented the architecture of modern philanthropy.</h2>
+
+    <p>When Carnegie sold his company in 1901, he was 65 years old and the richest private individual in the world. He then spent 18 years giving it away — systematically, strategically, with the same rigour he had applied to building it.</p>
+
+    <p>The libraries came first — 2,509 of them, across the United States, Britain, Canada, Australia, New Zealand, and beyond. Not just buildings but fully endowed institutions, with the requirement that local governments fund their operations. Carnegie didn't want to create dependency. He wanted to create infrastructure that would sustain itself.</p>
+
+    <p>Then came Carnegie Mellon University, the Carnegie Institution for Science, the Carnegie Endowment for International Peace, Carnegie Hall, the Teachers Insurance and Annuity Association. He was not writing cheques. He was building systems for the perpetuation of knowledge, music, peace, and education — the things that a boy from Dunfermline had needed and never had.</p>
+
+    <p>He died in August 1919, having given away $350 million — approximately $5.5 billion in today's terms. He left $30 million in his will for various charitable foundations. He had given 90% of his fortune away during his own lifetime, personally overseeing where it went and why.</p>
+
+    <p>The model he created — the idea that the wealthy have an obligation to give strategically during their lifetimes, not posthumously through inheritance — became the template for American philanthropy. Rockefeller followed it. Ford followed it. Gates and Buffett follow it today in the Giving Pledge. The Gospel of Wealth is 135 years old and still operative.</p>
+  </div>
+
+</div>
+
+<!-- THE LESSON -->
+<div class="body-wrap">
+  <div class="lesson">
+    <span class="lesson-label">The lesson that time kept</span>
+    <span class="lesson-text">"He built a fortune to fund his ideas — not his comfort. The steel was infrastructure for the thinking. Most people get this backwards: they think first about accumulation and plan to think later. Carnegie thought first. The accumulation followed."</span>
+  </div>
+
+  <div class="closing-line">
+    <p>He arrived in America with $0, a head full of books borrowed from a stranger's library, and a belief that systems matter more than effort. He was right about all three.</p>
+  </div>
+</div>
+
+<!-- NEXT IN SERIES -->
+<div class="next-series">
+  <span class="next-label">Next in Built</span>
+  <a href="rockefeller.html" class="next-title">John D. Rockefeller — The Man Who Controlled Everything →</a>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">HR Srinivas</div>
+      <div class="footer-tagline">Curious about most things. Certain about very few. Writing it out loud — with AI.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://x.com/HRSrinivas" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">X / Twitter</span>
+        <span class="footer-link-value">@HRSrinivas</span>
+      </a>
+      <a href="https://bit.ly/4xtO6BV" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">LinkedIn</span>
+        <span class="footer-link-value">HR Srinivas</span>
+      </a>
+      <a href="https://github.com/hrsrini/srinivas-writes" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">GitHub</span>
+        <span class="footer-link-value">hrsrini</span>
+      </a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 HR Srinivas. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

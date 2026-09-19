@@ -103,31 +103,34 @@
     /* STAT BOXES */
     .stat-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
       margin: 2.5rem 0;
+      border: 1px solid var(--accent-mid);
     }
     .stat-box {
       background: var(--accent-light);
-      border: 1px solid var(--accent-mid);
-      padding: 20px 18px;
+      border-right: 1px solid var(--accent-mid);
+      padding: 14px 10px;
       text-align: center;
     }
+    .stat-box:last-child { border-right: none; }
     .stat-num {
       font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 2rem;
+      font-size: 1.4rem;
       font-weight: 700;
       color: var(--accent);
-      letter-spacing: -0.04em;
+      letter-spacing: -0.03em;
       line-height: 1;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
     .stat-label {
       font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 12px;
+      font-size: 10px;
       color: var(--ink-light);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
+      line-height: 1.4;
     }
 
     /* CALLOUT BOX */

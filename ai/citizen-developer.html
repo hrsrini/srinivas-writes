@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You Don't Need a Dev Team Anymore — HR Srinivas</title>
+  <meta name="description" content="I built a full-stack production application — React, FastAPI, Supabase, vector embeddings — without writing a single line of code by hand. Here's what that actually means for everyone who ever said 'I'd need a developer for that.'">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rule:         #E5E3DF;
+      --accent:       #16A34A;
+      --accent-light: #F0FDF4;
+      --accent-mid:   #DCFCE7;
+    }
+
+    body {
+      font-family: 'IBM Plex Serif', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.75;
+    }
+
+    /* HERO */
+    .hero {
+      border-bottom: 1px solid var(--rule);
+      padding: 64px 24px 56px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .section-tag {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero .deck {
+      font-size: 1.15rem;
+      color: #374151;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+    .byline {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      color: var(--ink-light);
+    }
+
+    /* BODY */
+    .article-body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    p { margin-bottom: 1.4rem; }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 3rem 0 1rem;
+      color: var(--ink);
+    }
+
+    h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 2.5rem 0 0.75rem;
+    }
+
+    /* PULL QUOTE */
+    blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 2.5rem 0;
+      padding: 4px 0 4px 28px;
+    }
+    blockquote p {
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.55;
+      color: #1f2937;
+      margin-bottom: 0;
+    }
+
+    /* STAT BOXES */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin: 2.5rem 0;
+    }
+    .stat-box {
+      background: var(--accent-light);
+      border: 1px solid var(--accent-mid);
+      padding: 20px 18px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12px;
+      color: var(--ink-light);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* CALLOUT BOX */
+    .callout {
+      background: var(--accent-light);
+      border: 1px solid var(--accent-mid);
+      padding: 24px 28px;
+      margin: 2.5rem 0;
+    }
+    .callout-label {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .callout p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin-bottom: 0.6rem;
+      color: #1f2937;
+    }
+    .callout p:last-child { margin-bottom: 0; }
+
+    /* SESSION LOG */
+    .session-log {
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      margin: 2.5rem 0;
+    }
+    .session-log-header {
+      background: #f3f4f6;
+      border-bottom: 1px solid var(--rule);
+      padding: 12px 20px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-light);
+    }
+    .session-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      border-bottom: 1px solid var(--rule);
+    }
+    .session-row:last-child { border-bottom: none; }
+    .session-num {
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      padding: 14px 20px;
+      border-right: 1px solid var(--rule);
+      background: #fafafa;
+    }
+    .session-desc {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      color: #374151;
+      padding: 14px 20px;
+      line-height: 1.5;
+    }
+
+    /* STACK TABLE */
+    .stack-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+    }
+    .stack-table th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #f3f4f6;
+      border-bottom: 2px solid var(--rule);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-light);
+      font-weight: 600;
+    }
+    .stack-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--rule);
+      color: #1f2937;
+      vertical-align: top;
+    }
+    .stack-table tr:last-child td { border-bottom: none; }
+    .stack-badge {
+      display: inline-block;
+      background: var(--accent-mid);
+      color: #15803d;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      letter-spacing: 0.02em;
+    }
+
+    /* THREE GROUPS */
+    .three-groups {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      margin: 2.5rem 0;
+    }
+    .group-card {
+      padding: 24px 20px;
+      border-right: 1px solid var(--rule);
+    }
+    .group-card:last-child { border-right: none; }
+    .group-label {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .group-card:nth-child(1) .group-label { color: #16a34a; }
+    .group-card:nth-child(2) .group-label { color: #2563eb; }
+    .group-card:nth-child(3) .group-label { color: #dc2626; }
+    .group-title {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .group-desc {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      color: var(--ink-light);
+      line-height: 1.5;
+    }
+
+    /* SERIES NAV */
+    .series-nav {
+      border-top: 1px solid var(--rule);
+      margin-top: 60px;
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    .series-nav a {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .series-nav a:hover { text-decoration: underline; }
+    .series-nav .next { text-align: right; }
+
+    @media (max-width: 600px) {
+      .three-groups { grid-template-columns: 1fr; }
+      .group-card { border-right: none; border-bottom: 1px solid var(--rule); }
+      .group-card:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+<script src="../assets/nav.js"></script>
+
+<nav class="article-breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>→</span>
+  <a href="index.html">Artificial Intelligence</a>
+  <span>→</span>
+  You Don't Need a Dev Team Anymore
+</nav>
+
+<header class="hero">
+  <div class="section-tag">AI · Citizen Developer</div>
+  <h1>You Don't Need a Dev Team Anymore</h1>
+  <p class="deck">
+    I built a full-stack production application — React, FastAPI, Supabase, vector embeddings — without writing a single line of code by hand. Here's what that actually means for everyone who ever said "I'd need a developer for that."
+  </p>
+  <div class="byline">HR Srinivas &nbsp;·&nbsp; September 2026</div>
+</header>
+
+<article class="article-body">
+
+  <p>
+    Twenty-five years in insurance. I know documents — policies, endorsements, adjuster reports, tables of authority, reinsurance treaties. I know what's in them, what should be in them, and exactly what happens when a claim is processed against the wrong version of one.
+  </p>
+
+  <p>
+    What I didn't know was how to build software. That gap always meant the same thing: describe the problem to a developer, wait, review something that almost worked, describe it again, wait some more.
+  </p>
+
+  <p>
+    That gap is gone.
+  </p>
+
+  <p>
+    Over ten sessions with Claude Code — Anthropic's AI coding tool — I built Lumen. A full-stack prompt engineering workbench. Production-grade. React and TypeScript on the front. FastAPI on the back. Supabase with vector search. PDF processing, Word and Excel ingestion, versioned prompts, batch runs, accuracy scoring, and side-by-side source correlation with click-to-highlight. The kind of system that, two years ago, I would have taken to a CTO.
+  </p>
+
+  <p>
+    No CTO. No developer. No hand-coded lines. Just domain depth, a well-structured methodology, and an AI that knows how to build.
+  </p>
+
+  <blockquote>
+    <p>The barrier was never technical capability. It was always the assumption that technical capability was required.</p>
+  </blockquote>
+
+  <h2>What Lumen Actually Does</h2>
+
+  <p>
+    Lumen is a workbench for extracting structured data from documents using AI — but doing it rigorously. Not a chatbot. Not "ask questions about your PDF." Something more specific.
+  </p>
+
+  <p>
+    A prompt engineer — or someone who thinks like one — comes in with a business problem: "I need to extract these twelve fields from every policy document we receive, and I need to know how accurate the extraction is before I put it in production." Lumen handles the full cycle.
+  </p>
+
+  <p>
+    You can see it live at <a href="https://lumen.prototypes.design" target="_blank" rel="noopener" style="color: var(--accent); font-weight: 500;">lumen.prototypes.design</a> — the LLM API key is switched off in the public version, but the interface, the schema builder, the prompt versioning system, and the run history are all visible.
+  </p>
+
+  <div class="callout">
+    <div class="callout-label">What Lumen Manages</div>
+    <p>Upload PDFs (digital or scanned), Word documents, Excel files — all ingested and chunked with vector embeddings so the model knows where to look.</p>
+    <p>Define output schemas field by field: raw extraction, inference, cross-reference across documents, computation, classification. Each field type tells the model how to derive the answer.</p>
+    <p>Write and version prompts. Run them. Get field-level results with citations. Score accuracy. Iterate. The version history tracks what changed and why.</p>
+    <p>Batch across document sets. Generate structured Excel output. Surface exceptions. Every result links back to its source in the original document — click a field, see exactly where the answer came from.</p>
+  </div>
+
+  <p>
+    For insurance, this matters enormously. A coverage decision made against the wrong policy version is a liability. A cross-reference that misses a subrogation clause is a recoverable amount written off. Lumen doesn't just extract — it shows its work, scores itself, and makes the iteration process systematic rather than a series of hunches.
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Build sessions</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Lines hand-coded</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">85–95%</div>
+      <div class="stat-label">Extraction accuracy on real documents</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">16</div>
+      <div class="stat-label">Entity types in the data model</div>
+    </div>
+  </div>
+
+  <h2>The Build Methodology</h2>
+
+  <p>
+    This is the part that matters most — not what was built, but how.
+  </p>
+
+  <p>
+    Ten sessions. Each one had a defined scope, explicit inputs, and a verification checklist before anything was marked done. The sessions didn't bleed into each other because of memory — they stayed coherent because of a document called CLAUDE.md.
+  </p>
+
+  <div class="callout">
+    <div class="callout-label">The CLAUDE.md Method</div>
+    <p>Every AI coding session starts without memory of what came before. The way around this is a persistent context document — CLAUDE.md — that lives in the project root and carries forward the decisions, the architecture, the naming conventions, and the "do not touch" list into every new session.</p>
+    <p>Before each session: update CLAUDE.md with what's done, what's next, what the constraints are. Start the session with: "Read CLAUDE.md first. Here's what we're building today." The AI picks up exactly where you left off — same architecture, same vocabulary, same judgement calls.</p>
+    <p>This is version control for intent, not just for code.</p>
+  </div>
+
+  <div class="session-log">
+    <div class="session-log-header">10 Sessions → Production Software</div>
+    <div class="session-row">
+      <div class="session-num">01</div>
+      <div class="session-desc">Database schema design — 16 entity types, Supabase setup, pgvector extension</div>
+    </div>
+    <div class="session-row">
+      <div class="session-num">02</div>
+      <div class="session-desc">FastAPI backend scaffolding — core endpoints, Supabase integration, document upload</div>
+    </div>
+    <div class="session-row">
+      <div class="session-num">03</div>
+      <div class="session-desc">Document processing pipeline — PDF.js, Mammoth.js, SheetJS, chunking and embedding</div>
+    </div>
+    <div class="session-row">
+      <div class="session-num">04</div>
+      <div class="session-desc">React frontend — Use Case manager, schema builder, document viewer</div>
+    </div>
+    <div class="session-row">
+      <div class="session-num">05</div>
+      <div class="session-desc">Prompt versioning system — create, compare, rollback, change notes</div>
+    </div>
+    <div class="session-row">
+      <div class="session-num">06</div>
+      <div class="session-desc">Run engine — prompt execution, field-level results, source citation storage</div>
+    </div>
+    <div class="session-row">
+      <div class="session-num">07</div>
+      <div class="session-desc">Source correlation — click-to-highlight in original document, citation linking</div>
+    </div>
+    <div class="session-row">
+      <div class="session-num">08</div>
+      <div class="session-desc">Accuracy scoring — field-level judgements, run comparison, iteration tracking</div>
+    </div>
+    <div class="session-row">
+      <div class="session-num">09</div>
+      <div class="session-desc">Batch runs, Excel output generation, exception surfacing</div>
+    </div>
+    <div class="session-row">
+      <div class="session-num">10</div>
+      <div class="session-desc">AI Prompt Builder (3 modes), AI Schema Generator (4 methods), polish and deploy</div>
+    </div>
+  </div>
+
+  <p>
+    Each session ended with a verification checklist — does the feature work end-to-end, does it match the spec, are the edge cases handled? The discipline isn't in the coding. It's in the process. The AI handles the coding. The human handles the process.
+  </p>
+
+  <h2>The Stack</h2>
+
+  <p>
+    For anyone who wants to assess what "production-grade" means in this context:
+  </p>
+
+  <table class="stack-table">
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Technology</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="stack-badge">Frontend</span></td>
+        <td>React + TypeScript + Tailwind + shadcn/ui</td>
+        <td>Document viewer, schema builder, run dashboard</td>
+      </tr>
+      <tr>
+        <td><span class="stack-badge">Backend</span></td>
+        <td>Python + FastAPI</td>
+        <td>API layer, document processing, Claude SDK calls</td>
+      </tr>
+      <tr>
+        <td><span class="stack-badge">Database</span></td>
+        <td>Supabase (PostgreSQL + pgvector)</td>
+        <td>Relational data and vector embeddings in one service</td>
+      </tr>
+      <tr>
+        <td><span class="stack-badge">Documents</span></td>
+        <td>PDF.js / PyPDF2 / Mammoth.js / SheetJS / openpyxl</td>
+        <td>Digital PDFs, scanned PDFs (via vision), Word, Excel</td>
+      </tr>
+      <tr>
+        <td><span class="stack-badge">Embeddings</span></td>
+        <td>OpenAI text-embedding-3-small</td>
+        <td>Semantic chunk retrieval for source correlation</td>
+      </tr>
+      <tr>
+        <td><span class="stack-badge">LLM</span></td>
+        <td>Claude API (claude-sonnet)</td>
+        <td>Extraction, inference, classification, generation</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Two external API dependencies. One managed database service. No proprietary UI. No developer on payroll. The complexity is real — this is not a no-code wrapper. But the person who built it has never written a <code>for</code> loop in a terminal.
+  </p>
+
+  <h2>Three Groups, One Shift</h2>
+
+  <p>
+    There are three groups of people watching what's happening right now, and they're having very different reactions.
+  </p>
+
+  <div class="three-groups">
+    <div class="group-card">
+      <div class="group-label">Group One</div>
+      <div class="group-title">Engineering Coders</div>
+      <div class="group-desc">Building faster than ever. AI is a force multiplier. They're fine — better than fine.</div>
+    </div>
+    <div class="group-card">
+      <div class="group-label">Group Two</div>
+      <div class="group-title">Citizen Developers</div>
+      <div class="group-desc">Domain experts who spent years waiting for a developer. That wait is over. They're building now.</div>
+    </div>
+    <div class="group-card">
+      <div class="group-label">Group Three</div>
+      <div class="group-title">Engineering Gatekeepers</div>
+      <div class="group-desc">Held control through complexity. That complexity is dissolving. The disruption is real.</div>
+    </div>
+  </div>
+
+  <p>
+    I am Group Two. Twenty-five years of domain depth — understanding exactly what insurance documents contain, what matters, what creates liability, where the process breaks down — converted directly into software. No translation layer. No specification document passed to someone who doesn't understand the domain. No three months of requirements meetings.
+  </p>
+
+  <p>
+    The insight is simple and it's not about coding: <strong>domain depth is the scarce input now.</strong> The technical execution layer has been automated. What you know about the problem — not the code — is what determines what you can build.
+  </p>
+
+  <blockquote>
+    <p>The new software developer is the person who understands the problem most deeply. The AI writes the code. The domain expert makes the decisions.</p>
+  </blockquote>
+
+  <h2>What "Git for Prompts" Actually Means</h2>
+
+  <p>
+    The phrase I've been using to describe Lumen is "git for prompts." It's not quite right — Lumen is more than that — but the instinct behind it is correct and worth unpacking.
+  </p>
+
+  <p>
+    When software developers collaborate on code, they use version control. Every change is logged. Every version can be compared. Every rollback is clean. Nothing is lost, nothing is overwritten without a record.
+  </p>
+
+  <p>
+    Prompts — the instructions you give AI models — have none of that infrastructure yet. Most teams are copying prompts into a notes doc, or worse, rebuilding them from scratch when something breaks. There's no audit trail. No accuracy benchmark across versions. No systematic iteration.
+  </p>
+
+  <p>
+    Lumen applies software development discipline to prompt development. Every prompt is versioned. Every run is logged against a specific version. Accuracy is scored at the field level. You can compare v3 against v7 on the same documents and see exactly which fields improved and which regressed. You can annotate why a version changed. You can roll back.
+  </p>
+
+  <p>
+    This matters because prompts in production environments are not static. They evolve as edge cases emerge, as document formats change, as regulatory requirements shift. Without version control, that evolution is unmanageable. With it, it's just engineering.
+  </p>
+
+  <h2>The Broader Implication</h2>
+
+  <p>
+    I started this article by telling you I built a full-stack application. What I actually built is evidence of something larger.
+  </p>
+
+  <p>
+    Across every industry, there are people who have spent ten, twenty, thirty years accumulating domain knowledge. Knowledge about how claims are processed. How supply chains break. How regulatory filings work. How financial reconciliation fails. How customer onboarding stalls. How compliance reports get produced manually every month by someone who has better things to do.
+  </p>
+
+  <p>
+    That knowledge has always had a conversion problem. You couldn't turn it into software without a developer. You couldn't turn it into automation without an IT team. You couldn't turn it into a system without a budget and a project plan and six months.
+  </p>
+
+  <p>
+    The conversion problem is solved.
+  </p>
+
+  <p>
+    The person who understands the problem best can now build the solution directly. Not perfectly — the methodology matters, the process discipline matters, understanding what you're asking for matters. But the technical barrier that separated domain expertise from software capability is no longer the controlling constraint.
+  </p>
+
+  <p>
+    That's what Lumen represents. Not just a useful tool for prompt engineers — an existence proof that the citizen developer era is not coming. It's here.
+  </p>
+
+  <div class="callout">
+    <div class="callout-label">What You Actually Need</div>
+    <p><strong>Domain depth.</strong> You need to understand the problem better than anyone. The AI cannot substitute for this. It can only build what you can specify.</p>
+    <p><strong>Process discipline.</strong> Scoped sessions. Verification checklists. A CLAUDE.md that carries context forward. The methodology is what keeps ten sessions coherent.</p>
+    <p><strong>Tolerance for iteration.</strong> The first version won't be right. The fifth version will be better. The tenth will be production-ready. This is not different from how software has always worked — it's just faster now.</p>
+    <p><strong>Nothing else.</strong> Not a computer science degree. Not a team. Not a budget. Not months.</p>
+  </div>
+
+  <div class="series-nav">
+    <div></div>
+    <a href="google-workspace-stack.html" class="next">Also in AI: Google Workspace as an Automation Stack →</a>
+  </div>
+
+</article>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">HR Srinivas</div>
+      <div class="footer-tagline">Curious about most things. Certain about very few. Writing it out loud — with AI.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://x.com/HRSrinivas" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">X / Twitter</span>
+        <span class="footer-link-value">@HRSrinivas</span>
+      </a>
+      <a href="https://bit.ly/4xtO6BV" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">LinkedIn</span>
+        <span class="footer-link-value">HR Srinivas</span>
+      </a>
+      <a href="https://github.com/hrsrini/srinivas-writes" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">GitHub</span>
+        <span class="footer-link-value">hrsrini</span>
+      </a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 HR Srinivas. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

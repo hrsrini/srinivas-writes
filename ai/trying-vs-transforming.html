@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Everyone's Trying. Almost Nobody's Transforming. — HR Srinivas</title>
+  <meta name="description" content="97% of businesses say they use AI. The US Census Bureau found 20% actually use it in a business function. The gap between those two numbers is where the real story lives.">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rule:         #E5E3DF;
+      --accent:       #16A34A;
+      --accent-light: #F0FDF4;
+      --accent-mid:   #DCFCE7;
+    }
+
+    body {
+      font-family: 'IBM Plex Serif', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.75;
+    }
+
+    /* HERO */
+    .hero {
+      border-bottom: 1px solid var(--rule);
+      padding: 64px 24px 56px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .section-tag {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero .deck {
+      font-size: 1.15rem;
+      color: #374151;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+    .byline {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      color: var(--ink-light);
+    }
+
+    /* BODY */
+    .article-body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    p { margin-bottom: 1.4rem; }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 3rem 0 1rem;
+      color: var(--ink);
+    }
+
+    h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 2.5rem 0 0.75rem;
+    }
+
+    /* PULL QUOTE */
+    blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 2.5rem 0;
+      padding: 4px 0 4px 28px;
+    }
+    blockquote p {
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.55;
+      color: #1f2937;
+      margin-bottom: 0;
+    }
+
+    /* STAT BOXES */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin: 2.5rem 0;
+      border: 1px solid var(--accent-mid);
+    }
+    .stat-box {
+      background: var(--accent-light);
+      border-right: 1px solid var(--accent-mid);
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .stat-box:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+    .stat-label {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 10px;
+      color: var(--ink-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.4;
+    }
+
+    /* POSTURE LIST */
+    .posture-list {
+      border: 1px solid var(--rule);
+      margin: 2.5rem 0;
+      overflow: hidden;
+    }
+    .posture-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      border-bottom: 1px solid var(--rule);
+    }
+    .posture-item:last-child { border-bottom: none; }
+    .posture-label {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      padding: 20px;
+      border-right: 1px solid var(--rule);
+      background: var(--accent-light);
+      display: flex;
+      align-items: flex-start;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+    }
+    .posture-body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      color: #374151;
+      padding: 20px 24px;
+      line-height: 1.65;
+    }
+    .posture-body a { color: var(--accent); }
+
+    /* SOURCES LIST */
+    .sources-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+    }
+    .sources-list li {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      color: #374151;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--rule);
+      line-height: 1.5;
+    }
+    .sources-list li:last-child { border-bottom: none; }
+    .sources-list a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .sources-list a:hover { text-decoration: underline; }
+
+    /* SERIES NAV */
+    .series-nav {
+      border-top: 1px solid var(--rule);
+      margin-top: 60px;
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    .series-nav a {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .series-nav a:hover { text-decoration: underline; }
+    .series-nav .next { text-align: right; }
+
+    @media (max-width: 600px) {
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+      .stat-box:nth-child(2) { border-right: none; }
+      .posture-item { grid-template-columns: 1fr; }
+      .posture-label { border-right: none; border-bottom: 1px solid var(--rule); }
+    }
+  </style>
+</head>
+<body>
+<script src="../assets/nav.js"></script>
+
+<nav class="article-breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>→</span>
+  <a href="index.html">Artificial Intelligence</a>
+  <span>→</span>
+  Everyone's Trying. Almost Nobody's Transforming.
+</nav>
+
+<header class="hero">
+  <div class="section-tag">AI · Strategy &amp; Adoption</div>
+  <h1>Everyone's Trying. Almost Nobody's Transforming.</h1>
+  <p class="deck">
+    97% of businesses say they use AI. The US Census Bureau found 20% actually use it in a business function. The gap between those two numbers is where the real story lives.
+  </p>
+  <div class="byline">HR Srinivas &nbsp;·&nbsp; November 2026</div>
+</header>
+
+<article class="article-body">
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num">97%</div>
+      <div class="stat-label">Indian SMBs say they use AI</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">19.8%</div>
+      <div class="stat-label">US businesses using AI in a function (Census)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">42%</div>
+      <div class="stat-label">Companies that abandoned AI initiatives in 2025</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">$7.2M</div>
+      <div class="stat-label">Average sunk cost per abandoned initiative</div>
+    </div>
+  </div>
+
+  <h2>The 97% That Isn't</h2>
+
+  <p>
+    Ask business leaders if they use AI and the answer is nearly universal. <a href="https://madhyamamonline.com/amp/india/most-indians-want-self-employment-as-ai-adoption-accelerates-1475505" target="_blank" rel="noopener" style="color: var(--accent);">97% of Indian SMBs now use AI tools in some form</a>, and in the US, <a href="https://blog.mean.ceo/?p=11255" target="_blank" rel="noopener" style="color: var(--accent);">the Chamber of Commerce puts small-business AI use at 89%</a>, up from 36% in 2023. Adoption, by this measure, is essentially done.
+  </p>
+
+  <p>
+    A different kind of survey tells a different story. The <a href="https://lonelyentrepreneur.com/founder-ai-adoption-by-size.md" target="_blank" rel="noopener" style="color: var(--accent);">US Census Bureau's Business Trends and Outlook Survey</a> — a government source with no product to sell — found that only 19.8% of all US businesses used AI in a business function, as of the period ending May 3, 2026. Among firms with four or fewer employees, that figure stayed under 20%, and didn't move at all over the prior six months, despite AI dominating every business conversation in that window.
+  </p>
+
+  <blockquote>
+    <p>"Using AI" and "AI changing how you work" are not the same claim. Nearly every business leader can answer yes to the first. Almost none can answer yes to the second. That gap is what this piece is actually about.</p>
+  </blockquote>
+
+  <h2>Five Postures, One Spectrum</h2>
+
+  <p>
+    These aren't five separate tribes of business leaders. They're five positions on a single continuum, and most leaders occupy more than one of them in the same year — sometimes the same quarter, depending on which part of the business they're looking at.
+  </p>
+
+  <div class="posture-list">
+    <div class="posture-item">
+      <div class="posture-label">Succeeding</div>
+      <div class="posture-body"><a href="https://stateofaiadoption.elevationcapital.com/ceo" target="_blank" rel="noopener">Elevation Capital's survey of Indian startup founders</a> found 45% cite faster experimentation as AI's most unexpected benefit — testing 10x more ideas than before. One early-stage founder told the survey their product team now ships interactive content in a day with no developer involved, work that previously took a developer a minimum of a week.</div>
+    </div>
+    <div class="posture-item">
+      <div class="posture-label">Partly succeeding, partly failing</div>
+      <div class="posture-body"><a href="https://web-assets.bcg.com/4b/7d/952837e64977bad7aa1cfe5553c1/india-insurtech-landscape-and-trends-reimagining-insurance-with-ai.pdf" target="_blank" rel="noopener">BCG's survey of the Indian insurance industry</a> found more than 90% of insurers have launched AI or GenAI pilots — but only 7% have scaled past the pilot stage to enterprise-wide adoption. Among startup founders, the mismatch runs the other way: 80% reject the idea that AI is hype, yet 54% admit their own company has no clear AI strategy. Conviction arrived well ahead of a plan.</div>
+    </div>
+    <div class="posture-item">
+      <div class="posture-label">Carrying on, without much to show</div>
+      <div class="posture-body">The largest, quietest group. One 2026 compilation of industry data found 90% of organizations now use AI in some form, but only 21% have actually redesigned a workflow around it. The pattern repeats everywhere: someone signs up for a tool after a webinar, uses it for a fortnight, then quietly stops — while the subscription, and the "yes" on the next adoption survey, keep going.</div>
+    </div>
+    <div class="posture-item">
+      <div class="posture-label">Giving up</div>
+      <div class="posture-body">The abandonment numbers are sharper than the adoption headlines suggest. The same 2026 compilation found 42% of companies abandoned most of their AI initiatives in 2025, up from 17% the year before — at an average sunk cost of $7.2 million per abandoned initiative.</div>
+    </div>
+    <div class="posture-item">
+      <div class="posture-label">Not trying</div>
+      <div class="posture-body">Smaller than the "laggard" narrative implies, and more structural than stubborn. The Census Bureau's own data puts actual use among the smallest firms under 20%, flat across six months. In <a href="https://www.legalzoom.com/press-releases/ai-and-entrepreneurship-2026" target="_blank" rel="noopener">a 2026 survey of 1,000 US business owners and aspiring founders</a>, cost was the second most-cited frustration with AI tools, after accuracy — not fear, not stubbornness, just a line item that doesn't clear the bar yet.</div>
+    </div>
+  </div>
+
+  <h2>Why the Middle Is So Crowded</h2>
+
+  <p>
+    The cleanest explanation for why so many businesses sit stuck in the middle three postures comes from <a href="https://www.computer.org/publications/tech-news/build-your-career/ai-adoption-gap" target="_blank" rel="noopener" style="color: var(--accent);">RAND's analysis of enterprise AI initiatives</a>: more than 80% fail to deliver their intended value, roughly double the failure rate of an ordinary IT project.
+  </p>
+
+  <p>
+    That number tends to get read as a verdict on the technology. It isn't one. Behind the widely repeated "95% of AI pilots fail" headline sits a narrower, less dramatic fact: <a href="https://isbm.org/wp-content/uploads/2026/08/Cooper-2026-The-AI-Adoption-Paradox.pdf" target="_blank" rel="noopener" style="color: var(--accent);">MIT's own research</a> found the actual pilot-to-production success rate for task-specific AI tools was closer to 25% — five times higher than the sensational number everyone quotes.
+  </p>
+
+  <p>
+    What both studies agree on is where the failure actually happens: not inside the model, but in the layer of approvals, budget committees, and hand-offs between the person who wants something built and the team that has to build it. The bottleneck was never AI capability. It was the queue in front of it.
+  </p>
+
+  <h2>The Flip</h2>
+
+  <p>
+    Business leaders have started skipping that queue entirely. Instead of writing a spec and waiting on an engineering team's bandwidth, they're prototyping the thing themselves — handing it to a developer only once there's something concrete to harden, or, for a growing number of small businesses, shipping it without anyone else involved at all.
+  </p>
+
+  <p>
+    <a href="https://kissflow.com/no-code/no-code-statistics-2026/" target="_blank" rel="noopener" style="color: var(--accent);">Gartner now tracks between 100 and 120 million people worldwide</a> who regularly build business applications on no-code platforms, with no formal engineering background. In one 2025 industry survey, <a href="https://www.index.dev/blog/no-code-low-code-statistics" target="_blank" rel="noopener" style="color: var(--accent);">82% of organizations said building custom software outside the IT department is now a core part of business strategy</a>, not a workaround.
+  </p>
+
+  <p>
+    The cases are no longer hypothetical. <a href="https://theanna.io/building-theanna/do-you-need-a-technical-cofounder" target="_blank" rel="noopener" style="color: var(--accent);">One solo founder documenting her own build</a> says she built her entire product frontend using AI coding tools at $225,000 in annual revenue, with no technical co-founder at any stage. <a href="https://bizfaculty.nus.edu.sg/ai-showcase-tag/ai-strategy/" target="_blank" rel="noopener" style="color: var(--accent);">A Singapore-based CEO with no engineering background told NUS Business School</a> that six months after adopting AI tools, his company was running a fully custom CRM he built himself — no developers, no technical team.
+  </p>
+
+  <h2>The Graveyard Problem</h2>
+
+  <p>
+    None of this means the old risk disappeared. It moved. <a href="https://theanna.io/building-theanna/do-you-need-a-technical-cofounder" target="_blank" rel="noopener" style="color: var(--accent);">The same founder building Theanna</a> warns against reading the shift as a purely technical unlock: the earlier generation of AI failures weren't failures of code either. They were failures to find a customer who actually wanted what got built, regardless of how skilled the team doing the building was.
+  </p>
+
+  <p>
+    AI removed the cost of building. It didn't remove the cost of being wrong about what to build. That's visible in the data from the "partly succeeding, partly failing" posture above — <a href="https://stateofaiadoption.elevationcapital.com/ceo" target="_blank" rel="noopener" style="color: var(--accent);">65% of Indian startup founders surveyed by Elevation Capital</a> say data quality is now a bigger bottleneck than AI capability itself. The leaders drifting between succeeding and failing aren't stuck because they can't build anymore. Building got cheap for everyone. They're stuck because judgment, clean data, and a clear question still take as long to earn as they ever did.
+  </p>
+
+  <h2>The Real Cost of Failing</h2>
+
+  <p>
+    Which is where the comparison that actually matters sits side by side. The average sunk cost of an abandoned enterprise AI initiative, by one 2026 estimate, is $7.2 million. The cost of a non-technical founder spending a weekend prototyping the same idea with today's tools is close to zero.
+  </p>
+
+  <p>
+    That gap is the real finding underneath every adoption number in this piece. The old way of trying and failing was expensive, slow, and required a committee's permission to attempt in the first place. The new way of trying and failing is cheap, fast, and requires nobody's permission at all — which means the businesses in the succeeding column aren't smarter than the ones stuck in the middle. They're just the ones who stopped waiting for someone else to build it for them.
+  </p>
+
+  <blockquote>
+    <p>The businesses in the succeeding column aren't smarter than the ones stuck in the middle. They're just the ones who stopped waiting for someone else to build it for them.</p>
+  </blockquote>
+
+  <h3>Sources</h3>
+
+  <ul class="sources-list">
+    <li><a href="https://madhyamamonline.com/amp/india/most-indians-want-self-employment-as-ai-adoption-accelerates-1475505" target="_blank" rel="noopener">LinkedIn Small Business Work Change India Report, 2026</a></li>
+    <li><a href="https://blog.mean.ceo/?p=11255" target="_blank" rel="noopener">US Chamber of Commerce small business AI data, cited in AI Literacy in Small Business Statistics 2026</a></li>
+    <li><a href="https://lonelyentrepreneur.com/founder-ai-adoption-by-size.md" target="_blank" rel="noopener">US Census Bureau, Business Trends and Outlook Survey (BTOS), period ending May 3, 2026</a></li>
+    <li><a href="https://stateofaiadoption.elevationcapital.com/ceo" target="_blank" rel="noopener">Elevation Capital, The State of AI Adoption in Indian Startups 2026 — CEO/Founder cohort</a></li>
+    <li><a href="https://web-assets.bcg.com/4b/7d/952837e64977bad7aa1cfe5553c1/india-insurtech-landscape-and-trends-reimagining-insurance-with-ai.pdf" target="_blank" rel="noopener">BCG, India Insurtech Landscape and Trends: Reimagining Insurance with AI, Oct 2025</a></li>
+    <li><a href="https://agilebrandguide.com/ai-technology-statistics/" target="_blank" rel="noopener">The Agile Brand Guide, AI technology statistics compilation, 2026</a></li>
+    <li><a href="https://www.legalzoom.com/press-releases/ai-and-entrepreneurship-2026" target="_blank" rel="noopener">LegalZoom, AI and Entrepreneurship 2026</a></li>
+    <li><a href="https://www.computer.org/publications/tech-news/build-your-career/ai-adoption-gap" target="_blank" rel="noopener">RAND Corporation enterprise AI failure-rate analysis, cited via IEEE Computer Society</a></li>
+    <li><a href="https://isbm.org/wp-content/uploads/2026/08/Cooper-2026-The-AI-Adoption-Paradox.pdf" target="_blank" rel="noopener">Cooper, The AI Adoption Paradox, ISBM, Aug 2026</a></li>
+    <li><a href="https://kissflow.com/no-code/no-code-statistics-2026/" target="_blank" rel="noopener">Kissflow, No-Code Statistics 2026</a></li>
+    <li><a href="https://www.index.dev/blog/no-code-low-code-statistics" target="_blank" rel="noopener">Index.dev, 50 No-Code and Low-Code Statistics for 2026</a></li>
+    <li><a href="https://theanna.io/building-theanna/do-you-need-a-technical-cofounder" target="_blank" rel="noopener">Theanna — Building Theanna, founder's own account</a></li>
+    <li><a href="https://bizfaculty.nus.edu.sg/ai-showcase-tag/ai-strategy/" target="_blank" rel="noopener">NUS Business School AI Showcase, Aug 2026</a></li>
+  </ul>
+
+  <div class="series-nav">
+    <a href="citizen-developer.html">← You Don't Need a Dev Team Anymore</a>
+    <div></div>
+  </div>
+
+</article>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">HR Srinivas</div>
+      <div class="footer-tagline">Curious about most things. Certain about very few. Writing it out loud — with AI.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://x.com/HRSrinivas" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">X / Twitter</span>
+        <span class="footer-link-value">@HRSrinivas</span>
+      </a>
+      <a href="https://bit.ly/4xtO6BV" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">LinkedIn</span>
+        <span class="footer-link-value">HR Srinivas</span>
+      </a>
+      <a href="https://github.com/hrsrini/srinivas-writes" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">GitHub</span>
+        <span class="footer-link-value">hrsrini</span>
+      </a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 HR Srinivas. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Mirror — HR Srinivas</title>
+  <meta name="description" content="You've been getting away with being vague your whole life. Other people were just generous enough not to say so.">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rule:         #E5E3DF;
+      --accent:       #16A34A;
+      --accent-light: #F0FDF4;
+      --accent-mid:   #DCFCE7;
+    }
+
+    body {
+      font-family: 'IBM Plex Serif', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.75;
+    }
+
+    /* HERO */
+    .hero {
+      border-bottom: 1px solid var(--rule);
+      padding: 64px 24px 56px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .section-tag {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero .deck {
+      font-size: 1.15rem;
+      color: #374151;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+    .byline {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      color: var(--ink-light);
+    }
+
+    /* BODY */
+    .article-body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    p { margin-bottom: 1.4rem; }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 3rem 0 1rem;
+      color: var(--ink);
+    }
+
+    /* PULL QUOTE */
+    blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 2.5rem 0;
+      padding: 4px 0 4px 28px;
+    }
+    blockquote p {
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.55;
+      color: #1f2937;
+      margin-bottom: 0;
+    }
+
+    /* SERIES NAV */
+    .series-nav {
+      border-top: 1px solid var(--rule);
+      margin-top: 60px;
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    .series-nav a {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .series-nav a:hover { text-decoration: underline; }
+    .series-nav .next { text-align: right; }
+  </style>
+</head>
+<body>
+<script src="../assets/nav.js"></script>
+
+<nav class="article-breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>→</span>
+  <a href="index.html">Artificial Intelligence</a>
+  <span>→</span>
+  The Mirror
+</nav>
+
+<header class="hero">
+  <div class="section-tag">AI · Writing &amp; Thinking</div>
+  <h1>The Mirror</h1>
+  <p class="deck">
+    You've been getting away with being vague your whole life. Other people were just generous enough not to say so.
+  </p>
+  <div class="byline">HR Srinivas &nbsp;·&nbsp; November 2026</div>
+</header>
+
+<article class="article-body">
+
+  <p>
+    Using LLMs every day has had one unintended consequence I didn't anticipate.
+  </p>
+
+  <p>
+    I am trying to communicate more precisely with people now.
+  </p>
+
+  <p>
+    Not because I took a course on it. Not because I read a book. Because I spent months being unable to get away with being vague — and that muscle built memory so to speak.
+  </p>
+
+  <p>
+    Here's what happened.
+  </p>
+
+  <p>
+    When you talk to a person, they carry context. They know your history, they guess your intent, they fill the gaps generously. A half-formed ask lands and gets interpreted charitably. You say "can you sort that out" and they know what "that" is. You say "make it better" and they have enough shared reference to take a stab at it.
+  </p>
+
+  <p>
+    Do that with a model and you know what happens.
+  </p>
+
+  <p>
+    A model returns exactly what you asked for. No more. No less. It doesn't assume you meant something adjacent to what you said. It doesn't ask a clarifying question the way a smart colleague would. It executes on the literal surface of your words — and when the output is wrong, there is only one place to look.
+  </p>
+
+  <p>
+    What you said. Exactly, in so many words.
+  </p>
+
+  <p>
+    This is the mirror. And it is so damn uncomfortable. The first time you read a prompt back and realise it meant three different things simultaneously, you understand something: you have been writing like that your whole life.
+  </p>
+
+  <blockquote>
+    <p>You have been relying on other people's generosity to paper over your imprecision. The model just removed the fig leaf.</p>
+  </blockquote>
+
+  <h2>The muscle &amp; memory</h2>
+
+  <p>
+    You rewrite the prompt. You learn to front-load the constraint. You learn to say what you don't want, not just what you do. You learn that "make it concise" is useless and "cut it to 150 words without removing the data points" is a prompt. You do this a hundred times. A thousand. And then one day you're writing a message to a colleague and you catch yourself — before hitting send — asking: what will they actually read here? What am I assuming they already know?
+  </p>
+
+  <p>
+    That is the muscle at work.
+  </p>
+
+  <p>
+    It is not dramatic. It doesn't feel like growth when it's happening. But somewhere between the hundredth prompt rewrite and today, I stopped writing emails that required a reply to clarify what I meant. I stopped giving briefs that came back wrong because I'd skipped a constraint. I stopped opening with context that existed only in my head.
+  </p>
+
+  <blockquote>
+    <p>The model taught me that ambiguity is a choice. I just don't see it as one when the other person is covering up for my imprecise communication.</p>
+  </blockquote>
+
+  <p>
+    Am I fully there yet, hell no. I slip back into old habits more often than I would like. But I know I can get away with that imprecise ask with a fellow human. The model, on the other hand, puts me in my place.
+  </p>
+
+  <div class="series-nav">
+    <a href="trying-vs-transforming.html">← Everyone's Trying. Almost Nobody's Transforming.</a>
+    <div></div>
+  </div>
+
+</article>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">HR Srinivas</div>
+      <div class="footer-tagline">Curious about most things. Certain about very few. Writing it out loud — with AI.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://x.com/HRSrinivas" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">X / Twitter</span>
+        <span class="footer-link-value">@HRSrinivas</span>
+      </a>
+      <a href="https://bit.ly/4xtO6BV" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">LinkedIn</span>
+        <span class="footer-link-value">HR Srinivas</span>
+      </a>
+      <a href="https://github.com/hrsrini/srinivas-writes" class="footer-link" target="_blank" rel="noopener">
+        <span class="footer-link-label">GitHub</span>
+        <span class="footer-link-value">hrsrini</span>
+      </a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 HR Srinivas. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
